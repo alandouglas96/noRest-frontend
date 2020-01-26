@@ -13,6 +13,14 @@ const useStyles = makeStyles(theme => ({
   selectEmpty: {
     marginTop: theme.spacing(2),
   },
+  inputFocused: {
+    backgroundColor: "#00FF00",
+    borderColor: '#FFFFFF',
+    boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+    maxHeight: '20px',
+    width: '40%',
+  }
+  
 }));
 
 export default ({
@@ -24,7 +32,7 @@ export default ({
   return (
   <div className="minHeight">
     <FormControl {...field} {...props} variant="outlined" className={classes.formControl} style={{minWidth: 130}}>
-      <TextField  {...field} {...props} id="outlined-basic"  variant="outlined" />
+      <TextField autoComplete='off' {...field} {...props} id="outlined-basic"  variant="outlined" />
         { 
         touched[field.name] &&
         errors[field.name] && 

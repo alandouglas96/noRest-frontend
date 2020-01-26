@@ -43,13 +43,6 @@
   flex-direction: row;
 }
 
-
-.error {
-  color: red;
-  font-size: small;
-  margin-left: 5px;
-}
-
 .minHeight {
   min-height: 100px;
 }
