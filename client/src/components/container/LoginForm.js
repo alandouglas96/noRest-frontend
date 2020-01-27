@@ -6,6 +6,7 @@ import CreateApiForm from './CreateApiForm'
 
 const initialState = {
   email: '',
+  name: '',
   password: '',
 }
 export const Login = () => {
@@ -33,8 +34,16 @@ export const Login = () => {
       };
    
       fetch(url, options)
-        .then(response => response.body)
-        .then((body) => localStorage.setItem('token', body))
+        .then(response => {
+          console.log('respones.body', response.body);
+          
+          return response.text()
+        })
+        .then((body) => {
+          const withJwt = body;
+          localStorage.setItem('token', body);
+          console.log('Token----->', withJwt)
+        })
         .catch(e => {
           console.log('Error on Post Request');
         });
@@ -44,6 +53,15 @@ export const Login = () => {
     <div className="flex-column">
       <h1>Login</h1>
       <form onSubmit={handleSubmit} className="loginContainer">
+      <div>
+          <TextField 
+            label="name" 
+            name="name" 
+            onChange={handleChange}
+            value={state.name} 
+            key={2}
+          />
+        </div>
         <div>
           <TextField 
             label="email" 
@@ -66,7 +84,7 @@ export const Login = () => {
         <Button onClick={handleSubmit}>Login</Button>
       </form>
       <div>Don't you have an account?<Link to="/signUp"><Button>Sign Up</Button></Link></div>
-      <CreateApiForm/>
+   
     </div>
    
    
