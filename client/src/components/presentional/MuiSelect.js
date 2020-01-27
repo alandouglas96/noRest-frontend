@@ -33,7 +33,7 @@ export default ({ value, handleChange, rowId
         <InputLabel ref={inputLabel} id="simple-select-outlined-label">
           Select Field Type
         </InputLabel>
-        <Select onChange={(e) => handleChange(e, rowId, 'valueType')} className="length"
+        <Select onChange={(e) => handleChange(e, 'valueType', rowId)} className="length"
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
           value={value}
