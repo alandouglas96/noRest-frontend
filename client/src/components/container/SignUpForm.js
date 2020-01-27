@@ -42,8 +42,8 @@ function SignUpForm () {
 
   return (
     <div className="flex-column">
+    <h1>Sign Up</h1>
       <form onSubmit={handleSubmit} className="loginContainer" >
-      
         <div>
           <TextField 
             label="email" 

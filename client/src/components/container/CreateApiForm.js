@@ -4,7 +4,6 @@ import { TextField, Button } from '@material-ui/core';
 import uuid from 'uuid';
 import _ from 'lodash';
 
-import SignUpForm from './SignUpForm';
 import FieldRow from '../presentional/CreateApiFormRow'
 
 
@@ -12,13 +11,15 @@ import FieldRow from '../presentional/CreateApiFormRow'
 function CreateApiForm ()  {
   const [numberOfFields, setNumerOfFields] = useState(1)
   const [apiName, setApiName] = useState('')
-  const [fieldRows, setFieldRows] = useState({rows: {
-    [numberOfFields + '-' + uuid()]: {
-      valueType: 'String',
-      error: 'no',
-      touch: false,
-      value: ''
-    }}})
+  const [fieldRows, setFieldRows] = useState({
+    rows: {
+      [numberOfFields + '-' + uuid()]: {
+        valueType: 'String',
+        error: 'no',
+        touch: false,
+        value: ''
+      }
+    }})
 
     function handleSubmit(e) {
       e.preventDefault();
@@ -50,26 +51,29 @@ function CreateApiForm ()  {
       console.log('Submitted----> ApiName',apiName, 'FORM STATE:', fieldRows);
       console.log('sendApiObject', sendApiObject)
       const url = 'http://localhost:3000/logistics/api';
-      const token = localStorage.getItem('token')
-      const options = {
-        method: 'POST',
+      const token = localStorage.token
+      console.log('TOKEN------->',token)
+      return fetch("http://localhost:3000/api/v1/profile", {
+        method: "POST",
         headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json;charset=UTF-8',
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
           'Authorization': `Bearer ${token}`
-
         },
-        body: JSON.stringify(sendApiObject)
-      };
-   
-      fetch(url, options)
-        .then(response => {
-          console.log('Post Request Sended')
-          console.log(response.status);
+        body: sendApiObject
+      })
+        .then(resp => resp.json())
+        .then(data => {
+          if (data.message) {
+            console.log('ERRROR');
+            // An error will occur if the token is invalid.
+            // If this happens, you may want to remove the invalid token.
+            localStorage.removeItem("token")
+          } else {
+            console.log('DONE');
+            
+          }
         })
-        .catch(e => {
-          console.log('Error on Post Request');
-        });
     }
 
     function handleApiNameChange (e) {
@@ -133,7 +137,6 @@ function CreateApiForm ()  {
               <Button onClick={() => addFormRow(fieldRows)}>Add Row</Button>
               <Button type="submit">Submit</Button>
             </form>
-        <SignUpForm />
       </div>
     </div>
   )
