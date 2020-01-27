@@ -50,3 +50,38 @@
 .minHeight {
   min-height: 100px;
 }
+
+.NavBar {
+  height: 30px;
+  background-color: rgb(190, 253, 253);
+  width: 100%;
+  padding: 20px;
+}
+
+.landing-page {
+  height: 100vh;
+  width: 100%;
+
+}
+
+.dashboard {
+  display: flex;
+  padding: 20px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  
+}
+
+a { text-decoration: none; }
+
+.loginContainer {
+  background-color: rgb(246, 254, 255);
+  width: 300px;
+  padding: 20px;
+  border-radius: 20px;
+  
+  
+
+}

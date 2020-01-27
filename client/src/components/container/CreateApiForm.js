@@ -4,12 +4,12 @@ import { TextField, Button } from '@material-ui/core';
 import uuid from 'uuid';
 import _ from 'lodash';
 
-import {LoginForm} from '../container/LoginForm';
+import SignUpForm from './SignUpForm';
 import FieldRow from '../presentional/CreateApiFormRow'
 
 
 
-export default () => {
+function CreateApiForm ()  {
   const [numberOfFields, setNumerOfFields] = useState(1)
   const [apiName, setApiName] = useState('')
   const [fieldRows, setFieldRows] = useState({rows: {
@@ -49,13 +49,15 @@ export default () => {
       }
       console.log('Submitted----> ApiName',apiName, 'FORM STATE:', fieldRows);
       console.log('sendApiObject', sendApiObject)
-      const url = 'http://localhost:3009/logistics/api';
-
+      const url = 'http://localhost:3000/logistics/api';
+      const token = localStorage.getItem('token')
       const options = {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/json;charset=UTF-8'
+          'Content-Type': 'application/json;charset=UTF-8',
+          'Authorization': `Bearer ${token}`
+
         },
         body: JSON.stringify(sendApiObject)
       };
@@ -131,8 +133,10 @@ export default () => {
               <Button onClick={() => addFormRow(fieldRows)}>Add Row</Button>
               <Button type="submit">Submit</Button>
             </form>
-        <LoginForm />
+        <SignUpForm />
       </div>
     </div>
   )
 }
+
+export default CreateApiForm;

@@ -1,14 +1,12 @@
 import React, {useState} from 'react';
 import { TextField, Button } from '@material-ui/core';
-import { Link } from 'react-router-dom';
-import jwt from 'jsonwebtoken';
-import CreateApiForm from './CreateApiForm'
+import CreateApiForm from '../container/CreateApiForm'
 
 const initialState = {
   email: '',
   password: '',
 }
-export const Login = () => {
+function SignUpForm () {
   const [state, setState] = useState(initialState);
 
   function handleChange(e) {
@@ -21,7 +19,7 @@ export const Login = () => {
   function handleSubmit(e) {
     e.preventDefault();
     console.log('STATE', state)
-    const url = 'http://localhost:3000/webapp/login';
+    const url = 'http://localhost:3000/webapp/signup';
 
       const options = {
         method: 'POST',
@@ -33,8 +31,10 @@ export const Login = () => {
       };
    
       fetch(url, options)
-        .then(response => response.body)
-        .then((body) => localStorage.setItem('token', body))
+        .then(response => {
+          console.log('Post Request Sended')
+          console.log(response.status);
+        })
         .catch(e => {
           console.log('Error on Post Request');
         });
@@ -42,8 +42,8 @@ export const Login = () => {
 
   return (
     <div className="flex-column">
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit} className="loginContainer">
+      <form onSubmit={handleSubmit} className="loginContainer" >
+      
         <div>
           <TextField 
             label="email" 
@@ -63,14 +63,12 @@ export const Login = () => {
             key={3}
           />
         </div>
-        <Button onClick={handleSubmit}>Login</Button>
+        <Button onClick={handleSubmit}>Sing Up</Button>
       </form>
-      <div>Don't you have an account?<Link to="/signUp"><Button>Sign Up</Button></Link></div>
-      <CreateApiForm/>
+    
     </div>
    
    
   )
 }
-
-export default Login;
+export default SignUpForm;
