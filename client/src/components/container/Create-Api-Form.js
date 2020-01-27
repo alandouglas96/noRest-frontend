@@ -1,62 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import * as Yup from 'yup';
-import { makeStyles } from '@material-ui/core/styles';
 import { TextField, Button } from '@material-ui/core';
-
-import MuiInput from '../presentional/MuiInput';
-import MuiSelect from '../presentional/MuiSelect';
 import uuid from 'uuid';
 import _ from 'lodash';
 
+import {LoginForm} from '../container/LoginForm';
+import FieldRow from '../presentional/CreateApiFormRow'
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    '& > *': {
-      margin: theme.spacing(1),
-      width: 200,
-    },
-  },
-}));
 
-const FieldRow = ({
-  fieldName, 
-  fieldTypeName, 
-  handleChange, 
-  rowId, 
-  fieldRows
-}) => {
- return (
-  <div className="flex">
-    <MuiInput
-      handleChange={handleChange}
-      name={fieldName} 
-      label="Field Name"  
-      rowId={rowId}
-      value={fieldRows.rows[rowId].value}
-    />
-    <MuiSelect
-      value = {fieldRows.rows[rowId].valueType}
-      handleChange={handleChange} 
-      name={fieldTypeName} 
-      component={MuiSelect}
-      rowId={rowId}
-    />
-  </div>
- )
-}
-
-function validateApiName(value) {
-  let error; //fetch to database and find exisiting api name
-  console.log('VALUE',value);
-  
-  if (value === '') {
-    error = 'my error';
-  }
-  return error;
-}
 
 export default () => {
-  const [formSchema, setFormSchema] = useState({});
   const [numberOfFields, setNumerOfFields] = useState(1)
   const [apiName, setApiName] = useState('')
   const [fieldRows, setFieldRows] = useState({rows: {
@@ -66,11 +19,6 @@ export default () => {
       touch: false,
       value: ''
     }}})
-  const classes = useStyles();
-  useEffect(()=>{
-      
-      console.log('STATE: fieldRows', fieldRows);
-    },[fieldRows]);
 
     function handleSubmit(e) {
       e.preventDefault();
@@ -111,26 +59,22 @@ export default () => {
         },
         body: JSON.stringify(sendApiObject)
       };
-   try {
-     fetch(url, options)
-       .then(response => {
-         console.log('Post Request Sended')
-         console.log(response.status);
-       })
-       .catch(e => {
-         console.log('Error on Post Request');
-       });
-     }
-    catch (e) {
-     console.log('Error on try catch')
-   }
-  }
+   
+      fetch(url, options)
+        .then(response => {
+          console.log('Post Request Sended')
+          console.log(response.status);
+        })
+        .catch(e => {
+          console.log('Error on Post Request');
+        });
+    }
 
     function handleApiNameChange (e) {
       setApiName(e.target.value)
 
     }
-    function handleChange (e, rowId, inputName) {
+    function handleChange (e, inputName, rowId) {
       setFieldRows({ 
         rows: 
         {
@@ -142,6 +86,7 @@ export default () => {
         }  
       }); 
     }
+
   function addFormRow (fieldRows) {
    
     setFieldRows(
@@ -163,7 +108,7 @@ export default () => {
     <div>
       <div>
       <h1>Api Name</h1>
-      <MuiInput handleChange={handleApiNameChange}
+      <TextField onChange={handleApiNameChange}
                 name="Api Name" 
                 label="Api Name" 
                 value={apiName}
@@ -186,8 +131,7 @@ export default () => {
               <Button onClick={() => addFormRow(fieldRows)}>Add Row</Button>
               <Button type="submit">Submit</Button>
             </form>
-          
- 
+        <LoginForm />
       </div>
     </div>
   )
