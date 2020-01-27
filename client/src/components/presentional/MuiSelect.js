@@ -17,10 +17,7 @@ const useStyles = makeStyles(theme => ({
 
 const SELECT_DEFAULT_VALUE = 'String';
 
-export default ({
-  field, // { name, value, onChange, onBlur }
-  form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
-  ...props
+export default ({ value, handleChange, rowId
 }) => {
   const classes = useStyles();
 
@@ -32,18 +29,16 @@ export default ({
 
   return (
     <div>
-      <FormControl {...field} {...props} variant="outlined" className={classes.formControl} style={{minWidth: 130}}>
+      <FormControl variant="outlined" className={classes.formControl} style={{minWidth: 130}}>
         <InputLabel ref={inputLabel} id="simple-select-outlined-label">
           Select Field Type
         </InputLabel>
-        <Select {...field} {...props} className="length"
+        <Select onChange={(e) => handleChange(e, rowId, 'valueType')} className="length"
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
-          value={field.value ? field.value : SELECT_DEFAULT_VALUE}
+          value={value}
           labelWidth={labelWidth}
-
         >
-        {console.log('field value-------------->', field.value)}
           <MenuItem id={1} value={"String"}>String</MenuItem>
           <MenuItem id={2}value={"Number"}>Number</MenuItem>
           <MenuItem id={3}value={"Date"}>Date</MenuItem>

@@ -23,22 +23,16 @@ const useStyles = makeStyles(theme => ({
   
 }));
 
-export default ({
-  field, // { name, value, onChange, onBlur }
-  form: { touched, errors }, // also values, setXXXX, handleXXXX, dirty, isValid, status, etc.
-  ...props
-}) => {
+export default ({label, handleChange, rowId}
+) => {
   const classes = useStyles();
   return (
   <div className="minHeight">
-    <FormControl {...field} {...props} variant="outlined" className={classes.formControl} style={{minWidth: 130}}>
-      <TextField autoComplete='off' {...field} {...props} id="outlined-basic"  variant="outlined" />
-        { 
-        touched[field.name] &&
-        errors[field.name] && 
-        <FormHelperText error={true}>{errors[field.name]}</FormHelperText> 
-        }
-      </FormControl>
+    <FormControl variant="outlined" className={classes.formControl} style={{minWidth: 130}}>
+      <TextField autoComplete='off' id="outlined-basic"  variant="outlined"
+      label={label} onBlur={(e) => handleChange(e, rowId, 'value')}
+       />
+    </FormControl>
     </div>
   )
 }
