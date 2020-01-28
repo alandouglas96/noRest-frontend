@@ -26,6 +26,7 @@ export const submitApi = (values) => async dispatch => {
     .then(data => console.log(data))
     .catch(e => {
       console.log('Error on Post Request');
+      console.error(e);
     });
 }
 

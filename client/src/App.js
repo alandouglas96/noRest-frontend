@@ -7,12 +7,12 @@ import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import * as actions from './actions';
 
-import NavBar from './components/presentional/Navbar'
-import LandingPage from './components/presentional/LandingPage'
-import Login from './components/container/LoginForm'
-import SignUpForm from './components/container/SignUpForm'
-import CreateApiForm from './components/container/CreateApiForm'
-import UserDashboard from './components/presentional/UserDashboard'
+import NavBar from './components/presentional/Navbar/Navbar'
+import LandingPage from './components/presentional/LandingPage/LandingPage'
+import Login from './components/container/LoginForm/'
+import SignUpForm from './components/container/SignUpForm/'
+import CreateApiForm from './components/container/CreateApiForm/'
+import UserDashboard from './components/presentional/UserDashboard/UserDashboard'
 
 
 const theme = createMuiTheme({
@@ -28,7 +28,7 @@ function App({fetchUser}) {
   useEffect( () => {
     fetchUser();
   },[fetchUser])
-  
+
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
@@ -44,7 +44,7 @@ function App({fetchUser}) {
             </Switch>
           </div>
         </div>
-      </BrowserRouter> 
+      </BrowserRouter>
     </MuiThemeProvider>
   );
 }

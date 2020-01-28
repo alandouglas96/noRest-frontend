@@ -21,8 +21,8 @@ export const handleApiSubmit = (e, fieldRows, apiName, submitApi, isPublic ) => 
   const sendApiObject = {
     api: {
       public: isPublic ? 'true' : 'false',
-      name: apiName,
-      description: 'description',
+      name: apiName.value, // apiName is an object
+      description: '',
       fields: fieldsObjectArray,
       user: id //userId
     },
