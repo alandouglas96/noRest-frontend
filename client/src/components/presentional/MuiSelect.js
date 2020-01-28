@@ -15,8 +15,6 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const SELECT_DEFAULT_VALUE = 'String';
-
 export default ({ value, handleChange, rowId
 }) => {
   const classes = useStyles();
@@ -29,7 +27,7 @@ export default ({ value, handleChange, rowId
 
   return (
     <div>
-      <FormControl variant="outlined" className={classes.formControl} style={{minWidth: 130}}>
+      <FormControl size="small" variant="outlined" className={classes.formControl} style={{minWidth: 130}}>
         <InputLabel ref={inputLabel} id="simple-select-outlined-label">
           Select Field Type
         </InputLabel>

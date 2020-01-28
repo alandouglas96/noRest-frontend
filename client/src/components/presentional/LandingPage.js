@@ -1,35 +1,30 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import * as actions from '../../actions';
+import UserDashBoard from '../presentional/UserDashboard'
 
 function LandingPage (props) {
 
   if (props.auth) 
 
-  return <div className="landing-page">
-    <div> Create Your own APIs, serverless.</div>
-    <div> All the power, none of the hassle</div>
-    <div> Just Simple.</div>
-    <input></input>
-    <button>Do it!</button>
-    <Link to="/createApi">
-    <Button>Create Api</Button>
-    </Link>
-    
-  </div>
+  return <UserDashBoard/>
 
-  return <div className="landing-page">
+  return <div className="landing-page, flex-column loginContainer">
+    <div style={{margin: '50px'}}>
     <div> Create Your own APIs, serverless.</div>
     <div> All the power, none of the hassle</div>
     <div> Just Simple.</div>
-    <input></input>
+    </div>
+    <div className="flex justify-center">
+    <TextField size="small" label="Your Email" variant="outlined"></TextField>
+    <div style={{minWidth: '10px'}}></div>
     <Link to={{pathname: "/signup" , email: 'emailinserted'}}>
-    <Button>Do it!</Button>
+    
+    <Button variant="outlined" color="primary">Do it!</Button>
     </Link>
-    
-    
+    </div>
   </div>
 }
 

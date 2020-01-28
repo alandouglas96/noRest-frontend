@@ -5,30 +5,29 @@ import { connect } from 'react-redux';
 import * as actions from '../../actions';
 
 function NavBarRight (props) {
-function handleLogout () {
-  localStorage.setItem('token', '');
-  props.fetchUser();
-
-}
+  function handleLogout () {
+    localStorage.setItem('token', '');
+    props.fetchUser();
+  }
   
-
   switch (props.auth) {
     case null:
       return (
         
           <Link to="/login">
-           <Button>Not Server</Button>
+           <Button variant="outlined" color="primary">Not Server</Button>
           </Link>
     
       )
       case false:
     return (
-      <div className="NavBarItem">
+      <div className="NavBarItem flex">
         <Link to="/login">
-         <Button>Login</Button>
+         <Button variant="outlined" color="primary">Login</Button>
         </Link>
+        <div style={{width: '10px'}}></div>
         <Link to="/signUp">
-         <Button>Sign Up</Button>
+         <Button variant="outlined" color="primary">Sign Up</Button>
         </Link>
       </div>
     )
@@ -36,7 +35,7 @@ function handleLogout () {
       return (
         <div className="NavBarItem">
           <Link to="/">
-           <Button onClick={handleLogout}>Log Out</Button>
+           <Button variant="outlined" color="primary" onClick={handleLogout}>Log Out</Button>
           </Link>
         </div>
       )
