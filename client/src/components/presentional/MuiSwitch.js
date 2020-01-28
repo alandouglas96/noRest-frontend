@@ -4,10 +4,6 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
 export default function SwitchLabels({handleChange, state}) {
- 
-
- 
-
   return (
     <FormGroup row>
       
@@ -20,11 +16,9 @@ export default function SwitchLabels({handleChange, state}) {
             color="primary"
           />
         }
+        labelPlacement="start"
         label="Private"
       />
-    
-      
-      
     </FormGroup>
   );
 }
