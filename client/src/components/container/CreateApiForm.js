@@ -3,12 +3,15 @@ import * as Yup from 'yup';
 import { TextField, Button } from '@material-ui/core';
 import uuid from 'uuid';
 import _ from 'lodash';
+import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+import * as actions from '../../actions';
 
 import FieldRow from '../presentional/CreateApiFormRow'
 
+import {handleApiSubmit} from '../../services/createApiformServices'
 
-
-function CreateApiForm ()  {
+function CreateApiForm ({submitApi})  {
   const [numberOfFields, setNumerOfFields] = useState(1)
   const [apiName, setApiName] = useState('')
   const [fieldRows, setFieldRows] = useState({
@@ -21,65 +24,10 @@ function CreateApiForm ()  {
       }
     }})
 
-    function handleSubmit(e) {
-      e.preventDefault();
-    
-      const fieldsObjectArray=[];
-      _.each(fieldRows.rows, row => {
-        fieldsObjectArray
-        .push({
-          field_name: row.value,
-          field_type: row.valueType,
-          allow_null: false,
-          default_value: '',
-        })
-      });
-
-      console.log('fieldsObject',fieldsObjectArray );
-      
-      const sendApiObject = {
-        api: {
-          name: apiName,
-          description: 'description',
-          fields: fieldsObjectArray
-        },
-        user: {
-          id: 1111,
-          name: 'Jose Fran'
-        },
-      }
-      console.log('Submitted----> ApiName',apiName, 'FORM STATE:', fieldRows);
-      console.log('sendApiObject', sendApiObject)
-      const url = 'http://localhost:3000/logistics/api';
-      const token = localStorage.token
-      console.log('TOKEN------->',token)
-      return fetch("http://localhost:3000/api/v1/profile", {
-        method: "POST",
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: sendApiObject
-      })
-        .then(resp => resp.json())
-        .then(data => {
-          if (data.message) {
-            console.log('ERRROR');
-            // An error will occur if the token is invalid.
-            // If this happens, you may want to remove the invalid token.
-            localStorage.removeItem("token")
-          } else {
-            console.log('DONE');
-            
-          }
-        })
-    }
-
     function handleApiNameChange (e) {
       setApiName(e.target.value)
-
     }
+    
     function handleChange (e, inputName, rowId) {
       setFieldRows({ 
         rows: 
@@ -121,7 +69,7 @@ function CreateApiForm ()  {
                 />
         <h1>Create Api Form</h1>
           
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={(e) => handleApiSubmit(e, fieldRows, apiName, submitApi )}>
              
               {_.map(fieldRows.rows,(_, rowKey) => {
                 return (
@@ -142,4 +90,8 @@ function CreateApiForm ()  {
   )
 }
 
-export default CreateApiForm;
+function mapStateToProps() {
+  return {};
+}
+
+export default connect(mapStateToProps, actions)(withRouter(CreateApiForm));

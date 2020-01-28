@@ -1,8 +1,11 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import logo from './logo.svg';
 import './App.css';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+
+import { connect } from 'react-redux';
+import * as actions from './actions';
 
 import NavBar from './components/presentional/Navbar'
 import LandingPage from './components/presentional/LandingPage'
@@ -19,17 +22,22 @@ const theme = createMuiTheme({
   },
 )
 
-function App() {
+function App({fetchUser}) {
+
+  useEffect( () => {
+    fetchUser();
+  },[fetchUser])
+  
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
         <NavBar/>
         <div className="dashboard">
           <Switch>
-            <Route path="/signUp" component={SignUpForm} />
-            <Route path="/login" component={Login} />
-            <Route path="/createApi" component={CreateApiForm} />
-            <Route path="/" component={LandingPage} />
+            <Route exact path="/" component={LandingPage} />
+            <Route exact path="/signUp" component={SignUpForm} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/createApi" component={CreateApiForm} />
           </Switch>
         </div>
       </BrowserRouter> 
@@ -37,4 +45,4 @@ function App() {
   );
 }
 
-export default App;
+export default connect(null, actions)(App);
