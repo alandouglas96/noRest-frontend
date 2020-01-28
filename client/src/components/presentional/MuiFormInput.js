@@ -23,15 +23,20 @@ const useStyles = makeStyles(theme => ({
   
 }));
 
-export default ({label, handleChange, rowId}
+export default ({label, handleChange, rowId, handelOnChange, error, touched}
 ) => {
   const classes = useStyles();
+  console.log('Error--->', error)
+  console.log('Touched--->', touched)
   return (
   <div className="minHeight">
     <FormControl variant="outlined" className={classes.formControl} style={{minWidth: 130}}>
       <TextField size="small" autoComplete='off' id="outlined-basic"  variant="outlined"
-      label={label} onBlur={(e) => handleChange(e, 'value', rowId)}
+      label={label} 
+      onChange={handelOnChange}
+      onBlur={(e) => handleChange(e, 'value', rowId)}
        />
+       <FormHelperText error>{error}</FormHelperText>
     </FormControl>
     </div>
   )
