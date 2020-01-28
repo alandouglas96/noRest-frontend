@@ -2,9 +2,19 @@ import React, {useState} from 'react';
 import { TextField, Button } from '@material-ui/core';
 import * as actions from '../../actions';
 import { connect } from 'react-redux';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles(theme => ({
+  root: {
+    '& > *': {
+      margin: theme.spacing(1),
+    },
+  },
+}));
 
 
 function SignUpForm (props) {
+  const classes = useStyles();
   const initialState = {
     email: props.email,
     password: '',
@@ -43,28 +53,33 @@ function SignUpForm (props) {
 
 
   return (
-    <div className="flex-column">
+    <div className="flex-column align-center">
     <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit} className="loginContainer" >
-        <div>
-        <div>
+      <form onSubmit={handleSubmit} className="loginContainer flex-column align-center" >
+        
+        <div className="minHeight">
           <TextField 
             label="name" 
             name="name" 
             onChange={handleChange}
             value={state.name} 
             key={1}
+            size="small"
+            variant="outlined"
           />
         </div>
+        <div className="minHeight">
           <TextField 
             label="email" 
             name="email" 
             onChange={handleChange}
             value={state.email} 
             key={2}
+            size="small"
+            variant="outlined"
           />
         </div>
-        <div>
+        <div className="minHeight">
           <TextField 
             label="password" 
             name="password" 
@@ -72,9 +87,11 @@ function SignUpForm (props) {
             type='password' 
             value={state.password} 
             key={3}
+            size="small"
+            variant="outlined"
           />
         </div>
-        <Button onClick={handleSubmit}>Sign Up</Button>
+        <Button variant="outlined" color="primary" onClick={handleSubmit}>Sign Up</Button>
       </form>
     
     </div>   

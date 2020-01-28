@@ -12,6 +12,7 @@ import LandingPage from './components/presentional/LandingPage'
 import Login from './components/container/LoginForm'
 import SignUpForm from './components/container/SignUpForm'
 import CreateApiForm from './components/container/CreateApiForm'
+import UserDashboard from './components/presentional/UserDashboard'
 
 
 const theme = createMuiTheme({
@@ -39,6 +40,7 @@ function App({fetchUser}) {
               <Route exact path="/signUp" component={SignUpForm} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/createApi" component={CreateApiForm} />
+              <Route exact path="/userDashboard" component={UserDashboard} />
             </Switch>
           </div>
         </div>

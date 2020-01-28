@@ -60,7 +60,7 @@
                 value={values.password}
               />
               {errors.password && touched.password && errors.password}
-              <Button  type="submit" disabled={isSubmitting} variant="contained" color="primary">
+              <Button variant="outlined" color="primary" type="submit" disabled={isSubmitting} variant="contained" color="primary">
         Primary
       </Button>
               

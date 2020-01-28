@@ -48,8 +48,16 @@
   flex-direction: column;
 }
 
+.justify-center {
+  justify-content: center;
+}
+
+.align-center {
+  align-items: center;
+}
+
 .minHeight {
-  min-height: 100px;
+  min-height: 50px;
 }
 .container{
   display: flex;
@@ -60,7 +68,7 @@
 }
 .NavBar {
   height: 80px;
-  background-color: rgb(190, 253, 253);
+  background-color: rgb(246, 253, 249);
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -73,9 +81,9 @@
 }
 
 .landing-page {
-  background-color: rgb(239, 244, 255);
+  background-color: rgb(251, 250, 255);
   padding: 20px;
-  width: 50%;
+  width: 80%;
 
 }
 
@@ -92,4 +100,9 @@ a { text-decoration: none; }
   width: 300px;
   padding: 20px;
   border-radius: 20px;
+}
+
+div {
+  margin: 0px;
+  padding: 0px;
 }
