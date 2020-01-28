@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import jwt from 'jsonwebtoken';
-import CreateApiForm from './CreateApiForm'
 
 const initialState = {
   email: '',
@@ -23,7 +21,6 @@ export const Login = () => {
     e.preventDefault();
     console.log('STATE', state)
     const url = 'http://localhost:3000/webapp/login';
-
       const options = {
         method: 'POST',
         headers: {
@@ -32,20 +29,12 @@ export const Login = () => {
         },
         body: JSON.stringify(state)
       };
-   
       fetch(url, options)
-        .then(response => {
-          console.log('respones.body', response.body);
-          
-          return response.text()
-        })
-        .then((body) => {
-          const withJwt = body;
-          localStorage.setItem('token', body);
-          console.log('Token----->', withJwt)
-        })
+        .then(response => response.json())
+        .then(body => localStorage.setItem('token', body.token))
         .catch(e => {
           console.log('Error on Post Request');
+          console.error(e);
         });
   }
 
