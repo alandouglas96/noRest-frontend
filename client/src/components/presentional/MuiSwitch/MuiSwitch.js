@@ -3,10 +3,12 @@ import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Switch from '@material-ui/core/Switch';
 
+import './style.css';
+
 export default function SwitchLabels({handleChange, state}) {
   return (
     <FormGroup row>
-      
+
       <FormControlLabel
         control={
           <Switch

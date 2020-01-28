@@ -3,11 +3,10 @@ import jwt from 'jsonwebtoken'
 
 export const handleApiSubmit = (e, fieldRows, apiName, submitApi, isPublic ) => {
   e.preventDefault();
-  
+
 
   const { id } = jwt.decode(localStorage.token);
-  console.log('id', id);
-  
+
   const fieldsObjectArray=[];
   _.each(fieldRows.rows, row => {
     fieldsObjectArray
@@ -18,19 +17,17 @@ export const handleApiSubmit = (e, fieldRows, apiName, submitApi, isPublic ) => 
       default_value: '',
     })
   });
-  
+
   const sendApiObject = {
     api: {
       public: isPublic ? 'true' : 'false',
-      name: apiName,
-      description: 'description',
-      fields: fieldsObjectArray
-    },
-    user: {
-      id: id,
+      name: apiName.value, // apiName is an object
+      description: '',
+      fields: fieldsObjectArray,
+      user: id //userId
     },
   }
-  console.log('OBJECT SENDED', sendApiObject)
+  console.log('OBJECT SENT', sendApiObject)
   submitApi(sendApiObject)
 }
 

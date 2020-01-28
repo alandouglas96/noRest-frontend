@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import MuiInput from '../presentional/MuiFormInput';
-import MuiSelect from '../presentional/MuiSelect';
+import MuiInput from '../MuiFormInput/MuiFormInput';
+import MuiSelect from '../MuiSelect/MuiSelect';
 
 export default ({
-    fieldName, 
-    fieldTypeName, 
-    handleChange, 
-    rowId, 
+    fieldName,
+    fieldTypeName,
+    handleChange,
+    rowId,
     fieldRows,
     error,
     touched
@@ -15,14 +15,14 @@ export default ({
     function handleOnChange (e) {
       console.log('state',state)
         setState(e.target.value)
-        
+
     }
    return (
     <div className="flex">
       <MuiInput
         handleChange={handleChange}
-        name={fieldName} 
-        label="Field Name"  
+        name={fieldName}
+        label="Field Name"
         rowId={rowId}
         value={state}
         handelOnChange={handleOnChange}
@@ -31,8 +31,8 @@ export default ({
       />
       <MuiSelect
         value = {fieldRows.rows[rowId].valueType}
-        handleChange={handleChange} 
-        name={fieldTypeName} 
+        handleChange={handleChange}
+        name={fieldTypeName}
         component={MuiSelect}
         rowId={rowId}
       />

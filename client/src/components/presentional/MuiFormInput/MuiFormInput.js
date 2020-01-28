@@ -4,6 +4,8 @@ import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
+import './style.css';
+
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -20,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     maxHeight: '20px',
     width: '40%',
   }
-  
+
 }));
 
 export default ({label, handleChange, rowId, handelOnChange, error, touched}
@@ -32,7 +34,7 @@ export default ({label, handleChange, rowId, handelOnChange, error, touched}
   <div className="minHeight">
     <FormControl variant="outlined" className={classes.formControl} style={{minWidth: 130}}>
       <TextField size="small" autoComplete='off' id="outlined-basic"  variant="outlined"
-      label={label} 
+      label={label}
       onChange={handelOnChange}
       onBlur={(e) => handleChange(e, 'value', rowId)}
        />

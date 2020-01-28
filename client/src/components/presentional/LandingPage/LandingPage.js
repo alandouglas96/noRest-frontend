@@ -2,12 +2,14 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Button, TextField } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import * as actions from '../../actions';
-import UserDashBoard from '../presentional/UserDashboard'
+import * as actions from '../../../actions';
+import UserDashBoard from '../UserDashboard/UserDashboard'
+
+import './style.css';
 
 function LandingPage (props) {
 
-  if (props.auth) 
+  if (props.auth)
 
   return <UserDashBoard/>
 
@@ -21,7 +23,7 @@ function LandingPage (props) {
     <TextField size="small" label="Your Email" variant="outlined"></TextField>
     <div style={{minWidth: '10px'}}></div>
     <Link to={{pathname: "/signup" , email: 'emailinserted'}}>
-    
+
     <Button variant="outlined" color="primary">Do it!</Button>
     </Link>
     </div>
@@ -30,7 +32,7 @@ function LandingPage (props) {
 
 function mapStateToProps({ auth }) {
   console.log('Auth->>>>>>>>>>>>>>', auth);
-  
+
   return { auth };
 }
 

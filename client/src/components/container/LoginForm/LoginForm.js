@@ -2,7 +2,9 @@ import React, {useState} from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
-import * as actions from '../../actions';
+import * as actions from '../../../actions';
+
+import './style.css';
 
 
 const initialState = {
@@ -18,7 +20,7 @@ export const Login = (props) => {
       [e.target.name]: e.target.value
     })
   }
-  
+
   function handleSubmit(e) {
     e.preventDefault();
     console.log('STATE', state)
@@ -48,23 +50,23 @@ export const Login = (props) => {
       <h1>Login</h1>
       <form onSubmit={handleSubmit} className="loginContainer flex-column align-center">
         <div className="minHeight">
-          <TextField 
-            label="email" 
-            name="email" 
+          <TextField
+            label="email"
+            name="email"
             onChange={handleChange}
-            value={state.email} 
+            value={state.email}
             key={1}
             size="small"
             variant="outlined"
           />
         </div>
         <div className="minHeight">
-          <TextField 
-            label="password" 
-            name="password" 
+          <TextField
+            label="password"
+            name="password"
             onChange={handleChange}
-            type='password' 
-            value={state.password} 
+            type='password'
+            value={state.password}
             key={2}
             size="small"
             variant="outlined"
@@ -78,10 +80,10 @@ export const Login = (props) => {
          <Button variant="outlined" color="primary">Sign Up</Button>
         </Link>
       </div>
-   
+
     </div>
-   
-   
+
+
   )
 }
 export default connect(null, actions)(withRouter(Login));

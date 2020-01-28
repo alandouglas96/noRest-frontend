@@ -2,22 +2,24 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button } from '@material-ui/core';
 import { connect } from 'react-redux';
-import * as actions from '../../actions';
+import * as actions from '../../../actions';
+
+import './style.css';
 
 function NavBarRight (props) {
   function handleLogout () {
     localStorage.setItem('token', '');
     props.fetchUser();
   }
-  
+
   switch (props.auth) {
     case null:
       return (
-        
+
           <Link to="/login">
            <Button variant="outlined" color="primary">Not Server</Button>
           </Link>
-    
+
       )
       case false:
     return (
@@ -45,7 +47,7 @@ function NavBarRight (props) {
 }
 function mapStateToProps({ auth }) {
   console.log('Auth->>>>>>>>>>>>>>', auth);
-  
+
   return { auth };
 }
 

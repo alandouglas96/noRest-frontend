@@ -4,6 +4,8 @@ import FormControl from '@material-ui/core/FormControl';
 import { makeStyles } from '@material-ui/core/styles';
 import FormHelperText from '@material-ui/core/FormHelperText';
 
+import './style.css';
+
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -20,7 +22,7 @@ const useStyles = makeStyles(theme => ({
     maxHeight: '20px',
     width: '40%',
   }
-  
+
 }));
 
 export default ({label, handleChange, rowId, value, type, name}

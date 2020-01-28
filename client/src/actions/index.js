@@ -8,6 +8,7 @@ export const fetchUser = () => async dispatch => {
 };
 
 export const submitApi = (values) => async dispatch => {
+
   const url = 'http://localhost:3000/logistics/api';
   const token = localStorage.token
   console.log('TOKEN------->',token)
@@ -25,5 +26,7 @@ export const submitApi = (values) => async dispatch => {
     .then(data => console.log(data))
     .catch(e => {
       console.log('Error on Post Request');
+      console.error(e);
     });
-  }
+}
+

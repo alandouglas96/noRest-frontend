@@ -1,11 +1,12 @@
 import React from 'react';
-import NavBar from './Navbar';
-import LandingPage from './LandingPage'
+import NavBar from '../Navbar/Navbar';
+import LandingPage from '../LandingPage/LandingPage'
+import './style.css';
 
 function Dasboard () {
   return (
     <>
-      <NavBar/> 
+      <NavBar/>
       <LandingPage/>
     </>
   )

@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
 import { TextField, Button } from '@material-ui/core';
-import * as actions from '../../actions';
+import * as actions from '../../../actions';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
+
+import './style.css';
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -56,36 +58,36 @@ function SignUpForm (props) {
     <div className="flex-column align-center">
     <h1>Sign Up</h1>
       <form onSubmit={handleSubmit} className="loginContainer flex-column align-center" >
-        
+
         <div className="minHeight">
-          <TextField 
-            label="name" 
-            name="name" 
+          <TextField
+            label="name"
+            name="name"
             onChange={handleChange}
-            value={state.name} 
+            value={state.name}
             key={1}
             size="small"
             variant="outlined"
           />
         </div>
         <div className="minHeight">
-          <TextField 
-            label="email" 
-            name="email" 
+          <TextField
+            label="email"
+            name="email"
             onChange={handleChange}
-            value={state.email} 
+            value={state.email}
             key={2}
             size="small"
             variant="outlined"
           />
         </div>
         <div className="minHeight">
-          <TextField 
-            label="password" 
-            name="password" 
+          <TextField
+            label="password"
+            name="password"
             onChange={handleChange}
-            type='password' 
-            value={state.password} 
+            type='password'
+            value={state.password}
             key={3}
             size="small"
             variant="outlined"
@@ -93,8 +95,8 @@ function SignUpForm (props) {
         </div>
         <Button variant="outlined" color="primary" onClick={handleSubmit}>Sign Up</Button>
       </form>
-    
-    </div>   
+
+    </div>
   )
 }
 

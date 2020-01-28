@@ -1,6 +1,8 @@
 import React from 'react';
-import NavBarRight from './NavbarRight'
-import NavBarLeft from './NavbarLeft'
+import NavBarRight from '../NavbarRight/NavbarRight'
+import NavBarLeft from '../NavbarLeft/NavbarLeft'
+
+import './style.css';
 
 
 function NavBar (props) {

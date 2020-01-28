@@ -5,13 +5,15 @@ import uuid from 'uuid';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import * as actions from '../../actions';
+import * as actions from '../../../actions';
 
-import FieldRow from '../presentional/CreateApiFormRow'
-import Switch from '../presentional/MuiSwitch'
+import FieldRow from '../../presentional/CreateApiFormRow/CreateApiFormRow'
+import Switch from '../../presentional/MuiSwitch/MuiSwitch'
 
-import {handleApiSubmit} from '../../services/createApiformServices'
+import {handleApiSubmit} from '../../../services/createApiformServices'
 import FormHelperText from '@material-ui/core/FormHelperText';
+
+import './style.css';
 
 function CreateApiForm ({submitApi})  {
   const [switchState, setSwitchState] = useState({
@@ -55,32 +57,32 @@ function CreateApiForm ({submitApi})  {
         error
       })
     }
-    
+
     function handleChange (e, inputName, rowId) {
       let error='';
       if (e.target.value==='') {
         error = ('Field name required')
       }
 
-      setFieldRows({ 
-        rows: 
+      setFieldRows({
+        rows:
         {
-          ...fieldRows.rows, 
+          ...fieldRows.rows,
           [rowId]: {
             ...fieldRows.rows[rowId],
             [inputName]: e.target.value,
             touched: true,
             error
           }
-        }  
-      }); 
+        }
+      });
     }
 
   function addFormRow (fieldRows) {
-   
+
     setFieldRows(
-      { 
-        rows: 
+      {
+        rows:
         {
           ...fieldRows.rows, [(numberOfFields+1) + '-' + uuid()]: {
           valueType: 'String',
@@ -88,33 +90,33 @@ function CreateApiForm ({submitApi})  {
           touch: false,
           value: ''
           }
-        }  
+        }
       });
       setNumerOfFields(numberOfFields => numberOfFields + 1)
     }
-    
+
   return (
     <div>
       <div>
         <h1>Api Name</h1>
-        <TextField variant="outlined" size="small" 
+        <TextField variant="outlined" size="small"
           onChange={handleApiNameChange}
           onBlur={handleApiNameBlur}
-          name="Api Name" 
-          label="Api Name" 
+          name="Api Name"
+          label="Api Name"
           value={apiName.value}
         />
-        <FormHelperText error style={{marginLeft: '15px'}}>{apiName.error}</FormHelperText> 
+        <FormHelperText error style={{marginLeft: '15px'}}>{apiName.error}</FormHelperText>
         <Switch state={switchState} handleChange={handleSwitchChange}></Switch>
         <h1>Create Api Form</h1>
-          
+
         <form onSubmit={(e) => handleApiSubmit(e, fieldRows, apiName, submitApi, switchState )}>
           {_.map(fieldRows.rows,(row, rowKey) => {
             return (
             <FieldRow name={"TEST"}
               handleChange={handleChange}
-              fieldTypeName={`fielTypeName${rowKey}`} 
-              fieldName={`fieldName${rowKey}`} 
+              fieldTypeName={`fielTypeName${rowKey}`}
+              fieldName={`fieldName${rowKey}`}
               rowId= {rowKey}
               key= {rowKey}
               fieldRows = {fieldRows}
@@ -124,9 +126,9 @@ function CreateApiForm ({submitApi})  {
           )})}
           <div className="flex" style={{paddingTop: '50px'}}>
 
-            <Button  
-              variant="outlined" 
-              color="primary"  
+            <Button
+              variant="outlined"
+              color="primary"
               onClick={() => addFormRow(fieldRows)}>Add Row
             </Button>
             <div style={{width:'10px'}}></div>
