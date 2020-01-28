@@ -20,17 +20,18 @@ export const submitApi = (values) => async dispatch => {
           'Accept': 'application/json',
           'Authorization': `Bearer ${token}`
         },
-        
+
         body: values
       })
         .then(resp => resp.json())
+        .then(test => console.log('TESTTTT   : ', test))
         .then(data => {
           if (data.message) {
             console.log('ERRROR');
             localStorage.removeItem("token")
           } else {
             console.log('DONE');
-            
+
           }
         })
       }
