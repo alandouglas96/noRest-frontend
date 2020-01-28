@@ -4,7 +4,6 @@ import jwt from 'jsonwebtoken'
 export const handleApiSubmit = (e, fieldRows, apiName, submitApi, isPublic ) => {
   e.preventDefault();
 
-
   const { id } = jwt.decode(localStorage.token);
 
   const fieldsObjectArray=[];

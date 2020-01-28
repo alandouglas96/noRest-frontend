@@ -58,9 +58,23 @@ function CreateApiForm ({submitApi})  {
       })
     }
 
-    function handleChange (e, inputName, rowId) {
+    function handleSelectChange (e, inputName, rowId, type) {
+      setFieldRows({
+        rows:
+        {
+          ...fieldRows.rows,
+          [rowId]: {
+            ...fieldRows.rows[rowId],
+            [inputName]: e.target.value,
+            touched: true,
+          }
+        }
+      });
+    }
+
+    function handleChange (e, inputName, rowId, type) {
       let error='';
-      if (e.target.value==='') {
+      if ((type==='input') && (e.target.value==='')) {
         error = ('Field name required')
       }
 
@@ -115,6 +129,7 @@ function CreateApiForm ({submitApi})  {
             return (
             <FieldRow name={"TEST"}
               handleChange={handleChange}
+              handleSelectChange={handleSelectChange}
               fieldTypeName={`fielTypeName${rowKey}`}
               fieldName={`fieldName${rowKey}`}
               rowId= {rowKey}

@@ -6,6 +6,7 @@ export default ({
     fieldName,
     fieldTypeName,
     handleChange,
+    handleSelectChange,
     rowId,
     fieldRows,
     error,
@@ -14,8 +15,7 @@ export default ({
     const [state, setState] = useState(fieldRows.rows[rowId].value)
     function handleOnChange (e) {
       console.log('state',state)
-        setState(e.target.value)
-
+      setState(e.target.value)
     }
    return (
     <div className="flex">
@@ -31,7 +31,7 @@ export default ({
       />
       <MuiSelect
         value = {fieldRows.rows[rowId].valueType}
-        handleChange={handleChange}
+        handleChange={handleSelectChange}
         name={fieldTypeName}
         component={MuiSelect}
         rowId={rowId}
