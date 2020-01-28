@@ -29,7 +29,7 @@ export default ({label, handleChange, rowId, value, type, name}
   return (
   <div className="minHeight">
     <FormControl variant="outlined" className={classes.formControl} style={{minWidth: 130}}>
-      <TextField autoComplete='off' id="outlined-basic"  variant="outlined"
+      <TextField autoComplete='off' id="outlined-basic"  size="small" variant="outlined"
       value={value}
       type={type}
       label={label} onChange={(e) => handleChange(e, name, rowId)}

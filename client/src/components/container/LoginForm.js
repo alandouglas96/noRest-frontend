@@ -35,7 +35,7 @@ export const Login = (props) => {
         .then(response => response.json())
         .then(body => localStorage.setItem('token', body.token))
         .then(()=> props.fetchUser())
-        .then(() => props.history.push('/'))
+        .then(() => props.history.push('/userDashboard'))
         .catch(e => {
           console.log('Error on Post Request');
           console.error(e);
@@ -44,19 +44,21 @@ export const Login = (props) => {
   }
 
   return (
-    <div className="flex-column">
+    <div className="flex-column align-center">
       <h1>Login</h1>
-      <form onSubmit={handleSubmit} className="loginContainer">
-        <div>
+      <form onSubmit={handleSubmit} className="loginContainer flex-column align-center">
+        <div className="minHeight">
           <TextField 
             label="email" 
             name="email" 
             onChange={handleChange}
             value={state.email} 
             key={1}
+            size="small"
+            variant="outlined"
           />
         </div>
-        <div>
+        <div className="minHeight">
           <TextField 
             label="password" 
             name="password" 
@@ -64,11 +66,18 @@ export const Login = (props) => {
             type='password' 
             value={state.password} 
             key={2}
+            size="small"
+            variant="outlined"
           />
         </div>
-        <Button onClick={handleSubmit}>Login</Button>
+        <Button variant="outlined" color="primary" onClick={handleSubmit}>Login</Button>
       </form>
-      <div>Don't you have an account?<Link to="/signUp"><Button>Sign Up</Button></Link></div>
+      <div className="flex-column align-center">Don't you have an account?
+        <div style={{height: '10px'}}></div>
+        <Link to="/signUp">
+         <Button variant="outlined" color="primary">Sign Up</Button>
+        </Link>
+      </div>
    
     </div>
    

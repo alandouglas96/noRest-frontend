@@ -1,8 +1,13 @@
 import _ from 'lodash';
+import jwt from 'jsonwebtoken'
 
-export const handleApiSubmit = (e, fieldRows, apiName, submitApi ) => {
+export const handleApiSubmit = (e, fieldRows, apiName, submitApi, isPublic ) => {
   e.preventDefault();
+  
 
+  const { id } = jwt.decode(localStorage.token);
+  console.log('id', id);
+  
   const fieldsObjectArray=[];
   _.each(fieldRows.rows, row => {
     fieldsObjectArray
@@ -16,16 +21,16 @@ export const handleApiSubmit = (e, fieldRows, apiName, submitApi ) => {
   
   const sendApiObject = {
     api: {
-      public: 'false',
+      public: isPublic ? 'true' : 'false',
       name: apiName,
       description: 'description',
       fields: fieldsObjectArray
     },
     user: {
-      id: 1111,
-      name: 'Jose Fran'
+      id: id,
     },
   }
+  console.log('OBJECT SENDED', sendApiObject)
   submitApi(sendApiObject)
 }
 
