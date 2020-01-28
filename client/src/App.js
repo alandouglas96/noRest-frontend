@@ -31,14 +31,16 @@ function App({fetchUser}) {
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
-        <NavBar/>
-        <div className="dashboard">
-          <Switch>
-            <Route exact path="/" component={LandingPage} />
-            <Route exact path="/signUp" component={SignUpForm} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/createApi" component={CreateApiForm} />
-          </Switch>
+        <div className="container">
+          <NavBar/>
+          <div className="dashboard">
+            <Switch>
+              <Route exact path="/" component={LandingPage} />
+              <Route exact path="/signUp" component={SignUpForm} />
+              <Route exact path="/login" component={Login} />
+              <Route exact path="/createApi" component={CreateApiForm} />
+            </Switch>
+          </div>
         </div>
       </BrowserRouter> 
     </MuiThemeProvider>

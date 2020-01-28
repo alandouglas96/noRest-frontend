@@ -1,12 +1,15 @@
 import React, {useState} from 'react';
 import { TextField, Button } from '@material-ui/core';
-import CreateApiForm from '../container/CreateApiForm'
+import * as actions from '../../actions';
+import { connect } from 'react-redux';
 
-const initialState = {
-  email: '',
-  password: '',
-}
-function SignUpForm () {
+
+function SignUpForm (props) {
+  const initialState = {
+    email: props.email,
+    password: '',
+    name: '',
+  }
   const [state, setState] = useState(initialState);
 
   function handleChange(e) {
@@ -18,20 +21,22 @@ function SignUpForm () {
   function handleSubmit(e) {
     e.preventDefault();
     console.log('STATE', state)
-    const url = 'http://localhost:3000/webapp/login';
+    const url = 'http://localhost:3000/webapp/signup';
       const options = {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
-          'Content-Type': 'application/json;charset=UTF-8'
+          'Content-Type': 'application/json;charset=UTF-8',
         },
         body: JSON.stringify(state)
       };
       fetch(url, options)
         .then(response => response.json())
         .then(body => localStorage.setItem('token', body.token))
+        .then(()=> props.fetchUser())
+        .then(()=> props.history.push('/'))
         .catch(e => {
-          console.log('Error on Post Request');
+          console.log('Error on Post Request Sign Up');
           console.error(e);
         });
   }
@@ -42,6 +47,15 @@ function SignUpForm () {
     <h1>Sign Up</h1>
       <form onSubmit={handleSubmit} className="loginContainer" >
         <div>
+        <div>
+          <TextField 
+            label="name" 
+            name="name" 
+            onChange={handleChange}
+            value={state.name} 
+            key={1}
+          />
+        </div>
           <TextField 
             label="email" 
             name="email" 
@@ -60,12 +74,11 @@ function SignUpForm () {
             key={3}
           />
         </div>
-        <Button onClick={handleSubmit}>Sing Up</Button>
+        <Button onClick={handleSubmit}>Sign Up</Button>
       </form>
     
-    </div>
-   
-   
+    </div>   
   )
 }
-export default SignUpForm;
+
+export default connect(null,actions)(SignUpForm);

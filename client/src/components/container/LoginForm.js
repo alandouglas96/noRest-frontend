@@ -1,13 +1,15 @@
 import React, {useState} from 'react';
 import { TextField, Button } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
+import { connect } from 'react-redux';
+import * as actions from '../../actions';
+
 
 const initialState = {
   email: '',
-  name: '',
   password: '',
 }
-export const Login = () => {
+export const Login = (props) => {
   const [state, setState] = useState(initialState);
 
   function handleChange(e) {
@@ -32,32 +34,26 @@ export const Login = () => {
       fetch(url, options)
         .then(response => response.json())
         .then(body => localStorage.setItem('token', body.token))
+        .then(()=> props.fetchUser())
+        .then(() => props.history.push('/'))
         .catch(e => {
           console.log('Error on Post Request');
           console.error(e);
         });
+
   }
 
   return (
     <div className="flex-column">
       <h1>Login</h1>
       <form onSubmit={handleSubmit} className="loginContainer">
-      <div>
-          <TextField 
-            label="name" 
-            name="name" 
-            onChange={handleChange}
-            value={state.name} 
-            key={2}
-          />
-        </div>
         <div>
           <TextField 
             label="email" 
             name="email" 
             onChange={handleChange}
             value={state.email} 
-            key={2}
+            key={1}
           />
         </div>
         <div>
@@ -67,7 +63,7 @@ export const Login = () => {
             onChange={handleChange}
             type='password' 
             value={state.password} 
-            key={3}
+            key={2}
           />
         </div>
         <Button onClick={handleSubmit}>Login</Button>
@@ -79,5 +75,4 @@ export const Login = () => {
    
   )
 }
-
-export default Login;
+export default connect(null, actions)(withRouter(Login));

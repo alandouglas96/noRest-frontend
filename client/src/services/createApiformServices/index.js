@@ -16,6 +16,7 @@ export const handleApiSubmit = (e, fieldRows, apiName, submitApi ) => {
   
   const sendApiObject = {
     api: {
+      public: 'false',
       name: apiName,
       description: 'description',
       fields: fieldsObjectArray
