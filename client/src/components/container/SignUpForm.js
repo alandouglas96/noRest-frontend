@@ -15,12 +15,10 @@ function SignUpForm () {
       [e.target.name]: e.target.value
     })
   }
-  
   function handleSubmit(e) {
     e.preventDefault();
     console.log('STATE', state)
-    const url = 'http://localhost:3000/webapp/signup';
-
+    const url = 'http://localhost:3000/webapp/login';
       const options = {
         method: 'POST',
         headers: {
@@ -29,16 +27,15 @@ function SignUpForm () {
         },
         body: JSON.stringify(state)
       };
-   
       fetch(url, options)
-        .then(response => {
-          console.log('Post Request Sended')
-          console.log(response.status);
-        })
+        .then(response => response.json())
+        .then(body => localStorage.setItem('token', body.token))
         .catch(e => {
           console.log('Error on Post Request');
+          console.error(e);
         });
   }
+
 
   return (
     <div className="flex-column">
