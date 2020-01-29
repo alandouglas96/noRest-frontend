@@ -22,6 +22,7 @@ const SignUpForm  = (props) => {
   function handleSubmit(e) {
     e.preventDefault();
     console.log('STATE', state)
+    console.log(process.env);
     const url = process.env.BACKEND_URL +'/webapp/signup';
     const options = {
       method: 'POST',
@@ -31,6 +32,8 @@ const SignUpForm  = (props) => {
       },
       body: JSON.stringify(state)
     };
+
+    console.log(url);  
     fetch(url, options)
     .then(response => response.json())
     .then(body => localStorage.setItem('token', body.token))
