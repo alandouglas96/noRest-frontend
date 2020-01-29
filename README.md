@@ -1,13 +1,12 @@
 
 ## ADD TO .env file
-`
-SKIP_PREFLIGHT_CHECK=true
-REACT_APP_BACKEND_URL='http://localhost:3000'
-`
+
+`SKIP_PREFLIGHT_CHECK=true`
+`REACT_APP_BACKEND_URL='http://localhost:3000'`
 
 ## To run local in development
 
-use: `npm run startdev`
+use: `npm run devstart`
 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
