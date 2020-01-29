@@ -8,6 +8,7 @@ import * as actions from '../../../actions';
 
 import FieldRow from '../../presentional/CreateApiFormRow/CreateApiFormRow'
 import Switch from '../../presentional/MuiSwitch/MuiSwitch'
+import IsPublicSelect from '../../presentional/IsPublicSelect'
 
 import {handleApiSubmit} from '../../../services/createApiformServices'
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -74,9 +75,7 @@ function CreateApiForm ({submitApi})  {
     }
   }
 
-  const [switchState, setSwitchState] = useState({
-    checked: false,
-  });
+  const [isPublicState, setIsPublicState] = useState(true);
   
   const [apiName, setApiName] = useState({
     value:'',
@@ -84,9 +83,9 @@ function CreateApiForm ({submitApi})  {
   })
 
 
-    const handleSwitchChange = () => event => {
-      setSwitchState({ ...switchState, checked: event.target.checked });
-      console.log(switchState);
+    const handleIsPublicChange =  (event) => {
+      setIsPublicState(event.target.value);
+      console.log(isPublicState);
     };
 
     function handleApiNameChange (event) {
@@ -128,27 +127,48 @@ function CreateApiForm ({submitApi})  {
     }
 
   return (
-    <div className="box">
-      <h1>Api Name</h1>
-      
-      <div className="flex justify-center">
-      <div className="flex-column">
-      <TextField variant="outlined" size="small"
-        onChange={handleApiNameChange}
-        onBlur={handleApiNameValidation}
-        name="Api Name"
-        label="Api Name"
-        value={apiName.value}
-      />
+    <div className="CreateApiForm-container">
+      <div className="CreateApiForm-title1">Create your own RESTful API</div>
+      <div className="CreateApiForm-title2">API Name</div>
+      <div className="flex align-center">
+        <TextField variant="outlined" size="small"
+          onChange={handleApiNameChange}
+          onBlur={handleApiNameValidation}
+          name="Api Name"
+          label="Api Name"
+          value={apiName.value}
+        />
+        <div className="flex align-center">
+          <div className="CreateApiForm-title3" style={{marginRight:'20px', marginLeft:'40px'}}>Your endpoint: </div>
+          <div>https://no-rest.herokuapp.com/{ apiName.value}</div>
+        </div>
+       
+      </div>
       <FormHelperText error style={{marginLeft: '15px'}}>{apiName.error}</FormHelperText>
-      </div>
-      <Switch state={switchState} handleChange={handleSwitchChange}></Switch>
-      </div>
-      <h1>Create Api Form</h1>
 
-      <form onSubmit={(e) => handleApiSubmit(e, fieldRows, apiName, submitApi, switchState )}>
+      
+        <div className="CreateApiForm-title2" style={{marginTop: '10px'}}>Privacy</div>
+        <div className="flex">
+          <IsPublicSelect value={isPublicState} handleChange={handleIsPublicChange}></IsPublicSelect>
+           
+            <div className="flex-column">
+              <div className="flex align-center">
+                <div className="CreateApiForm-title3" style={{marginRight:'20px', marginLeft:'40px'}}>Public:</div>
+                <div>Everyone can do a get request to your Api</div>
+              </div>
+              <div className="flex align-center">
+                <div className="CreateApiForm-title3" style={{marginRight:'20px', marginLeft:'40px'}}>Private:</div>
+                <div>Only You or who you decide can access de API</div>
+              </div>
+            </div>
+        </div>
+      <div className="flex-column">
+        <div className="CreateApiForm-title2">Describe your collection</div>
+      <form onSubmit={(e) => handleApiSubmit(e, fieldRows, apiName, submitApi, isPublicState )}>
+        <div className="flex-column">
         {_.map(fieldRows.rows,(row, rowKey) => {
           return (
+            <>
           <FieldRow 
             handleChange={handleChange}
             handleSelectChange={handleSelectChange}
@@ -160,17 +180,25 @@ function CreateApiForm ({submitApi})  {
             error= {row.error}
             touched = {row.touched}
           />
+          
+          </>
         )})}
-      <div className="flex" style={{paddingTop: '50px'}}>
-        <Button
-          variant="outlined"
-          color="primary"
-          onClick={() => addFormRow(fieldRows)}>Add Row
-        </Button>
-        <div style={{width:'10px'}}></div>
-          <Button variant="outlined" color="primary" type="submit">Submit</Button>
+        </div>
+        <div className="flex add-row">
+          <div>
+          <Button
+            variant="outlined"
+            color="primary"
+            onClick={() => addFormRow(fieldRows)}>Add Row
+            
+          </Button>
+          </div>
+          </div>
+      <div className="flex justify-center" style={{paddingTop: '50px'}}>
+          <Button variant="contained" color="primary" type="submit" style={{maxWidth: '300px', maxHeight: '40px', minWidth: '300px', minHeight: '40px'}}>Submit</Button>
         </div>
       </form>
+      </div>
     </div>
   )
 }

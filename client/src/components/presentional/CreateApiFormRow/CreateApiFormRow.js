@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import MuiInput from '../MuiFormInput/MuiFormInput';
 import MuiSelect from '../MuiSelect/MuiSelect';
+import { Button } from '@material-ui/core';
 
 export default ({
     fieldName,
@@ -29,6 +30,7 @@ export default ({
         error={error}
         touched={touched}
       />
+      <div style={{width:'10px'}}></div>
       <MuiSelect
         value = {fieldRows.rows[rowId].valueType}
         handleChange={handleSelectChange}
@@ -36,6 +38,15 @@ export default ({
         component={MuiSelect}
         rowId={rowId}
       />
+      <div style={{width:'10px'}}></div>
+      <Button 
+            variant="contained"
+            color="secondary"
+            style={{maxHeight: '40px', minHeight: '40px'}}
+            size="small"
+            >
+            Remove
+          </Button>
     </div>
    )
   }

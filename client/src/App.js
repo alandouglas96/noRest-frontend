@@ -18,9 +18,18 @@ import UserDashboard from './components/presentional/UserDashboard/UserDashboard
 
 const theme = createMuiTheme({
   palette: {
-    primary: { main: '#4DB6AC' },
-    secondary: { main: '#81C784' }
-    }
+    primary: { main: '#6eabfb', contrastText: "white" },
+    secondary: { main: '#fb6e6e', contrastText: "white" }
+    },
+  shadows: ["none"],
+  overrides: {
+    MuiButton: {
+      raisedPrimary: {
+        color: 'white',
+      },
+    },
+  }
+  
   },
 )
 
