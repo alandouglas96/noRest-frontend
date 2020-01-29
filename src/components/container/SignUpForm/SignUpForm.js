@@ -22,7 +22,7 @@ const SignUpForm  = (props) => {
   function handleSubmit(e) {
     e.preventDefault();
     console.log('STATE', state)
-    const url = `${String(process.env.BACKEND_URL)}/webapp/signup`;
+    const url = process.env.BACKEND_URL +'/webapp/signup';
     const options = {
       method: 'POST',
       headers: {
