@@ -22,7 +22,7 @@ export const Login = (props) => {
 
   function handleSubmit(event) {
     event.preventDefault();
-    const url = `${process.env.BACKEND_URL}/webapp/login`;
+    const url = `${process.env.REACT_APP_BACKEND_URL}/webapp/login`;
     const options = {
       method: 'POST',
       headers: {

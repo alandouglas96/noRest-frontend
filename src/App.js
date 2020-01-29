@@ -36,6 +36,10 @@ const theme = createMuiTheme({
   },
 )
 
+if (process.env.NODE_ENV === 'development') {
+  require('dotenv').config();
+}
+
 function App({fetchUser}) {
 
   useEffect( () => {
