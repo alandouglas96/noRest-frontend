@@ -1,10 +1,9 @@
 .ApiDetails-test {
   padding: 5px;
-
+  width: 80vw;
 }
 
 .ApiDetails-head {
-  width: 70vw;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -12,42 +11,95 @@
 }
 
 .ApiDetails-head-item {
-  padding: 5px;
+  padding: 0px;
 }
 
 .ApiDetails-head-name {
+  padding-bottom: 10px;
   font-size: 30px;
-  font-weight: 700;
-  border-bottom: 2px solid;
+  font-weight: 500;
+  border-bottom: 1px solid;
+  border-color: rgb(125, 125, 125);
+
 }
 
 .ApiDetails-head-endpoint {
+  padding-bottom: 16px;
   font-size: 25px;
-  font-weight: 500;
-  border-bottom: 2px solid;
+  font-weight: 400;
+  border-bottom: 1px solid;
+  border-color:  rgb(125, 125, 125);
 }
 
 .ApiDetails-head-endpoint-span {
-  font-size: 25px;
+  font-size: 15px;
   font-weight: 300;
 }
 
+.ApiDetails-head-button {
+  font-size: 20px;
+  font-weight: 400;
+}
+
 .ApiDetails-description {
-  padding: 5px;
-  margin: 10px;
+  color: rgb(69, 69, 69);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+}
+
+.ApiDetails-title {
+  padding-bottom: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: auto; /* ADAPT TO TEXT*/
+  font-size: 20px;
+  font-weight: 400;
+  border-bottom: 2px solid;
 }
 
 .ApiDetails-latestData {
-  padding: 5px;
-  margin: 10px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 .ApiDetails-apiMethods {
-  padding: 5px;
-  margin: 10px;
+  color: rgb(69, 69, 69);
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.ApiDetails-apiMethods-method {
+  margin-top:10px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+.ApiDetails-apiMethods-method-name {
+  padding: 7px;
+  font-size: 20px;
+  font-weight: 400;
+  width: 130px;
+  height: 30px;
+  border-radius: 10px;
+  border-color: rgb(40, 98, 169);
+  border-style: solid;
+  text-align: center;
+
+}
+
+.ApiDetails-apiMethods-method-span {
+  color: rgb(69, 69, 69);
+  margin-top: 20px;
+  margin-bottom: 20px;
+  font-size: 15px;
+  font-weight: 400;
+  padding-left: 30px;
 }
 
 .ApiDetails-apiCredentials {
-  padding: 5px;
-  margin: 10px;
+  color: rgb(69, 69, 69);
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

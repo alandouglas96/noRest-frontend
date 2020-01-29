@@ -20,21 +20,21 @@ const ApiDetails = ({match}) => {
             {apiName}
           </div>
           <div className='ApiDetails-head-item ApiDetails-head-endpoint'>
-            Endpoint: <span className='ApiDetails-head-endpoint-span'>asdfgljndsgndld</span>
+            Endpoint: <span className='ApiDetails-head-endpoint-span'>https://no-rest.heroku.com/{apiName}</span>
           </div>
           <div className='ApiDetails-head-item'>
-          <Link to={`/apiDetails/docs/${apiName}`}>
-            <Button size="small" variant="outlined" color="secondary">
-              <h1>DOCS</h1>
-            </Button>
-          </Link>
+            <Link to={`/apiDetails/docs/${apiName}`}>
+              <Button size="small" variant="contained" style={{color:'white', backgroundColor:'#E85F48', width:'150px', height:'40px'}}>
+              <span className='ApiDetails-head-button'>DOCS</span>
+              </Button>
+            </Link>
           </div>
           <div className='ApiDetails-head-item'>
-          <Link to={`/apiDetails/edit/${apiName}`}>
-            <Button size="small" variant="outlined" color="secondary">
-              <h1>EDIT API</h1>
-            </Button>
-          </Link>
+            <Link to={`/apiDetails/edit/${apiName}`}>
+              <Button size="small" variant="contained" style={{color:'white', backgroundColor:'#175999', width:'150px', height:'40px'}}>
+                <span className='ApiDetails-head-button'>EDIT API</span>
+              </Button>
+            </Link>
           </div>
         </div>
         <div className='ApiDetails-description'>
@@ -42,20 +42,41 @@ const ApiDetails = ({match}) => {
           adsfgñkljnasdgñljnsdgñjansdglkjndsgljknadfsgñkjnasdñgojnsd
         </div>
         <div className='ApiDetails-latestData'>
-          LATEST DATA
+          <div className='ApiDetails-title'>
+            Latest Data
+          </div>
           <ApiDataTable api={apiName}/>
         </div>
         <div className='ApiDetails-apiMethods'>
-          YOUR API methods
-          GET
-          GET/field/id
-          POST
-          PUT/id
-          DELETE/id
+          <div className='ApiDetails-title'>
+            Your API Methods
+          </div>
+          <div className='ApiDetails-apiMethods-method'>
+            <div className='ApiDetails-apiMethods-method-name'>GET</div><span className='ApiDetails-apiMethods-method-span'>Returns a JSON Object with ALL the data in you database</span>
+          </div>
+          <div className='ApiDetails-apiMethods-method'>
+            <div className='ApiDetails-apiMethods-method-name'>GET/field/id</div> <span className='ApiDetails-apiMethods-method-span'>Returns a JSON Object with all the rows whose #field column value is equal to #name</span>
+          </div>
+          <div className='ApiDetails-apiMethods-method'>
+            <div className='ApiDetails-apiMethods-method-name'>POST</div> <span className='ApiDetails-apiMethods-method-span'>Send in the body a JSON Object which will be input in the DB</span>
+          </div>
+          <div className='ApiDetails-apiMethods-method'>
+            <div className='ApiDetails-apiMethods-method-name'>PUT/id</div><span className='ApiDetails-apiMethods-method-span'>Send in the body a JSON object with the ID to update the record</span>
+          </div>
+          <div className='ApiDetails-apiMethods-method'>
+            <div className='ApiDetails-apiMethods-method-name'>DELETE/id</div><span className='ApiDetails-apiMethods-method-span'>Deletes the record with such ID and returns the deleted record</span>
+          </div>
         </div>
         <div className='ApiDetails-apiCredentials'>
+          <div className='ApiDetails-title'>
+            Your API Credentials
+          </div>
+          <div className='ApiDetails-apiCredentials-item'>
           API KEY : SDGOJHASDGOÑASDG
+          </div>
+          <div className='ApiDetails-apiCredentials-item'>
           API SECRET KEY : ASDFJADSGOISDGOJNAA
+          </div>
         </div>
 
       </div>
