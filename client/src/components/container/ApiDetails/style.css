@@ -1,0 +1,53 @@
+.ApiDetails-test {
+  padding: 5px;
+
+}
+
+.ApiDetails-head {
+  width: 70vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ApiDetails-head-item {
+  padding: 5px;
+}
+
+.ApiDetails-head-name {
+  font-size: 30px;
+  font-weight: 700;
+  border-bottom: 2px solid;
+}
+
+.ApiDetails-head-endpoint {
+  font-size: 25px;
+  font-weight: 500;
+  border-bottom: 2px solid;
+}
+
+.ApiDetails-head-endpoint-span {
+  font-size: 25px;
+  font-weight: 300;
+}
+
+.ApiDetails-description {
+  padding: 5px;
+  margin: 10px;
+}
+
+.ApiDetails-latestData {
+  padding: 5px;
+  margin: 10px;
+}
+
+.ApiDetails-apiMethods {
+  padding: 5px;
+  margin: 10px;
+}
+
+.ApiDetails-apiCredentials {
+  padding: 5px;
+  margin: 10px;
+}

@@ -1,2 +1,2 @@
-import ApisDisplay from './ApisDisplay';
-export default ApisDisplay;
+import ApiUtils from './ApisDisplay';
+export default ApiUtils;

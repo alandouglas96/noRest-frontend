@@ -1,37 +1,24 @@
 import React from "react";
-import './style.css';
+import { Link } from "react-router-dom";
+import { Button } from "@material-ui/core";
+import "./style.css";
 
-const ApiCard = ({apiInfo}) => {
-
-
+const ApiCard = ({ apiInfo }) => {
   return (
     <>
-      <h1>API CARD</h1>
-      <div style={{}}>
-        <div>
-        {apiInfo.public}
-        </div>
-        <div>
-        {apiInfo.api_name}
-        </div>
-        <div>
-        {apiInfo.description}
-        </div>
-        <div>
-        {apiInfo.date_created}
-        </div>
-        <div>
-        {apiInfo.date_last_updated}
-        </div>
+      <div className="ApiCard-test">
+        <Link to={`/apiDetails/${apiInfo.api_name}`}>
+        <Button size="large" variant="outlined" color="green">
+          <div>Name: {apiInfo.api_name}</div>
+          <div>Description: {apiInfo.description}</div>
+          <div>Created at: {apiInfo.date_created}</div>
+          <div>Last Update: {apiInfo.date_last_updated}</div>
+          <div>Public: {apiInfo.public}</div>
+        </Button>
+        </Link>
       </div>
     </>
   );
 };
 
 export default ApiCard;
-
-
-
-
-
-
