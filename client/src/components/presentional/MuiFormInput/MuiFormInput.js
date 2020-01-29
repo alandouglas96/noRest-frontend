@@ -9,11 +9,11 @@ import './style.css';
 
 const useStyles = makeStyles(theme => ({
   formControl: {
-    margin: theme.spacing(1),
+    marginLeft: theme.spacing(1),
     minWidth: 120,
   },
   selectEmpty: {
-    marginTop: theme.spacing(2),
+    marginTop: theme.spacing(0),
   },
   inputFocused: {
     backgroundColor: "#00FF00",

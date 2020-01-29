@@ -37,7 +37,7 @@ function NavBarRight (props) {
       return (
         <div className="NavBarItem">
           <Link to="/">
-           <Button variant="outlined" color="primary" onClick={handleLogout}>Log Out</Button>
+           <Button variant="contained" color="primary" onClick={handleLogout}>Log Out</Button>
           </Link>
         </div>
       )

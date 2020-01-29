@@ -29,20 +29,18 @@ export default ({ value, handleChange, rowId
 
   return (
     <div>
-      <FormControl size="small" variant="outlined" className={classes.formControl} style={{minWidth: 130}}>
+      <FormControl size="small" variant="outlined" className={classes.formControl} style={{minWidth: 197}}>
         <InputLabel ref={inputLabel} id="simple-select-outlined-label">
-          Select Field Type
+          Select Privacy
         </InputLabel>
-        <Select onChange={(e) => handleChange(e, 'valueType', rowId)} className="length"
+        <Select onChange={(e) => handleChange(e)} className="length"
           labelId="demo-simple-select-outlined-label"
           id="demo-simple-select-outlined"
           value={value}
           labelWidth={labelWidth}
         >
-          <MenuItem id={1} value={"String"}>String</MenuItem>
-          <MenuItem id={2}value={"Number"}>Number</MenuItem>
-          <MenuItem id={3}value={"Date"}>Date</MenuItem>
-          <MenuItem id={4} value={"Boolean"}>Boolean</MenuItem>
+          <MenuItem id={1} value={true}>Public</MenuItem>
+          <MenuItem id={2}value={false}>Private</MenuItem>
         </Select>
       </FormControl>
     </div>
