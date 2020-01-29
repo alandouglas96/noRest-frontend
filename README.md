@@ -1,7 +1,7 @@
 
 ## ADD TO .env file
 
-`SKIP_PREFLIGHT_CHECK=true`
+`SKIP_PREFLIGHT_CHECK=true`<br/>
 `REACT_APP_BACKEND_URL='http://localhost:3000'`
 
 ## To run local in development
