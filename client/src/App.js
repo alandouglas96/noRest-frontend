@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 import * as actions from './actions';
 
 import NavBar from './components/presentional/Navbar/Navbar'
+import Footer from './components/presentional/Footer/'
 import LandingPage from './components/presentional/LandingPage/LandingPage'
 import Login from './components/container/LoginForm/'
 import SignUpForm from './components/container/SignUpForm/'
@@ -44,6 +45,7 @@ function App({fetchUser}) {
             </Switch>
           </div>
         </div>
+        <Footer/>
       </BrowserRouter>
     </MuiThemeProvider>
   );

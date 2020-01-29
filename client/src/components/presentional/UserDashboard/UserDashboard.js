@@ -9,8 +9,9 @@ import './style.css';
 const UserDashboard = () => {
   return (
     <>
+    <div className="box flex-column align-center">
       <h1>User Dashboard</h1>
-      <div style={{}}>
+     
         <Link to="/createApi">
           <Button size="large" variant="outlined" color="primary">
             CREATE YOUR API

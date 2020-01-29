@@ -64,11 +64,14 @@
   flex-direction: column;
   width: 100vw;
   max-width: 100vw;
+  background-color:  rgb(235, 253, 243);
+ 
   
 }
 .NavBar {
   height: 80px;
-  background-color: rgb(246, 253, 249);
+  max-height: 80px;
+  background-color: rgb(255, 255, 255);
   width: 100%;
   display: flex;
   justify-content: space-between;
@@ -96,13 +99,24 @@
 a { text-decoration: none; }
 
 .loginContainer {
-  background-color: rgb(246, 254, 255);
+  background-color: rgb(255, 255, 255);
   width: 300px;
   padding: 20px;
-  border-radius: 20px;
+  border-radius: 5px;
+}
+.box {
+  background-color: rgb(255, 255, 255);
+  margin: 20px;
+  padding: 20px;
+  border-radius: 5px;
 }
 
 div {
   margin: 0px;
   padding: 0px;
 }
+
+html {
+  background-color: rgb(202, 202, 202);
+}
+
