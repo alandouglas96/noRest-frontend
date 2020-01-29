@@ -36,7 +36,7 @@ export default ({label, handleChange, rowId, handelOnChange, error, touched}
       <TextField size="small" autoComplete='off' id="outlined-basic"  variant="outlined"
       label={label}
       onChange={handelOnChange}
-      onBlur={(e) => handleChange(e, 'value', rowId)}
+      onBlur={(e) => handleChange(e, 'value', rowId, 'input')}
        />
        <FormHelperText error>{error}</FormHelperText>
     </FormControl>

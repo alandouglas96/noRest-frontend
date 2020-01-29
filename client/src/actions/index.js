@@ -1,17 +1,14 @@
 export const FETCH_USER = 'fetch_user';
 
 export const fetchUser = () => async dispatch => {
- const token = localStorage.getItem('token');
- // const res = await axios.get('/api/current_user')
- console.log('LocalStorage', token)
+  const token = localStorage.getItem('token');
+  console.log('LocalStorage', token)
   dispatch({ type: FETCH_USER, payload: token});
 };
 
 export const submitApi = (values) => async dispatch => {
-
   const url = 'http://localhost:3000/logistics/api';
-  const token = localStorage.token
-  console.log('TOKEN------->',token)
+  const token = localStorage.token;
   const options = {
     method: 'POST',
     headers: {

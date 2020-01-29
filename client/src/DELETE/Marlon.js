@@ -8,32 +8,7 @@ const initialState = {
   }
 }
 
-function reducer(state, action) {
-  switch(action.type) {
-    case 'SET_ERROR': 
-    return {
-      ...state,
-      error: 'error'
-    }
 
-    case 'SET_VALUE':
-      return {
-        ...state,
-        value: action.value
-      }
-    
-      case 'CREATE_TYPE_FIELD': {
-        ...state,
-        [uuid()]: {
-          value: 'String',
-          error: ''
-        } 
-      }
-
-      default: 
-        return state
-  }
-}
 
 const Form = () => {
   const [state, dispatch] = useReducer(reducer, initialState);

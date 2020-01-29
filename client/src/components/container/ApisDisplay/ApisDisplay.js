@@ -26,18 +26,17 @@ const ApisDisplay = () => {
         'Authorization': `Bearer ${token}`
       }
     };
-
     fetch(url, options)  // get userId from??
-    .then(response => response.json())
-    .then(data => setApis(data))
-    .catch(error => console.error(error));
+      .then(response => response.json())
+      .then(data => setApis(data))
+      .catch(error => console.error(error));
   }
 
   return (
     <>
       <h1>APIS GO HERE</h1>
-      <div style={{maxWidth: '10px'}}>
-        {apis.length ? apis.map(el => <ApiCard apiInfo={el} key={el._id} />) :
+      <div style={{}}>
+        {apis.length ? apis.map(api => <ApiCard apiInfo={api} key={api._id} />) :
         <div className="no-apis">
           No APIs to display
         </div>
