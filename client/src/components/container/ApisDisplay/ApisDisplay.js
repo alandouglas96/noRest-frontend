@@ -34,9 +34,9 @@ const ApisDisplay = () => {
 
   return (
     <>
-      <h1>APIS GO HERE</h1>
-      <div style={{}}>
-        {apis.length ? apis.map(api => <ApiCard apiInfo={api} key={api._id} />) :
+      <h1>YOUR APIS</h1>
+      <div className='ApiDisplay-test'>
+        {apis.length ? apis.map(el => <ApiCard apiInfo={el} key={el._id} />) :
         <div className="no-apis">
           No APIs to display
         </div>
