@@ -17,7 +17,7 @@ const ApisDisplay = () => {
     const token = localStorage.token;
     const { id } = jwt.decode(token); // userId
 
-    const url = `http://localhost:3000/logistics/api/user/${id}`;
+    const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/api/user/${id}`;
     const options = {
       method: 'GET',
       headers: {

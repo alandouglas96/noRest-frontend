@@ -7,7 +7,7 @@ export const fetchUser = () => async dispatch => {
 };
 
 export const submitApi = (values) => async dispatch => {
-  const url = 'http://localhost:3000/logistics/api';
+  const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/api`;
   const token = localStorage.token;
   const options = {
     method: 'POST',

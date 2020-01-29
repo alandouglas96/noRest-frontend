@@ -1,16 +1,16 @@
 import React, {useState} from 'react';
 import { TextField, Button } from '@material-ui/core';
-import * as actions from '../../../actions';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
+import * as actions from '../../../actions';
 
 import './style.css';
 
-const SignUpForm  = (props) => {
-  const initialState = {
-    email: props.location.email,
-    password: '',
-    name: '',
-  }
+const initialState = {
+  email: '',
+  password: '',
+}
+export const Login = (props) => {
   const [state, setState] = useState(initialState);
 
   function handleChange(e) {
@@ -19,51 +19,40 @@ const SignUpForm  = (props) => {
       [e.target.name]: e.target.value
     })
   }
-  function handleSubmit(e) {
-    e.preventDefault();
-    console.log('STATE', state)
-    const url = 'http://localhost:3000/webapp/signup';
+
+  function handleSubmit(event) {
+    event.preventDefault();
+    const url = `${process.env.REACT_APP_BACKEND_URL}/webapp/login`;
     const options = {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json;charset=UTF-8',
+        'Content-Type': 'application/json;charset=UTF-8'
       },
       body: JSON.stringify(state)
     };
+
     fetch(url, options)
     .then(response => response.json())
     .then(body => localStorage.setItem('token', body.token))
     .then(()=> props.fetchUser())
-    .then(()=> props.history.push('/'))
+    .then(() => props.history.push('/userDashboard'))
     .catch(e => {
-      console.log('Error on Post Request Sign Up');
+      console.log('Error on Post Request');
       console.error(e);
     });
   }
 
   return (
     <div className="flex-column align-center box">
-    <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit} className="loginContainer flex-column align-center" >
-        <div className="minHeight">
-          <TextField
-            label="name"
-            name="name"
-            onChange={handleChange}
-            value={state.name}
-            key={1}
-            size="small"
-            variant="outlined"
-          />
-        </div>
+      <h1>Login</h1>
+      <form onSubmit={handleSubmit} className="loginContainer flex-column align-center">
         <div className="minHeight">
           <TextField
             label="email"
             name="email"
             onChange={handleChange}
             value={state.email}
-            key={2}
             size="small"
             variant="outlined"
           />
@@ -75,15 +64,20 @@ const SignUpForm  = (props) => {
             onChange={handleChange}
             type='password'
             value={state.password}
-            key={3}
             size="small"
             variant="outlined"
           />
         </div>
-        <Button variant="outlined" color="primary" onClick={handleSubmit}>Sign Up</Button>
+        <Button variant="outlined" color="primary" onClick={handleSubmit}>Login</Button>
       </form>
+      <div className="flex-column align-center box">Don't you have an account?
+        <div style={{height: '10px'}}></div>
+        <Link to="/signUp">
+         <Button variant="outlined" color="primary">Sign Up</Button>
+        </Link>
+      </div>
     </div>
   )
 }
 
-export default connect(null,actions)(SignUpForm);
+export default connect(null, actions)(withRouter(Login));
