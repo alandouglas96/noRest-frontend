@@ -1,0 +1,17 @@
+.landingPageRight {
+  padding: 20px;
+  width: 40%;
+}
+
+.landingPageLeft {
+  padding: 20px;
+  width: 60%;
+}
+
+.backgroundImage {
+  background-image: url("/img/api.png");
+  background-repeat: no-repeat;
+  background-position:  80% 30%;
+  background-size: 200px;
+  z-index: 2;
+}
