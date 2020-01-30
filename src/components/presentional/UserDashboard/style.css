@@ -1,5 +1,4 @@
 .UserDashboard {
-  width: 500px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -9,11 +8,12 @@
 .userDashboard-header {
   display: flex;
   flex-direction: row;
+  margin-bottom: 10px;
 }
 
 .userDashboard-header-item {
   font-size: 25px;
-  margin: 10px;
+  margin: 0px 10px;
 }
 
 .searchBar {
@@ -26,4 +26,11 @@
 
 .UserDashboard-display {
 
+}
+
+.userDashboard-box {
+  background-color: white;
+  width: 90%;
+  margin-top: 40px;  
+  padding: 10px;
 }
