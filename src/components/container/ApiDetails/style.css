@@ -51,7 +51,7 @@
 .ApiDetails-title {
   padding-bottom: 10px;
   margin-top: 20px;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   width: auto; /* ADAPT TO TEXT*/
   font-size: 20px;
   font-weight: 400;
@@ -102,4 +102,25 @@
   color: rgb(69, 69, 69);
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+.ApiDetails-apiCredentials-item {
+  font-size: 20px;
+  font-weight: 500;
+  display: flex;
+  flex-direction: row;
+  margin-top: 10px;
+  margin-bottom: 0px;
+
+}
+
+.ApiDetails-apiCredentials-item-title {
+  font-size: 20px;
+  font-weight: 500;
+  width: 180px;
+}
+
+.ApiDetails-apiCredentials-item-content {
+  font-size: 17px;
+  font-weight: 400;
 }

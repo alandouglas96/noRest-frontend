@@ -6,16 +6,46 @@ import "./style.css";
 const ApiCard = ({ apiInfo }) => {
   return (
     <>
-      <div className="ApiCard-test">
-        <Link to={`/apiDetails/${apiInfo.api_name}`}>
-        <Button size="large" variant="outlined" color="green">
-          <div>Name: {apiInfo.api_name}</div>
-          <div>Description: {apiInfo.description}</div>
-          <div>Created at: {apiInfo.date_created}</div>
-          <div>Last Update: {apiInfo.date_last_updated}</div>
-          <div>Public: {apiInfo.public}</div>
-        </Button>
-        </Link>
+      <div className="ApiCard">
+        <div className="ApiCard-Name">{apiInfo.api_name}</div>
+        <div className="ApiCard-Description">{apiInfo.description}</div>
+        <div className="ApiCard-Rows">6,500 rows (available in data??)</div>
+        <div className="ApiCard-Public">
+          Public: {apiInfo.public} (lock open/close)
+        </div>
+
+        <div className="ApiCard-Button">
+          <Link to={`/apiDetails/docs/${apiInfo.api_name}`}>
+            <Button
+              size="small"
+              variant="contained"
+              style={{
+                color: "white",
+                backgroundColor: "#E85F48",
+                width: "150px",
+                height: "40px"
+              }}
+            >
+              <span className="ApiDetails-head-button">DOCS</span>
+            </Button>
+          </Link>
+        </div>
+        <div className="ApiCard-Button">
+          <Link to={`/apiDetails/${apiInfo.api_name}`}>
+            <Button
+              size="small"
+              variant="contained"
+              style={{
+                color: "white",
+                backgroundColor: "#175999",
+                width: "150px",
+                height: "40px"
+              }}
+            >
+              <span className="ApiDetails-head-button">DETAILS</span>
+            </Button>
+          </Link>
+        </div>
       </div>
     </>
   );

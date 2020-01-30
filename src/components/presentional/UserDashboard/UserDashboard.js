@@ -1,6 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { Button } from "@material-ui/core";
 import ApisDisplay from "../../container/ApisDisplay/ApisDisplay";
 
 import './style.css';
@@ -10,13 +8,12 @@ const UserDashboard = () => {
   return (
     <>
     <div className="box flex-column align-center">
-      <h1>User Dashboard</h1>
-      <div className='UserDashboard-test'>
-        <Link to="/createApi">
-          <Button size="large" variant="outlined" color="primary">
-            CREATE NEW API
-          </Button>
-        </Link>
+      <div className='userDashboard-header'>
+        <span className='userDashboard-header-item'>Your APIs</span>
+        <span className='userDashboard-header-item'>Account Settings</span>
+        <span className='userDashboard-header-item searchBar'>Search Bar</span>
+      </div>
+      <div className='UserDashboard-display'>
         <ApisDisplay />
       </div>
       </div>

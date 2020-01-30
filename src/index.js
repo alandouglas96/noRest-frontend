@@ -8,10 +8,12 @@ import 'typeface-roboto';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import reduxThunk from 'redux-thunk';
+import reduxLogger from 'redux-logger';
+
 
 import reducers from './reducers'
 
-const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
+const store = createStore(reducers, {}, applyMiddleware(reduxThunk, reduxLogger));
 
 ReactDOM.render(
   <Provider store={store}>
