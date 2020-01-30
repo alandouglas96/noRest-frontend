@@ -10,7 +10,7 @@ export const fetchUser = () => async dispatch => {
   dispatch({ type: FETCH_USER, payload: token});
 };
 
-export const submitApi = (values) => async dispatch => {
+export const submitApi = (values, history) => async dispatch => {
   const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/api`;
   const token = localStorage.token;
   const options = {
@@ -25,7 +25,7 @@ export const submitApi = (values) => async dispatch => {
   fetch(url, options)
     .then(response => response.json())
     .then(data => console.log(data))
-    .then(() => values.history.push('/userDashboard'))
+    .then(() => history.push('/userDashboard'))
     .catch(e => {
       console.log('Error on Post Request');
       console.error(e);

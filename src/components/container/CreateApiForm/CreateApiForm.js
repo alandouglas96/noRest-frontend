@@ -14,7 +14,7 @@ import {handleApiSubmit} from '../../../services/createApiformServices'
 
 import './style.css';
 
-function CreateApiForm ({submitApi})  {
+function CreateApiForm ({submitApi, history})  {
   const [numberOfFields, setNumerOfFields] = useState(1);
 
   const FIELD_ROWS_INITIAL_STATE = {
@@ -166,7 +166,7 @@ function CreateApiForm ({submitApi})  {
   }
 
   return (
-    <div className="CreateApiForm-container">
+    <div className="box">
       <div className="CreateApiForm-title1">Create your own RESTful API</div>
       <div className="CreateApiForm-title2">API Name</div>
       <div className="flex align-center">
@@ -203,7 +203,7 @@ function CreateApiForm ({submitApi})  {
         </div>
         <div className="CreateApiForm-title2">Describe your collection</div>
       <div className="flex-column align-center">
-      <form onSubmit={(e) => handleApiSubmit(e, fieldRows, apiName, submitApi, isPublicState )}>
+      <form onSubmit={(e) => handleApiSubmit(e, fieldRows, apiName, submitApi, isPublicState, history )}>
         <div className="flex-column">
         {_.map(fieldRows.rows,(row, rowKey) => {
           console.log(rowKey)

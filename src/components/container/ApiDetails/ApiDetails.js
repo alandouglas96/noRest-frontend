@@ -29,8 +29,9 @@ const ApiDetails = (props) => {
 
   return (
     <>
-      <h1>API DETAILS</h1>
-      <div className="ApiDetails-test">
+      
+      <div className=" box">
+      <div className="bigTitle">API DETAILS</div>
         <div className="ApiDetails-head">
           <div className="ApiDetails-head-item ApiDetails-head-name">
             {apiName}

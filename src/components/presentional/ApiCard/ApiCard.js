@@ -17,20 +17,17 @@ const ApiCard = ({ apiInfo }) => {
             <div className="ApiCard-Button">
               <Link to={`/apiDetails/docs/${apiInfo.api_name}`}>
                 <Button
-                  size="small"
                   variant="contained"
                   color="primary"
                   style={{
                     width: "150px",
-                    height: "40px"
                   }}
                 >
-                  <span className="ApiDetails-head-button">DOCS</span>
+                  DOCS
                 </Button>
               </Link>
             </div>
           </div>
-
           <div className="ApiCard-columnContainer">
             <div className="ApiCard-Public">
               Status: {apiInfo.public ? "Public" : "Private"}
@@ -38,22 +35,18 @@ const ApiCard = ({ apiInfo }) => {
             <div className="ApiCard-Button">
               <Link to={`/apiDetails/${apiInfo.api_name}`}>
                 <Button
-                  size="small"
                   variant="contained"
                   color="secondary"
                   style={{
                     width: "150px",
-                    height: "40px"
                   }}
                 >
-                  <span className="ApiDetails-head-button">DETAILS</span>
+                 DETAILS
                 </Button>
               </Link>
             </div>
           </div>
         </div>
-          
-          
       </div>
     </>
   );

@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import jwt from 'jsonwebtoken'
 
-export const handleApiSubmit = (e, fieldRows, apiName, submitApi, isPublic ) => {
+export const handleApiSubmit = (e, fieldRows, apiName, submitApi, isPublic, history ) => {
   e.preventDefault();
 
   const { id } = jwt.decode(localStorage.token);
@@ -27,6 +27,6 @@ export const handleApiSubmit = (e, fieldRows, apiName, submitApi, isPublic ) => 
     user: { id }
   }
   console.log('OBJECT SENT', sendApiObject)
-  submitApi(sendApiObject)
+  submitApi(sendApiObject, history)
 }
 
