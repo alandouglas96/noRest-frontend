@@ -16,19 +16,29 @@ const ApisDisplay = props => {
 
   return (
     <>
-      <div className="ApiDisplay grid-container">
+      <div className="ApiDisplay">
         {props.userApis.userApis.length ? (
           props.userApis.userApis.map(el => (
             <ApiCard apiInfo={el} key={el._id} />
           ))
         ) : (
-          <div className="no-apis">No APIs to display</div>
+          <div className="no-apis">No APIs yet. Why don't you create one?</div>
         )}
         <div className="ApiDisplay-CreateApi">
           <span className="ApiDisplay-CreateApi-title">Create a new API</span>
           <Link to="/createApi">
-            <Button size="large" variant="outlined" color="primary">
-              +
+            <Button 
+              size="large" 
+              variant="contained" 
+              style={{
+                    color: "white",
+                    backgroundColor: "#BCDE5F",
+                    fontWeight: "400",
+                    width: "150px",
+                    height: "40px"
+                  }}
+              >
+              Do it!
             </Button>
           </Link>
         </div>
