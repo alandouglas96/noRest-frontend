@@ -33,7 +33,7 @@ export default function SimpleTable() {
     <TableContainer component={Paper}>
       <Table className={classes.table} aria-label="simple table">
         <TableHead>
-          <TableRow>
+          <TableRow style={{backgroundColor:'#B3CCD1'}}>
             <TableCell>id</TableCell>
             <TableCell align="right">field1</TableCell>
             <TableCell align="right">field2</TableCell>

@@ -1,49 +1,49 @@
-import React, {useEffect, useState} from "react";
-import ApiCard from "../../presentional/ApiCard/ApiCard";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import jwt from 'jsonwebtoken'
+import { Button } from "@material-ui/core";
+import ApiCard from "../../presentional/ApiCard/ApiCard";
+// import jwt from 'jsonwebtoken';
+import { connect } from "react-redux";
+import { fetchUserApisAction } from "../../../actions/";
 
-import './style.css';
+import "./style.css";
 
-const ApisDisplay = () => {
-  const [apis, setApis] = useState([]); // redux??
-
+const ApisDisplay = props => {
+  const { fetchUserApis } = props;
   useEffect(() => {
-    getAllApis();
-  }, []);
-
-
-  function getAllApis () {
-    const token = localStorage.token;
-    const { id } = jwt.decode(token); // userId
-
-    const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/api/user/${id}`;
-    const options = {
-      method: 'GET',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json;charset=UTF-8',
-        'Authorization': `Bearer ${token}`
-      }
-    };
-    fetch(url, options)  // get userId from??
-      .then(response => response.json())
-      .then(data => setApis(data))
-      .catch(error => console.error(error));
-  }
+    fetchUserApis();
+  }, [fetchUserApis]);
 
   return (
     <>
-      <h1>YOUR APIS</h1>
-      <div className='ApiDisplay-test'>
-        {apis.length ? apis.map(el => <ApiCard apiInfo={el} key={el._id} />) :
-        <div className="no-apis">
-          No APIs to display
+      <div className="ApiDisplay grid-container">
+        {props.userApis.userApis.length ? (
+          props.userApis.userApis.map(el => (
+            <ApiCard apiInfo={el} key={el._id} />
+          ))
+        ) : (
+          <div className="no-apis">No APIs to display</div>
+        )}
+        <div className="ApiDisplay-CreateApi">
+          <span className="ApiDisplay-CreateApi-title">Create a new API</span>
+          <Link to="/createApi">
+            <Button size="large" variant="outlined" color="primary">
+              +
+            </Button>
+          </Link>
         </div>
-        }
       </div>
     </>
   );
 };
 
-export default ApisDisplay;
+const mapStateToProps = state => ({
+  userApis: state.userApis
+});
+
+const mapDispatchToProps = dispatch => ({
+  // Map your dispatch actions
+  fetchUserApis: () => dispatch(fetchUserApisAction())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ApisDisplay);
