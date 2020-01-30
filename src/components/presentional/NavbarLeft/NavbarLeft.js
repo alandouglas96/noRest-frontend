@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 import logo from '../../../static/media/logo.png'
 
@@ -32,8 +31,11 @@ function NavBarLeft (props) {
 
 
 function mapStateToProps({ auth }) {
+<<<<<<< HEAD
   // console.log('Auth->>>>>>>>>>>>>>', auth);
 
+=======
+>>>>>>> Feat: in styling
   return { auth };
 }
 

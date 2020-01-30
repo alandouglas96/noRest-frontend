@@ -7,7 +7,6 @@ export const FETCH_USER_APIS = 'fetch_user_apis';
 
 export const fetchUser = () => async dispatch => {
   const token = localStorage.getItem('token');
-  // console.log('LocalStorage', token)
   dispatch({ type: FETCH_USER, payload: token});
 };
 
@@ -26,6 +25,7 @@ export const submitApi = (values) => async dispatch => {
   fetch(url, options)
     .then(response => response.json())
     .then(data => console.log(data))
+    .then(() => values.history.push('/userDashboard'))
     .catch(e => {
       console.log('Error on Post Request');
       console.error(e);

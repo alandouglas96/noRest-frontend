@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import MuiInput from '../MuiFormInput/MuiFormInput';
-import MuiSelect from '../MuiSelect/MuiSelect';
+import FieldTypeSelect from '../MuiSelect/FielTypeSelect';
+import FieldAllowNullSelect from '../MuiSelect/FieldAllowNullSelect'
 import { Button } from '@material-ui/core';
 
 export default ({
@@ -8,16 +9,21 @@ export default ({
     fieldTypeName,
     handleChange,
     handleSelectChange,
+    deleteRow,
     rowId,
     fieldRows,
     error,
     touched
   }) => {
+    console.log('rowID',rowId );
+    console.log('rows',fieldRows.rows );
+
+    
     const [state, setState] = useState(fieldRows.rows[rowId].value)
     function handleOnChange (e) {
-      console.log('state',state)
       setState(e.target.value)
     }
+    
    return (
     <div className="flex">
       <MuiInput
@@ -29,24 +35,37 @@ export default ({
         handelOnChange={handleOnChange}
         error={error}
         touched={touched}
+        key={`${rowId}`}
       />
       <div style={{width:'10px'}}></div>
-      <MuiSelect
+      <FieldTypeSelect
         value = {fieldRows.rows[rowId].valueType}
         handleChange={handleSelectChange}
         name={fieldTypeName}
-        component={MuiSelect}
+        component={FieldTypeSelect}
         rowId={rowId}
+        key={`${rowId}2`}
       />
       <div style={{width:'10px'}}></div>
-      <Button 
-            variant="contained"
-            color="secondary"
-            style={{maxHeight: '40px', minHeight: '40px'}}
-            size="small"
-            >
+      <FieldAllowNullSelect
+        value = {fieldRows.rows[rowId].allowNull}
+        handleChange={handleSelectChange}
+        name={fieldTypeName}
+        component={FieldTypeSelect}
+        rowId={rowId}
+        key={`${rowId}3`}
+      />
+      <div style={{width:'10px'}}></div>
+        <Button 
+          onClick={(e) => deleteRow(e, rowId)}
+          variant="contained"
+          color="secondary"
+          style={{maxHeight: '40px', minHeight: '40px'}}
+          size="small"
+          key={`${rowId}4`}
+          >
             Remove
-          </Button>
+        </Button>
     </div>
    )
   }

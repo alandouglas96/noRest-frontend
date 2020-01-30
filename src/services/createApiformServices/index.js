@@ -12,7 +12,7 @@ export const handleApiSubmit = (e, fieldRows, apiName, submitApi, isPublic ) => 
     .push({
       field_name: row.value,
       field_type: row.valueType,
-      allow_null: false,
+      allow_null: row.allowNull,
       default_value: '',
     })
   });

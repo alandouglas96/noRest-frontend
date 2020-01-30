@@ -3,6 +3,7 @@ import { TextField, Button } from '@material-ui/core';
 import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import * as actions from '../../../actions';
+import Grid from '@material-ui/core/Grid';
 
 import './style.css';
 
@@ -13,15 +14,19 @@ const initialState = {
 export const Login = (props) => {
   const [state, setState] = useState(initialState);
 
-  function handleChange(e) {
-    setState({
-      ...state,
-      [e.target.name]: e.target.value
-    })
+  function handleChange(event) {
+    if (event.keyCode===13) {
+      handleSubmit()
+      
+    } else {
+      setState({
+        ...state,
+        [event.target.name]: event.target.value
+      })
+    }
   }
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  function handleSubmit() {
     const url = `${process.env.REACT_APP_BACKEND_URL}/webapp/login`;
     const options = {
       method: 'POST',
@@ -44,39 +49,60 @@ export const Login = (props) => {
   }
 
   return (
-    <div className="flex-column align-center box">
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit} className="loginContainer flex-column align-center">
-        <div className="minHeight">
-          <TextField
-            label="email"
-            name="email"
-            onChange={handleChange}
-            value={state.email}
-            size="small"
-            variant="outlined"
-          />
-        </div>
-        <div className="minHeight">
-          <TextField
-            label="password"
-            name="password"
-            onChange={handleChange}
-            type='password'
-            value={state.password}
-            size="small"
-            variant="outlined"
-          />
-        </div>
-        <Button variant="outlined" color="primary" onClick={handleSubmit}>Login</Button>
+    <div className="smallBox">
+      <form>
+        <Grid
+          container
+          direction="column"
+          justify="flex-start"
+          alignItems="center"
+          spacing={2}
+        >
+          <Grid item xs={12}>
+          <div className="boldTitle">Login</div>
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="email"
+              name="email"
+              onChange={handleChange}
+              value={state.email}
+              size="small"
+              variant="outlined"
+              onKeyUp={handleChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              label="password"
+              name="password"
+              onChange={handleChange}
+              type='password'
+              value={state.password}
+              size="small"
+              variant="outlined"
+              onKeyUp={handleChange}
+            />
+            <div className="alignRight">
+              <a href='/login'>Forgot your password?</a>
+            </div>
+          </Grid> 
+          <Grid item xs={10}>
+            <Button variant="contained" color="primary" onClick={handleSubmit}>Login</Button>
+          </Grid>
+          <Grid item xs={12}>
+            Don't have an Account?
+          </Grid>
+          <Grid item xs={10}>
+            <Link to="/signUp">
+              <Button variant="contained" color="secondary">Sign Up</Button>
+            </Link>
+          </Grid>
+        </Grid>
       </form>
-      <div className="flex-column align-center box">Don't you have an account?
-        <div style={{height: '10px'}}></div>
-        <Link to="/signUp">
-         <Button variant="outlined" color="primary">Sign Up</Button>
-        </Link>
-      </div>
     </div>
+      
+    
   )
 }
 

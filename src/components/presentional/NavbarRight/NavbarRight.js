@@ -25,11 +25,11 @@ function NavBarRight (props) {
     return (
       <div className="NavBarItem flex">
         <Link to="/login">
-         <Button variant="outlined" color="primary">Login</Button>
+         <Button variant="contained" color="primary">Login</Button>
         </Link>
         <div style={{width: '10px'}}></div>
         <Link to="/signUp">
-         <Button variant="outlined" color="primary">Sign Up</Button>
+         <Button variant="contained" color="secondary">Sign Up</Button>
         </Link>
       </div>
     )
@@ -46,8 +46,11 @@ function NavBarRight (props) {
   }
 }
 function mapStateToProps({ auth }) {
+<<<<<<< HEAD
   // console.log('Auth->>>>>>>>>>>>>>', auth);
 
+=======
+>>>>>>> Feat: in styling
   return { auth };
 }
 
