@@ -31,7 +31,6 @@ function NavBarLeft (props) {
 
 
 function mapStateToProps({ auth }) {
-  // console.log('Auth->>>>>>>>>>>>>>', auth);
   return { auth };
 }
 
