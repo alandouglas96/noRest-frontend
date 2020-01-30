@@ -25,6 +25,7 @@ export const submitApi = (values) => async dispatch => {
   fetch(url, options)
     .then(response => response.json())
     .then(data => console.log(data))
+    .then(() => values.history.push('/userDashboard'))
     .catch(e => {
       console.log('Error on Post Request');
       console.error(e);
