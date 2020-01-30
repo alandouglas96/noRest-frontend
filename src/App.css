@@ -59,17 +59,18 @@
 .minHeight {
   min-height: 30px;
 }
-.container{
+.container {
   display: flex;
   flex-direction: column;
   width: 100vw;
   max-width: 100vw;
   background-color:  rgb(240, 240, 240);
-
-
+  min-height: 100vh;
+  position: relative;
+  
 }
 .NavBar {
-  height: 80px;
+  min-height: 80px;
   max-height: 80px;
   background-color: rgb(255, 255, 255);
   width: 100%;
@@ -101,6 +102,8 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  
+  min-height: 100%;
 }
 
 a { text-decoration: none; }
@@ -134,10 +137,10 @@ html {
 
 .smallBox {
   background-color: #FFFFFF;
-  width:20%;
+  width:15%;
   margin:20px;
-  padding:20px;
-  min-width: 200px;
+  padding:30px;
+  min-width: 180px;
 }
 
 a {
@@ -146,4 +149,11 @@ a {
 
 .alignRight{
   text-align: end;
+}
+
+.errorText {
+  color: red;
+  font-size: 10px;
+  height: 20px;
+  margin-left: 10px;
 }

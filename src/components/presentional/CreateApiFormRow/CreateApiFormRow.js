@@ -9,16 +9,21 @@ export default ({
     fieldTypeName,
     handleChange,
     handleSelectChange,
+    deleteRow,
     rowId,
     fieldRows,
     error,
     touched
   }) => {
+    console.log('rowID',rowId );
+    console.log('rows',fieldRows.rows );
+
+    
     const [state, setState] = useState(fieldRows.rows[rowId].value)
     function handleOnChange (e) {
-      console.log('state',state)
       setState(e.target.value)
     }
+    
    return (
     <div className="flex">
       <MuiInput
@@ -30,6 +35,7 @@ export default ({
         handelOnChange={handleOnChange}
         error={error}
         touched={touched}
+        key={`${rowId}`}
       />
       <div style={{width:'10px'}}></div>
       <FieldTypeSelect
@@ -38,6 +44,7 @@ export default ({
         name={fieldTypeName}
         component={FieldTypeSelect}
         rowId={rowId}
+        key={`${rowId}2`}
       />
       <div style={{width:'10px'}}></div>
       <FieldAllowNullSelect
@@ -46,16 +53,19 @@ export default ({
         name={fieldTypeName}
         component={FieldTypeSelect}
         rowId={rowId}
+        key={`${rowId}3`}
       />
       <div style={{width:'10px'}}></div>
-      <Button 
-            variant="contained"
-            color="secondary"
-            style={{maxHeight: '40px', minHeight: '40px'}}
-            size="small"
-            >
+        <Button 
+          onClick={(e) => deleteRow(e, rowId)}
+          variant="contained"
+          color="secondary"
+          style={{maxHeight: '40px', minHeight: '40px'}}
+          size="small"
+          key={`${rowId}4`}
+          >
             Remove
-          </Button>
+        </Button>
     </div>
    )
   }

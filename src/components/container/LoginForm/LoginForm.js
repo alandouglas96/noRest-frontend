@@ -84,7 +84,7 @@ export const Login = (props) => {
               onKeyUp={handleChange}
             />
             <div className="alignRight">
-              <a href=''>Forgot your password?</a>
+              <a href='/login'>Forgot your password?</a>
             </div>
           </Grid> 
           <Grid item xs={10}>

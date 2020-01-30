@@ -46,8 +46,11 @@ function NavBarRight (props) {
   }
 }
 function mapStateToProps({ auth }) {
+<<<<<<< HEAD
   // console.log('Auth->>>>>>>>>>>>>>', auth);
 
+=======
+>>>>>>> Feat: in styling
   return { auth };
 }
 

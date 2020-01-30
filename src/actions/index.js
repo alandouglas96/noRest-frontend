@@ -7,7 +7,6 @@ export const FETCH_USER_APIS = 'fetch_user_apis';
 
 export const fetchUser = () => async dispatch => {
   const token = localStorage.getItem('token');
-  // console.log('LocalStorage', token)
   dispatch({ type: FETCH_USER, payload: token});
 };
 

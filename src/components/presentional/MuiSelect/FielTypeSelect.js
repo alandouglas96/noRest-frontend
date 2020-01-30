@@ -38,6 +38,7 @@ export default ({ value, handleChange, rowId
           id="demo-simple-select-outlined"
           value={value}
           labelWidth={labelWidth}
+          key={`3-${rowId}`}
         >
           <MenuItem id={1} value={"String"}>String</MenuItem>
           <MenuItem id={2}value={"Number"}>Number</MenuItem>

@@ -1,6 +1,5 @@
 import React, {useEffect} from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import logo from './logo.svg';
 import './App.css';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
@@ -24,17 +23,13 @@ const theme = createMuiTheme({
     primary: { main: '#6eabfb', contrastText: "white" },
     secondary: { main: '#fb6e6e', contrastText: "white" }
     },
-  shadows: ["none"],
-  overrides: {
-    MuiButton: {
-      raisedPrimary: {
-        color: 'white',
-      },
-    },
-  }
-
-  },
-)
+    props: {
+      MuiButton: {
+        disableElevation: true,
+        color: 'white'
+      }
+    }
+  })
 
 if (process.env.NODE_ENV === 'development') {
   require('dotenv').config();
@@ -62,9 +57,9 @@ function App({fetchUser}) {
               <Route exact path="/apiDetails/edit/:apiName" component={ApiEdit} />
               <Route exact path="/apiDetails/docs/:apiName" component={ApiDocs} />
             </Switch>
+     
           </div>
         </div>
-        <Footer/>
       </BrowserRouter>
     </MuiThemeProvider>
   );

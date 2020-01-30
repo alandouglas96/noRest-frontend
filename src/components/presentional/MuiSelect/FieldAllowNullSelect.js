@@ -38,6 +38,7 @@ export default ({ value, handleChange, rowId
           id="demo-simple-select-outlined"
           value={value}
           labelWidth={labelWidth}
+      
         >
           <MenuItem id={1} value={true}>Yes</MenuItem>
           <MenuItem id={2} value={false}>No</MenuItem>
