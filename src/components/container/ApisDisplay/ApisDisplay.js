@@ -4,15 +4,15 @@ import { Button } from "@material-ui/core";
 import ApiCard from "../../presentional/ApiCard/ApiCard";
 // import jwt from 'jsonwebtoken';
 import { connect } from "react-redux";
-import { fetchUserApisAction } from "../../../actions/";
+// import { fetchUserApisAction } from "../../../actions/";
 
 import "./style.css";
 
 const ApisDisplay = props => {
-  const { fetchUserApis } = props;
-  useEffect(() => {
-    fetchUserApis();
-  }, [fetchUserApis]);
+  // const { fetchUserApis } = props;
+  // useEffect(() => {
+  //   fetchUserApis();
+  // }, [fetchUserApis]);
 
   return (
     <>
@@ -53,9 +53,9 @@ const mapStateToProps = state => ({
   userApis: state.userApis
 });
 
-const mapDispatchToProps = dispatch => ({
-  // Map your dispatch actions
-  fetchUserApis: () => dispatch(fetchUserApisAction())
-});
+// const mapDispatchToProps = dispatch => ({
+//   // Map your dispatch actions
+//   fetchUserApis: () => dispatch(fetchUserApisAction())
+// });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ApisDisplay);
+export default connect(mapStateToProps, null)(ApisDisplay);
