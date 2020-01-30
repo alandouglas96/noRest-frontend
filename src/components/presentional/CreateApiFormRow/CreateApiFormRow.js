@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import MuiInput from '../MuiFormInput/MuiFormInput';
-import MuiSelect from '../MuiSelect/MuiSelect';
+import FieldTypeSelect from '../MuiSelect/FielTypeSelect';
+import FieldAllowNullSelect from '../MuiSelect/FieldAllowNullSelect'
 import { Button } from '@material-ui/core';
 
 export default ({
@@ -31,11 +32,19 @@ export default ({
         touched={touched}
       />
       <div style={{width:'10px'}}></div>
-      <MuiSelect
+      <FieldTypeSelect
         value = {fieldRows.rows[rowId].valueType}
         handleChange={handleSelectChange}
         name={fieldTypeName}
-        component={MuiSelect}
+        component={FieldTypeSelect}
+        rowId={rowId}
+      />
+      <div style={{width:'10px'}}></div>
+      <FieldAllowNullSelect
+        value = {fieldRows.rows[rowId].allowNull}
+        handleChange={handleSelectChange}
+        name={fieldTypeName}
+        component={FieldTypeSelect}
         rowId={rowId}
       />
       <div style={{width:'10px'}}></div>

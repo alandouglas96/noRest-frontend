@@ -32,7 +32,7 @@ export default ({label, handleChange, rowId, handelOnChange, error, touched}
   console.log('Touched--->', touched)
   return (
   <div className="minHeight">
-    <FormControl variant="outlined" className={classes.formControl} style={{minWidth: 130}}>
+    <FormControl variant="outlined" style={{minWidth: 130}}>
       <TextField size="small" autoComplete='off' id="outlined-basic"  variant="outlined"
       label={label}
       onChange={handelOnChange}

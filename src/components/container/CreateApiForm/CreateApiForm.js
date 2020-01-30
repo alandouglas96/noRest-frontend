@@ -24,7 +24,8 @@ function CreateApiForm ({submitApi})  {
         valueType: 'String',
         error: '',
         touch: false,
-        value: ''
+        value: '',
+        allowNull: true
       }
     }}
 
@@ -41,7 +42,8 @@ function CreateApiForm ({submitApi})  {
           valueType: 'String',
           error: '',
           touch: false,
-          value: ''
+          value: '',
+          allowNull: true
           }
         }
       }
@@ -53,6 +55,18 @@ function CreateApiForm ({submitApi})  {
           [action.payload.rowId]: {
             ...fieldRows.rows[action.payload.rowId],
             [action.payload.inputName]: action.payload.value,
+            touched: true,
+          }
+        }
+      }
+      case 'SET_ALLOW_NULL_ROW': 
+      return  {
+        rows:
+        {
+          ...fieldRows.rows,
+          [action.payload.rowId]: {
+            ...fieldRows.rows[action.payload.rowId],
+            allowNull: action.payload.value,
             touched: true,
           }
         }
@@ -111,6 +125,12 @@ function CreateApiForm ({submitApi})  {
       dispatch({type: 'SET_SELECT_ROW', payload: {value: event.target.value, inputName, rowId}})
     
     }
+    function handleAllowNullChange (event, inputName, rowId, type) {
+      console.log('ALLOW NULL', event.target.value)
+      dispatch({type: 'SET_ALLOW_NULL_ROW', payload: {value: event.target.value, inputName, rowId}})
+    
+    }
+    
 
     function handleChange (event, inputName, rowId, type) {
       let error='';
@@ -174,6 +194,7 @@ function CreateApiForm ({submitApi})  {
             handleSelectChange={handleSelectChange}
             fieldTypeName={`fielTypeName${rowKey}`}
             fieldName={`fieldName${rowKey}`}
+            fieldAllowName={`fielTypeName${rowKey}`}
             rowId= {rowKey}
             key= {rowKey}
             fieldRows = {fieldRows}
@@ -187,7 +208,8 @@ function CreateApiForm ({submitApi})  {
         <div className="flex add-row">
           <div>
           <Button
-            variant="outlined"
+            size="small"
+            variant="contained"
             color="primary"
             onClick={() => addFormRow(fieldRows)}>Add Row
             

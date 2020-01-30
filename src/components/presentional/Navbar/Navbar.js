@@ -9,10 +9,8 @@ function NavBar (props) {
 
   return (
     <div className="NavBar">
-      <div className="NavBarWidt">
         <NavBarLeft/>
         <NavBarRight/>
-      </div>
     </div>
   )
 }
