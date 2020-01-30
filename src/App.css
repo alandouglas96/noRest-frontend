@@ -55,7 +55,13 @@
 .align-center {
   align-items: center;
 }
+.justify-left {
+  justify-content: left;
+}
 
+.align-left {
+  align-items: flex-start;
+}
 .minHeight {
   min-height: 30px;
 }

@@ -44,8 +44,6 @@ function NavBarRight (props) {
           </Link>
         </div>
       )
-
-
   }
 }
 function mapStateToProps({ auth }) {

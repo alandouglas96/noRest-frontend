@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Button, TextField } from '@material-ui/core';
 import { Link } from 'react-router-dom';
 import UserDashBoard from '../UserDashboard/UserDashboard'
+import ShowMoreLandingPage from '../ShowMoreLandingPage'
 
 import './style.css';
 
@@ -57,7 +58,8 @@ function LandingPage (props) {
         </div>
       </div>
     </div>
-    <div className="box flex justify-center" style={{background:'transparent', marginTop: '0px', paddingTop: '0px'}}>{ showMoreState ? <div className="bigTitle"> Create Your own APIs, serverless.</div> : <Button onClick={toggleLearnMore}>Learn More</Button>}</div>
+    <div className=" flex justify-center" style={{background:'transparent', marginTop: '0px', paddingTop: '0px'}}>{ showMoreState ? null : <Button onClick={toggleLearnMore}>Learn More</Button>}</div>
+    {showMoreState ? <ShowMoreLandingPage/> : null}
     </>
   
   )
