@@ -11,27 +11,27 @@ const ApisDisplay = props => {
 
   return (
     <>
-    <div className="flex-column">
+    <div className="flex-column align-center">
+      { props.userApis.userApis.length ? null :
+          <div className="no-apis">No APIs yet. Why don't you create one?</div>
+        }
       <div className="ApiDisplay">
-        {props.userApis.userApis.length ? (
+        {
+          props.userApis.userApis.length ? (
           props.userApis.userApis.map(el => (
             <ApiCard apiInfo={el} key={el._id} />
           ))
-        ) : (
-          <div className="no-apis">No APIs yet. Why don't you create one?</div>
-        )}
+        ) : null
+        }
         <div className="ApiDisplay-CreateApi">
           <span className="ApiDisplay-CreateApi-title">Create a new API</span>
           <Link to="/createApi">
             <Button
-              size="large"
+              
+              color="primary"
               variant="contained"
               style={{
-                    color: "white",
-                    backgroundColor: "#BCDE5F",
-                    fontWeight: "400",
                     width: "150px",
-                    height: "40px"
                   }}
               >
               Do it!
