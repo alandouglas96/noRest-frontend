@@ -1,42 +1,40 @@
 import React from "react";
 import { connect } from 'react-redux';
-import { fetchSingleApiAction } from "../../../actions/";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import ApiDataTable from "../../presentional/ApiDataTable/";
 import "./style.css";
 
 const ApiDetails = (props) => {
-
   const { userApis } = props;
   const apiName = props.match.params.apiName;
   const currentApi = userApis.find(api => api.api_name === apiName)
 
   if (!currentApi) return null;
 
+
   return (
     <>
-      
       <div className=" box">
       <div className="bigTitle">API DETAILS</div>
         <div className="ApiDetails-head">
           <div className="ApiDetails-head-item ApiDetails-head-name">
-            {currentApi.api_name}
+          {currentApi.api_name}
           </div>
           <div className="ApiDetails-head-item ApiDetails-head-endpoint">
             Endpoint:{" "}
             <span className="ApiDetails-head-endpoint-span">
-              https://no-rest.heroku.com/{currentApi.api_name}
+              https://no-rest-api.herokuapp.com/api/{currentApi.api_name}
             </span>
           </div>
           <div className="ApiDetails-head-item">
-            <Link to={`/apiDetails/docs/${currentApi.api_name}`}>
+          <Link to={`/apiDetails/docs/${currentApi.api_name}`}>
               <Button
                 size="small"
                 variant="contained"
                 style={{
                   color: "white",
-                  backgroundColor: "#175999",
+                  backgroundColor: "#E85F48",
                   width: "150px",
                   height: "40px"
                 }}
@@ -46,7 +44,7 @@ const ApiDetails = (props) => {
             </Link>
           </div>
           <div className="ApiDetails-head-item">
-            <Link to={`/apiDetails/edit/${currentApi.api_name}`}>
+            <Link to={`/apiDetails/edit/${apiName}`}>
               <Button
                 size="small"
                 variant="contained"
@@ -87,7 +85,7 @@ const ApiDetails = (props) => {
             </span>
           </div>
           <div className="ApiDetails-apiMethods-method">
-            <div className="ApiDetails-apiMethods-method-name">POST</div>
+          <div className="ApiDetails-apiMethods-method-name">POST</div>
             <span className="ApiDetails-apiMethods-method-span">
               Send in the body a JSON Object which will be input in the DB
             </span>
@@ -112,7 +110,7 @@ const ApiDetails = (props) => {
               API KEY :
             </span>
             <span className="ApiDetails-apiCredentials-item-content">
-              {currentApi.api_key}
+            {currentApi.api_key}
             </span>
           </div>
           <div className="ApiDetails-apiCredentials-item">
@@ -130,13 +128,8 @@ const ApiDetails = (props) => {
 };
 
 const mapStateToProps = state => ({
-  userApis: state.userApis.userApis,
-  currentApi: state.userApis.singleApi
+  userApis: state.userApis.userApis
 });
 
-const mapDispatchToProps = dispatch => ({
-  fetchSingleApi: (apiName) => dispatch(fetchSingleApiAction(apiName))
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ApiDetails);
+export default connect(mapStateToProps, null)(ApiDetails);
 
