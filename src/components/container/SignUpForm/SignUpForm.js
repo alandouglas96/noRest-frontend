@@ -35,16 +35,20 @@ const SignUpForm  = (props) => {
     };
 
     fetch(url, options)
-    // if its not ok display a window alert with the error.
-    .then(response => { 
-      if (response.status !== 200) response.json().then(result => window.alert(result.error));
-      return response;
+    .then(response => {
+      if (response.status !== 200) {
+        response.json().then(result => window.alert(result.error));
+        throw new Error('bypass');
+      }
+      else return response;
     })
     .then(res => res.json())
     .then(body => localStorage.setItem('token', body.token))
     .then(()=> props.fetchUser())
     .then(()=> props.history.push('/'))
-    .catch(error => console.error('Error on Post Request Sign Up', error));
+    .catch(error => {
+      if (error.message !== 'bypass') console.error('Error in fetch SignUp:', error);
+    });
   }
 
   return (

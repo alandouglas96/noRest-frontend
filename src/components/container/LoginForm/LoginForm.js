@@ -35,15 +35,18 @@ export const Login = (props) => {
 
     fetch(url, options)
     .then(response => {
-      // if its not ok display a window alert with the error.
-      if (response.status !== 200) response.json().then(result => window.alert(result.error));
-      return response;
+      if (response.status !== 200) {
+        response.json().then(result => window.alert(result.error));
+        throw new Error('bypass');
+      } else return response;
     })
     .then(res => res.json())
     .then(body => localStorage.setItem('token', body.token))
     .then(()=> props.fetchUser())
     .then(() => props.history.push('/userDashboard'))
-    .catch(error => console.error('Error in fetch Login:', error));
+    .catch(error => {
+      if (error.message !== 'bypass') console.error('Error in fetch Login:', error);
+    });
   }
 
   return (

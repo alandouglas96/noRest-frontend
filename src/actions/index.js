@@ -23,13 +23,19 @@ export const submitApi = (values, history) => async dispatch => {
     },
     body: JSON.stringify(values)
   };
+
   fetch(url, options)
-    .then(response => response.json())
+    .then(response => {
+      if (response.status !== 200 && response.status !== 201) {
+        response.json().then(result => window.alert(result.error));
+        throw new Error('bypass');
+      } else return response;
+    })
+    .then(res => res.json())
     .then(data => console.log('HERE IN FETCH', data))
     .then(() => history.push('/userDashboard'))
-    .catch(e => {
-      console.log('Error on Post Request');
-      console.error(e);
+    .catch(error => {
+      if (error.message !== 'bypass') console.error('Error in submitting create API:', error);
     });
 }
 
@@ -48,9 +54,17 @@ export const fetchUserApisAction = () => async dispatch =>{
       }
     };
     fetch(url, options)
-    .then(response => response.json())
+    .then(response => {
+      if (response.status !== 200 && response.status !== 204 ) {
+        response.json().then(result => window.alert(result.error));
+        throw new Error('bypass');
+      } else return response;
+    })
+    .then(res => res.json())
     .then(data => dispatch({ type: FETCH_USER_APIS, payload: data}))
-    .catch(error => console.error(error));
+    .catch(error => {
+      if (error.message !== 'bypass') console.error('Error fetching user APIs:', error);
+    });
   }
 }
 
