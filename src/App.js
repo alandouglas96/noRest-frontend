@@ -35,12 +35,19 @@ if (process.env.NODE_ENV === 'development') {
   require('dotenv').config();
 }
 
+// const RoutePrivate = (props) => {
+//   {props.isLoggedIn 
+//     ? <Route {...props} />
+//     : <Error404 />
+//   }
+// }
+
 function App({fetchUser}) {
 
   useEffect( () => {
     fetchUser();
   },[fetchUser])
-
+ 
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
@@ -48,6 +55,7 @@ function App({fetchUser}) {
           <NavBar/>
           <div className="dashboard">
             <Switch>
+              {/* <RoutePrivate exact path="/" component={LandingPage} /> */}
               <Route exact path="/" component={LandingPage} />
               <Route exact path="/signUp" component={SignUpForm} />
               <Route exact path="/login" component={Login} />
@@ -57,7 +65,7 @@ function App({fetchUser}) {
               <Route exact path="/apiDetails/edit/:apiName" component={ApiEdit} />
               <Route exact path="/apiDetails/docs/:apiName" component={ApiDocs} />
             </Switch>
-     
+            <Footer/>
           </div>
         </div>
       </BrowserRouter>

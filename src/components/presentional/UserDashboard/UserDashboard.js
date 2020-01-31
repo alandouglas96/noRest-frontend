@@ -8,7 +8,7 @@ const UserDashboard = () => {
   return (
     <>
     {/*<div className="box flex-column align-center">*/}
-    <div className="userDashboard-box">
+    <div className="box">
       <div className='userDashboard-header'>
         <span className='userDashboard-header-item'>Your APIs</span>
         <span className='userDashboard-header-item'>Account Settings</span>

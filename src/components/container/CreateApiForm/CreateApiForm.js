@@ -14,7 +14,7 @@ import {handleApiSubmit} from '../../../services/createApiformServices'
 
 import './style.css';
 
-function CreateApiForm ({submitApi})  {
+function CreateApiForm ({submitApi, history})  {
   const [numberOfFields, setNumerOfFields] = useState(1);
 
   const FIELD_ROWS_INITIAL_STATE = {
@@ -24,7 +24,8 @@ function CreateApiForm ({submitApi})  {
         error: '',
         touch: false,
         value: '',
-        allowNull: true
+        allowNull: true,
+        description: ''
       }
     }}
 
@@ -42,7 +43,8 @@ function CreateApiForm ({submitApi})  {
           error: '',
           touch: false,
           value: '',
-          allowNull: true
+          allowNull: true,
+          description: ''
           }
         }
       }
@@ -117,6 +119,10 @@ function CreateApiForm ({submitApi})  {
     value:'',
     error:'',
   })
+  const [description, setDescription] = useState({
+    value:'',
+    error:'',
+  })
 
 
     const handleIsPublicChange =  (event) => {
@@ -128,6 +134,14 @@ function CreateApiForm ({submitApi})  {
       console.log(apiName)
       setApiName({
         ...apiName,
+        value: event.target.value,
+      })
+    }
+
+    function handleDescriptionChange (event) {
+      console.log(description)
+      setDescription({
+        ...description,
         value: event.target.value,
       })
     }
@@ -166,7 +180,9 @@ function CreateApiForm ({submitApi})  {
   }
 
   return (
-    <div className="CreateApiForm-container">
+    
+    <div className="box">
+    <form onSubmit={(e) => handleApiSubmit(e, fieldRows, apiName, submitApi, isPublicState, history, description )}>
       <div className="CreateApiForm-title1">Create your own RESTful API</div>
       <div className="CreateApiForm-title2">API Name</div>
       <div className="flex align-center">
@@ -176,20 +192,32 @@ function CreateApiForm ({submitApi})  {
           name="Api Name"
           label="Api Name"
           value={apiName.value}
+          required
         />
         <div className="flex align-center">
           <div className="CreateApiForm-title3" style={{marginRight:'20px', marginLeft:'40px'}}>Your endpoint: </div>
           <div>https://no-rest.herokuapp.com/{ apiName.value}</div>
         </div>
-       
       </div>
       <div className="errorText">{apiName.error}</div>
 
-      
+      <div className="flex align-center">
+        <TextField variant="outlined" size="small"
+          onChange={handleDescriptionChange}
+          name="Description"
+          label="Description"
+          value={description.value}
+          required
+        />
+        <div className="flex align-center">
+          <div className="CreateApiForm-title3" style={{marginRight:'20px', marginLeft:'40px'}}>Your endpoint: </div>
+          <div>https://no-rest.herokuapp.com/{ apiName.value}</div>
+        </div>
+      </div>
+
         <div className="CreateApiForm-title2" style={{marginTop: '10px'}}>Privacy</div>
         <div className="flex">
           <IsPublicSelect value={isPublicState} handleChange={handleIsPublicChange}></IsPublicSelect>
-           
             <div className="flex-column">
               <div className="flex align-center">
                 <div className="CreateApiForm-title3" style={{marginRight:'20px', marginLeft:'40px'}}>Public:</div>
@@ -202,13 +230,12 @@ function CreateApiForm ({submitApi})  {
             </div>
         </div>
         <div className="CreateApiForm-title2">Describe your collection</div>
-      <div className="flex-column align-center">
-      <form onSubmit={(e) => handleApiSubmit(e, fieldRows, apiName, submitApi, isPublicState )}>
+      <div className="flex-column">
+      
         <div className="flex-column">
         {_.map(fieldRows.rows,(row, rowKey) => {
           console.log(rowKey)
           return (
-            
           <FieldRow 
             handleChange={handleChange}
             handleSelectChange={handleSelectChange}
@@ -222,10 +249,9 @@ function CreateApiForm ({submitApi})  {
             error= {row.error}
             touched = {row.touched}
           />
-          
         )})}
         </div>
-        <div className="flex justify-center">
+        <div className="flex">
           <div>
           <Button
             size="small"
@@ -238,8 +264,8 @@ function CreateApiForm ({submitApi})  {
         <div className="flex justify-center" style={{paddingTop: '50px'}}>
           <Button variant="contained" color="primary" type="submit" style={{maxWidth: '300px', maxHeight: '40px', minWidth: '300px', minHeight: '40px'}}>Submit</Button>
         </div>
-      </form>
       </div>
+      </form>
     </div>
   )
 }

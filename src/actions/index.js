@@ -10,7 +10,7 @@ export const fetchUser = () => async dispatch => {
   dispatch({ type: FETCH_USER, payload: token});
 };
 
-export const submitApi = (values) => async dispatch => {
+export const submitApi = (values, history) => async dispatch => {
   const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/api`;
   const token = localStorage.token;
   const options = {
@@ -24,8 +24,8 @@ export const submitApi = (values) => async dispatch => {
   };
   fetch(url, options)
     .then(response => response.json())
-    .then(data => console.log(data))
-    .then(() => values.history.push('/userDashboard'))
+    .then(data => console.log('HERE IN FETCH', data))
+    .then(() => history.push('/userDashboard'))
     .catch(e => {
       console.log('Error on Post Request');
       console.error(e);
@@ -35,8 +35,9 @@ export const submitApi = (values) => async dispatch => {
 export const fetchUserApisAction = () => async dispatch =>{
   const token = localStorage.token;
   const { id } = jwt.decode(token); // userId
-
+  console.log('FETCHING_____________<')
   const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/api/user/${id}`;
+  console.log(url);
   const options = {
     method: 'GET',
     headers: {
@@ -47,7 +48,10 @@ export const fetchUserApisAction = () => async dispatch =>{
   };
   fetch(url, options)
     .then(response => response.json())
-    .then(data => dispatch({ type: FETCH_USER_APIS, payload: data}))
+    .then(data => {
+      console.log('DATAAAAAa', data)
+      dispatch({ type: FETCH_USER_APIS, payload: data})
+    })
     .catch(error => console.error(error));
 }
 

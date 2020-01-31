@@ -14,6 +14,7 @@ export default ({label, handleChange, rowId, handelOnChange, error}
       onChange={handelOnChange}
       onBlur={(e) => handleChange(e, 'value', rowId, 'input')}
       key={`${rowId}`}
+      required
       //id={`${rowId}9y`}
        />
        <div className="errorText">{error}</div>
