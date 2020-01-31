@@ -41,12 +41,14 @@ const ApiEdit = props => {
   const [state, setState] = useState({status: '', name: '', description: ''});
 
   const handleChange = event => {
+    console.log('EVENT.TARGET   : ', event.target);
     const { name, value } = event.target;
     setState(state => ({...state, [name]: value }));
   };
 
   const onSave = (event) => {
     event.preventDefault();
+    console.log('STATE   : ', state);
     const token = localStorage.token;
 
     const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/api/${currentApi.api_name}`;
@@ -57,16 +59,14 @@ const ApiEdit = props => {
         'Content-Type': 'application/json;charset=UTF-8',
         'Authorization': `Bearer ${token}`
       },
-      body: state
+      body: JSON.stringify(state)
     };
     fetch(url, options)
       .then(response => {
         if (response.status !== 200 && response.status !== 201) {
           response.json().then(result => window.alert(result.error));
-
           throw new Error('bypass');
         } else {
-          console.log('HEREEEE')
           return response;
         }
       })
@@ -158,8 +158,8 @@ const ApiEdit = props => {
                     onChange={handleChange}
                     labelWidth={labelWidth}
                   >
-                    <MenuItem value={true} name='status'>Public</MenuItem>
-                    <MenuItem value={false} name='status'>Private</MenuItem>
+                    <MenuItem value={true} >Public</MenuItem>
+                    <MenuItem value={false} >Private</MenuItem>
                   </Select>
                 </FormControl>
               </div>
