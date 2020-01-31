@@ -34,16 +34,17 @@ const SignUpForm  = (props) => {
       body: JSON.stringify(state)
     };
 
-    console.log(url);  
     fetch(url, options)
-    .then(response => response.json())
+    // if its not ok display a window alert with the error.
+    .then(response => { 
+      if (response.status !== 200) response.json().then(result => window.alert(result.error));
+      return response;
+    })
+    .then(res => res.json())
     .then(body => localStorage.setItem('token', body.token))
     .then(()=> props.fetchUser())
     .then(()=> props.history.push('/'))
-    .catch(e => {
-      console.log('Error on Post Request Sign Up');
-      console.error(e);
-    });
+    .catch(error => console.error('Error on Post Request Sign Up', error));
   }
 
   return (

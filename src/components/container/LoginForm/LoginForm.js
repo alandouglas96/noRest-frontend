@@ -34,14 +34,16 @@ export const Login = (props) => {
     };
 
     fetch(url, options)
-    .then(response => response.json())
+    .then(response => {
+      // if its not ok display a window alert with the error.
+      if (response.status !== 200) response.json().then(result => window.alert(result.error));
+      return response;
+    })
+    .then(res => res.json())
     .then(body => localStorage.setItem('token', body.token))
     .then(()=> props.fetchUser())
     .then(() => props.history.push('/userDashboard'))
-    .catch(e => {
-      console.log('Error on Post Request');
-      console.error(e);
-    });
+    .catch(error => console.error('Error in fetch Login:', error));
   }
 
   return (
