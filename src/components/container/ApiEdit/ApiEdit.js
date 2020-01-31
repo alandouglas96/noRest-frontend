@@ -3,14 +3,14 @@ import './style.css';
 
 
 const ApiEdit = () => {
-  return (
-    <>
-      <h1>EDIT YOUR API HERE</h1>
-      <div className='ApiEdit-test'>
-      <p>Api Edit stufff</p>
-      </div>
-    </>
-  );
+  // return (
+  //   <>
+  //     <h1>EDIT YOUR API HERE</h1>
+  //     <div className='ApiEdit-test'>
+  //     <p>Api Edit stufff</p>
+
+  //   </>
+  // );
 };
 
 export default ApiEdit;

@@ -1,11 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import NavBarRight from '../NavbarRight/NavbarRight'
 import NavBarLeft from '../NavbarLeft/NavbarLeft'
+import { connect } from "react-redux";
+import { fetchUserApisAction } from "../../../actions/";
 
 import './style.css';
 
 
 function NavBar (props) {
+  const { fetchUserApis } = props;
+  useEffect(() => {
+    fetchUserApis();
+  }, [fetchUserApis]);
 
   return (
     <div className="NavBar">
@@ -15,4 +21,13 @@ function NavBar (props) {
   )
 }
 
-export default NavBar;
+const mapStateToProps = state => ({
+  userApis: state.userApis
+});
+
+const mapDispatchToProps = dispatch => ({
+  // Map your dispatch actions
+  fetchUserApis: () => dispatch(fetchUserApisAction())
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavBar);

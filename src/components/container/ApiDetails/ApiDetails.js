@@ -1,5 +1,6 @@
-import React,{ useState, useEffect } from "react";
+import React from "react";
 import { connect } from 'react-redux';
+import { fetchSingleApiAction } from "../../../actions/";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import ApiDataTable from "../../presentional/ApiDataTable/";
@@ -7,25 +8,11 @@ import "./style.css";
 
 const ApiDetails = (props) => {
 
-  // const { userApis } = props;
-
-  useEffect(() => {
-
-  }, []);
-
-  // function getApi () {
-  //   // if () {
-
-  //   }
-  // }
+  const { userApis } = props;
   const apiName = props.match.params.apiName;
-  // const currentApiHere = apis[0];
+  const currentApi = userApis.find(api => api.api_name === apiName)
 
-  // console.log('CURRENT API  HERE ' ,currentApiHere)
-  // console.log('PROPSSSSS   ', props)
-  // console.log('apis  ', apis);
-
-  // FETCH THE API WITH THIS NAME?? OR GET IT FROM REDUX
+  if (!currentApi) return null;
 
   return (
     <>
@@ -34,32 +21,16 @@ const ApiDetails = (props) => {
       <div className="bigTitle">API DETAILS</div>
         <div className="ApiDetails-head">
           <div className="ApiDetails-head-item ApiDetails-head-name">
-            {apiName}
+            {currentApi.api_name}
           </div>
           <div className="ApiDetails-head-item ApiDetails-head-endpoint">
             Endpoint:{" "}
             <span className="ApiDetails-head-endpoint-span">
-              https://no-rest.heroku.com/{apiName}
+              https://no-rest.heroku.com/{currentApi.api_name}
             </span>
           </div>
           <div className="ApiDetails-head-item">
-            <Link to={`/apiDetails/docs/${apiName}`}>
-              <Button
-                size="small"
-                variant="contained"
-                style={{
-                  color: "white",
-                  backgroundColor: "#E85F48",
-                  width: "150px",
-                  height: "40px"
-                }}
-              >
-                <span className="ApiDetails-head-button">DOCS</span>
-              </Button>
-            </Link>
-          </div>
-          <div className="ApiDetails-head-item">
-            <Link to={`/apiDetails/edit/${apiName}`}>
+            <Link to={`/apiDetails/docs/${currentApi.api_name}`}>
               <Button
                 size="small"
                 variant="contained"
@@ -70,17 +41,33 @@ const ApiDetails = (props) => {
                   height: "40px"
                 }}
               >
+                <span className="ApiDetails-head-button">DOCS</span>
+              </Button>
+            </Link>
+          </div>
+          <div className="ApiDetails-head-item">
+            <Link to={`/apiDetails/edit/${currentApi.api_name}`}>
+              <Button
+                size="small"
+                variant="contained"
+                style={{
+                  color: "white",
+                  backgroundColor: "#E85F48",
+                  width: "150px",
+                  height: "40px"
+                }}
+              >
                 <span className="ApiDetails-head-button">EDIT API</span>
               </Button>
             </Link>
           </div>
         </div>
         <div className="ApiDetails-description">
-          DESCRIPTION adsfgñkljnasdgñljnsdgñjansdglkjndsgljknadfsgñkjnasdñgojnsd
+          {currentApi.description}
         </div>
         <div className="ApiDetails-latestData">
           <div className="ApiDetails-title">Latest Data</div>
-          <ApiDataTable api={apiName} />
+          <ApiDataTable api={currentApi.api_name} />
         </div>
         <div className="ApiDetails-apiMethods">
           <div className="ApiDetails-title">Your API Methods</div>
@@ -100,7 +87,7 @@ const ApiDetails = (props) => {
             </span>
           </div>
           <div className="ApiDetails-apiMethods-method">
-            <div className="ApiDetails-apiMethods-method-name">POST</div>{" "}
+            <div className="ApiDetails-apiMethods-method-name">POST</div>
             <span className="ApiDetails-apiMethods-method-span">
               Send in the body a JSON Object which will be input in the DB
             </span>
@@ -125,7 +112,7 @@ const ApiDetails = (props) => {
               API KEY :
             </span>
             <span className="ApiDetails-apiCredentials-item-content">
-              ASLKDKAS3
+              {currentApi.api_key}
             </span>
           </div>
           <div className="ApiDetails-apiCredentials-item">
@@ -133,7 +120,7 @@ const ApiDetails = (props) => {
               API SECRET KEY :
             </span>
             <span className="ApiDetails-apiCredentials-item-content">
-              ASDFJADSGOISDGOJNAA
+            {currentApi.api_secret_key}
             </span>
           </div>
         </div>
@@ -143,8 +130,13 @@ const ApiDetails = (props) => {
 };
 
 const mapStateToProps = state => ({
-  userApis: state.userApis.userApis
+  userApis: state.userApis.userApis,
+  currentApi: state.userApis.singleApi
 });
 
-export default connect(mapStateToProps, null)(ApiDetails);
+const mapDispatchToProps = dispatch => ({
+  fetchSingleApi: (apiName) => dispatch(fetchSingleApiAction(apiName))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ApiDetails);
 
