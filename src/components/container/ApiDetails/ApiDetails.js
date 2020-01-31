@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import { Button, Grid } from "@material-ui/core";
-import ApiDataTable from "../../presentional/ApiDataTable/";
 import "./style.css";
 import BreadCrumb from '../../presentional/breadcrumps/apiDetailsBC';
 import ApiTable from '../ApiTable'
@@ -71,7 +70,7 @@ const ApiDetails = (props) => {
             alignItems="center"
             spacing={2}>
               <Grid item xs={12}>
-              <div className="title2 white-underline">Your API Methods</div>
+                <div className="title2 white-underline">Your API Methods</div>
               </Grid>
               <Grid item xs={2}>
                 <span className="title2">GET</span>
@@ -113,8 +112,11 @@ const ApiDetails = (props) => {
                   Deletes the record with such ID and returns the deleted record
                 </span>
               </Grid>
-          </Grid>
+            </Grid>
           </div>
+          </div>
+          <div style={{marginBottom: '20px'}}>
+            <span className="title2">Fields Structure: </span>
           </div>
           <ApiTable apiFields={currentApi.api_fields}/>
         </div>
