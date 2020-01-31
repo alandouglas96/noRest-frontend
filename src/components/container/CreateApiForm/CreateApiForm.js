@@ -196,7 +196,7 @@ function CreateApiForm ({submitApi, history})  {
         />
         <div className="flex align-center">
           <div className="CreateApiForm-title3" style={{marginRight:'20px', marginLeft:'40px'}}>Your endpoint: </div>
-          <div>https://no-rest.herokuapp.com/{ apiName.value}</div>
+          <div>https://no-rest-api.herokuapp.com/api/{apiName.value}</div>
         </div>
       </div>
       <div className="errorText">{apiName.error}</div>
@@ -208,7 +208,8 @@ function CreateApiForm ({submitApi, history})  {
           label="Description"
           value={description.value}
           required
-          style={{minWidth:'60%'}}
+          multiline={true}
+          style={{width:'700px'}}
         />
        
       </div>
