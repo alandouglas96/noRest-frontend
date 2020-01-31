@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
@@ -28,18 +28,43 @@ const ApiEdit = props => {
   const currentApi = userApis.find(api => api.api_name === apiName);
   let publicVar;
 
+  // STYLE-START
   const classes = useStyles();
-  const [publicState, setPublicState] = useState("");
-
   const inputLabel = React.useRef(10);
   const [labelWidth, setLabelWidth] = React.useState(0);
-  React.useEffect(() => {
+  useEffect(() => {
     setLabelWidth(inputLabel.current.offsetWidth);
+
   }, []);
+  // STYLE-END
+
+  const [state, setState] = useState({status: '', name: '', description: ''});
 
   const handleChange = event => {
-    setPublicState(event.target.value);
+    const { name, value } = event.target;
+    setState(state => ({...state, [name]: value }));
   };
+
+  const onSave = (event) => {
+    event.preventDefault();
+    console.log('STATE   ', state);
+    const token = localStorage.token;
+
+    const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/api/${currentApi.api_name}`;
+    const options = {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json;charset=UTF-8',
+        'Authorization': `Bearer ${token}`
+      },
+      body: state
+    };
+    fetch(url, options)
+      .then(setState({status:'', name: '', description: ''}))
+      .catch(error => console.error(error));
+  }
+
 
   if (!currentApi) return null;
 
@@ -113,17 +138,17 @@ const ApiEdit = props => {
                     ref={inputLabel}
                     id="demo-simple-select-outlined-label"
                   >
-                    Status
+                    {publicVar}
                   </InputLabel>
                   <Select
                     labelId="demo-simple-select-outlined-label"
                     id="demo-simple-select-outlined"
-                    value={publicState}
+                    value={state.public}
                     onChange={handleChange}
                     labelWidth={labelWidth}
                   >
-                    <MenuItem value={"public"}>Public</MenuItem>
-                    <MenuItem value={"private"}>Private</MenuItem>
+                    <MenuItem value={true} name='status'>Public</MenuItem>
+                    <MenuItem value={false} name='status'>Private</MenuItem>
                   </Select>
                 </FormControl>
               </div>
@@ -159,6 +184,7 @@ const ApiEdit = props => {
                   width: "150px",
                   height: "40px"
                 }}
+                onClick={onSave}
               >
                 <span className="ApiEdit-Card-buttons-text">SAVE</span>
               </Button>
@@ -180,7 +206,7 @@ const ApiEdit = props => {
 
             <div className="ApiEdit-Card-content-item">
               <span className="ApiEdit-Card-content-title">New API Name:</span>
-              <input value=""></input>
+              <input type="text" name="name" placeholder="Insert a name..." value={state.name} onChange={handleChange} required></input>
             </div>
 
             <div className="ApiEdit-Card-item">
@@ -213,6 +239,7 @@ const ApiEdit = props => {
                     width: "150px",
                     height: "40px"
                   }}
+                  onClick={onSave}
                 >
                   <span className="ApiEdit-Card-buttons-text">SAVE</span>
                 </Button>
@@ -237,7 +264,7 @@ const ApiEdit = props => {
               <span className="ApiEdit-Card-content-title">
                 New API Description:
               </span>
-              <input value=""></input>
+              <input type="text" name="description" placeholder="Insert description..." value={state.description} onChange={handleChange} required></input>
             </div>
 
             <div className="ApiEdit-Card-buttons">
@@ -252,7 +279,7 @@ const ApiEdit = props => {
                     height: "40px"
                   }}
                 >
-                  <span className="">CANCEL</span>
+                  <span className="ApiEdit-Card-buttons-text">CANCEL</span>
                 </Button>
                 <Button
                   size="small"
@@ -263,8 +290,9 @@ const ApiEdit = props => {
                     width: "150px",
                     height: "40px"
                   }}
+                  onClick={onSave}
                 >
-                  <span className="">SAVE</span>
+                  <span className="ApiEdit-Card-buttons-text">SAVE</span>
                 </Button>
               </div>
             </div>
@@ -303,7 +331,7 @@ const ApiEdit = props => {
                   height: "40px"
                 }}
               >
-                <span className="">GENERATE NEW KEYS</span>
+                <span className="ApiEdit-Card-buttons-text">GENERATE NEW KEYS</span>
               </Button>
             </div>
           </div>
