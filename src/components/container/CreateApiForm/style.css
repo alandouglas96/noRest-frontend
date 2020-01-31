@@ -9,12 +9,7 @@
   
 }
 
-.CreateApiForm-title1 {
-  font-size: 22px;
-  font-weight: 400;
-}
-
-.CreateApiForm-title2 {
+.CreateApiForm-title {
   font-size: 20px;
   font-weight: 600;
   margin-top: 30px;
@@ -25,9 +20,5 @@
   padding-bottom: 10px;
 }
 
-.CreateApiForm-title3 {
-  font-size: 18px;
-  font-weight: 600;
-}
 
 
