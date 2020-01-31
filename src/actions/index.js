@@ -32,8 +32,8 @@ export const submitApi = (values, history) => async dispatch => {
       } else return response;
     })
     .then(res => res.json())
+    .then(data => history.push(`/apiDetails/${data.api_name}`))
     .then(data => console.log('HERE IN FETCH', data))
-    .then(() => history.push('/userDashboard'))
     .catch(error => {
       if (error.message !== 'bypass') console.error('Error in submitting create API:', error);
     });

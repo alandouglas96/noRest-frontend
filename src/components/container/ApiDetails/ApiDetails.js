@@ -5,6 +5,7 @@ import { Button, Grid } from "@material-ui/core";
 import ApiDataTable from "../../presentional/ApiDataTable/";
 import "./style.css";
 import BreadCrumb from '../../presentional/breadcrumps/apiDetailsBC';
+import ApiTable from '../ApiTable'
 
 const ApiDetails = (props) => {
   const { userApis } = props;
@@ -64,58 +65,58 @@ const ApiDetails = (props) => {
         </div>
 
         <div className="flex-column">
-          
-        <div className="ApiDetails-credential-box">
-          <Grid container direction="row"
-          justify="flex-start"
-          alignItems="center"
-          spacing={2}>
-            <Grid item xs={12}>
-            <div className="title2 white-underline">Your API Methods</div>
-            </Grid>
-            <Grid item xs={2}>
-              <span className="title2">GET</span>
-            </Grid>
-            <Grid item xs={10}>
-              <span className="title4">
-                Returns a JSON Object with ALL the data in you database
-              </span>
-            </Grid>
-            <Grid item xs={2}>
-              <span className="title2">GET/field/id</span>
-            </Grid>
-            <Grid item xs={10}>
-              <span className="title4">
-              Returns a JSON Object with all the rows whose #field column value is equal to #name
-              </span>
-            </Grid>
-            <Grid item xs={2}>
-              <span className="title2">PUT/id</span>
-            </Grid>
-            <Grid item xs={10}>
-              <span className="title4">
-                Send in the body a JSON object with the ID to update the record
-              </span>
-            </Grid>
-            <Grid item xs={2}>
-              <span className="title2">POST</span>
-            </Grid>
-            <Grid item xs={10}>
-              <span className="title4">
-                Send in the body a JSON Object which will be input in the DB
-              </span>
-            </Grid>
-            <Grid item xs={2}>
-              <span className="title2">DELETE/id</span>
-            </Grid>
-            <Grid item xs={10}>
-              <span className="title4">
-                Deletes the record with such ID and returns the deleted record
-              </span>
-            </Grid>
-        </Grid>
-        </div>
-        </div>
+          <div className="ApiDetails-credential-box">
+            <Grid container direction="row"
+            justify="flex-start"
+            alignItems="center"
+            spacing={2}>
+              <Grid item xs={12}>
+              <div className="title2 white-underline">Your API Methods</div>
+              </Grid>
+              <Grid item xs={2}>
+                <span className="title2">GET</span>
+              </Grid>
+              <Grid item xs={10}>
+                <span className="title4">
+                  Returns a JSON Object with ALL the data in you database
+                </span>
+              </Grid>
+              <Grid item xs={2}>
+                <span className="title2">GET/field/id</span>
+              </Grid>
+              <Grid item xs={10}>
+                <span className="title4">
+                Returns a JSON Object with all the rows whose #field column value is equal to #name
+                </span>
+              </Grid>
+              <Grid item xs={2}>
+                <span className="title2">PUT/id</span>
+              </Grid>
+              <Grid item xs={10}>
+                <span className="title4">
+                  Send in the body a JSON object with the ID to update the record
+                </span>
+              </Grid>
+              <Grid item xs={2}>
+                <span className="title2">POST</span>
+              </Grid>
+              <Grid item xs={10}>
+                <span className="title4">
+                  Send in the body a JSON Object which will be input in the DB
+                </span>
+              </Grid>
+              <Grid item xs={2}>
+                <span className="title2">DELETE/id</span>
+              </Grid>
+              <Grid item xs={10}>
+                <span className="title4">
+                  Deletes the record with such ID and returns the deleted record
+                </span>
+              </Grid>
+          </Grid>
+          </div>
+          </div>
+          <ApiTable apiFields={currentApi.api_fields}/>
         </div>
       </div>
     </>
