@@ -47,7 +47,6 @@ const ApiEdit = props => {
 
   const onSave = (event) => {
     event.preventDefault();
-    console.log('STATE   ', state);
     const token = localStorage.token;
 
     const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/api/${currentApi.api_name}`;
@@ -61,8 +60,20 @@ const ApiEdit = props => {
       body: state
     };
     fetch(url, options)
+      .then(response => {
+        if (response.status !== 200 && response.status !== 201) {
+          response.json().then(result => window.alert(result.error));
+
+          throw new Error('bypass');
+        } else {
+          console.log('HEREEEE')
+          return response;
+        }
+      })
       .then(setState({status:'', name: '', description: ''}))
-      .catch(error => console.error(error));
+      .catch(error => {
+        if (error.message !== 'bypass') console.error('Error in submitting create API:', error);
+      });
   }
 
 
