@@ -15,16 +15,13 @@ const SignUpForm  = (props) => {
   const [state, setState] = useState(initialState);
 
   function handleChange(event) {
-    if (event.keyCode===13) {
-      handleSubmit()
-    } else {
-      setState({
-        ...state,
-        [event.target.name]: event.target.value
-      })
-    }
+    setState({
+      ...state,
+      [event.target.name]: event.target.value
+    })
   }
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault();
     console.log('STATE', state)
     
     const url = process.env.REACT_APP_BACKEND_URL +'/webapp/signup';
@@ -51,56 +48,60 @@ const SignUpForm  = (props) => {
 
   return (
     <div className="smallBox">
-      <form>
+      <form onSubmit={handleSubmit}>
         <Grid
           container
-          direction="column"
+          direction="row"
           justify="flex-start"
           alignItems="center"
           spacing={2}
         >
-        <Grid item xs={10}>
+        <Grid item xs={12}>
           <div className="boldTitle">Sign Up</div>
         </Grid>
-        <Grid item xs={10}>
+        <Grid item xs={12}>
             <TextField
               label="name"
               name="name"
               onChange={handleChange}
               value={state.name}
-              key={1}
               size="small"
               variant="outlined"
               onKeyUp={handleChange}
+              style={{width: '100%'}}
+              required
             />
           </Grid>
-          <Grid item xs={10}>
+          <Grid item xs={12}>
             <TextField
               label="email"
               name="email"
               onChange={handleChange}
               value={state.email}
-              key={2}
               size="small"
               variant="outlined"
               onKeyUp={handleChange}
+              type="email"
+              style={{width: '100%'}}
+              required
             />
           </Grid>
-          <Grid item xs={10}>
+          <Grid item xs={12}>
             <TextField
               label="password"
               name="password"
               onChange={handleChange}
               type='password'
               value={state.password}
-              key={3}
               size="small"
               variant="outlined"
               onKeyUp={handleChange}
+              style={{width: '100%'}}
+              required
             />
           </Grid>
-          <Grid item xs={10}>
-            <Button variant="contained" color="secondary" onClick={handleSubmit}>Sign Up</Button>
+          <Grid item xs={12}>
+            <Button fullWidth type="submit" variant="contained" color="secondary">Sign Up</Button>
           </Grid>
         </Grid>
       </form>

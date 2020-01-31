@@ -19,6 +19,14 @@ function LandingPage (props) {
     setShowMoreState(!showMoreState);
   }
 
+  function handleEnter (event) {
+    if (event.keyCode===13) {
+      props.history.push({pathname: "/signup" , email: emailState})
+    }  
+    console.log('ENTERED')
+    
+  }
+
   if (props.auth)
   return <UserDashBoard/>
 
@@ -37,6 +45,7 @@ function LandingPage (props) {
               size="small" 
               value= {emailState}
               style={{width: '250px'}}
+              onKeyUp={handleEnter}
               variant="outlined">
             </TextField>
             <div style={{minWidth: '10px'}}></div>

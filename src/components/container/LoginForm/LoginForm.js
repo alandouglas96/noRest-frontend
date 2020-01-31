@@ -15,18 +15,14 @@ export const Login = (props) => {
   const [state, setState] = useState(initialState);
 
   function handleChange(event) {
-    if (event.keyCode===13) {
-      handleSubmit()
-      
-    } else {
-      setState({
-        ...state,
-        [event.target.name]: event.target.value
-      })
-    }
+    setState({
+      ...state,
+      [event.target.name]: event.target.value
+    })
   }
 
-  function handleSubmit() {
+  function handleSubmit(e) {
+    e.preventDefault();
     const url = `${process.env.REACT_APP_BACKEND_URL}/webapp/login`;
     const options = {
       method: 'POST',
@@ -50,10 +46,10 @@ export const Login = (props) => {
 
   return (
     <div className="smallBox">
-      <form>
+      <form onSubmit={handleSubmit}>
         <Grid
           container
-          direction="column"
+          direction="row"
           justify="flex-start"
           alignItems="center"
           spacing={2}
@@ -70,6 +66,10 @@ export const Login = (props) => {
               size="small"
               variant="outlined"
               onKeyUp={handleChange}
+              type="email"
+              style={{width:'100%'}}
+              required
+              
             />
           </Grid>
           <Grid item xs={12}>
@@ -82,20 +82,22 @@ export const Login = (props) => {
               size="small"
               variant="outlined"
               onKeyUp={handleChange}
+              style={{width:'100%'}}
+              required
             />
             <div className="alignRight">
               <a href='/login'>Forgot your password?</a>
             </div>
           </Grid> 
-          <Grid item xs={10}>
-            <Button variant="contained" color="primary" onClick={handleSubmit}>Login</Button>
+          <Grid item xs={12}>
+            <Button fullWidth type="submit" variant="contained" color="primary" >Login</Button>
           </Grid>
           <Grid item xs={12}>
             Don't have an Account?
           </Grid>
-          <Grid item xs={10}>
+          <Grid item xs={12}>
             <Link to="/signUp">
-              <Button variant="contained" color="secondary">Sign Up</Button>
+              <Button fullWidth variant="contained" color="secondary">Sign Up</Button>
             </Link>
           </Grid>
         </Grid>

@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import jwt from 'jsonwebtoken'
 
-export const handleApiSubmit = (e, fieldRows, apiName, submitApi, isPublic, history ) => {
+export const handleApiSubmit = (e, fieldRows, apiName, submitApi, isPublic, history, description ) => {
   e.preventDefault();
 
   const { id } = jwt.decode(localStorage.token);
@@ -21,7 +21,7 @@ export const handleApiSubmit = (e, fieldRows, apiName, submitApi, isPublic, hist
     api: {
       public: isPublic ? 'true' : 'false',
       name: apiName.value, // apiName is an object
-      description: '',
+      description: description.value,
       fields: fieldsObjectArray, //userId
     },
     user: { id }

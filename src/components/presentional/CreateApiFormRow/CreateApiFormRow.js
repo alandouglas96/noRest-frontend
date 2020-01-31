@@ -36,6 +36,7 @@ export default ({
         error={error}
         touched={touched}
         key={`${rowId}`}
+
       />
       <div style={{width:'10px'}}></div>
       <FieldTypeSelect

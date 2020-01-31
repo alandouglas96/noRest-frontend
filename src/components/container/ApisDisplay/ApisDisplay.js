@@ -16,6 +16,7 @@ const ApisDisplay = props => {
 
   return (
     <>
+    <div className="flex-column">
       <div className="ApiDisplay">
         {props.userApis.userApis.length ? (
           props.userApis.userApis.map(el => (
@@ -41,6 +42,7 @@ const ApisDisplay = props => {
               Do it!
             </Button>
           </Link>
+        </div>
         </div>
       </div>
     </>
