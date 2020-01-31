@@ -36,7 +36,7 @@ const ApiDetails = (props) => {
                 variant="contained"
                 style={{
                   color: "white",
-                  backgroundColor: "#E85F48",
+                  backgroundColor: "#175999",
                   width: "150px",
                   height: "40px"
                 }}
@@ -52,7 +52,7 @@ const ApiDetails = (props) => {
                 variant="contained"
                 style={{
                   color: "white",
-                  backgroundColor: "#175999",
+                  backgroundColor: "#E85F48",
                   width: "150px",
                   height: "40px"
                 }}

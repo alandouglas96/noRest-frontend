@@ -35,9 +35,9 @@ export const submitApi = (values, history) => async dispatch => {
 
 export const fetchUserApisAction = () => async dispatch =>{
   const token = localStorage.token;
-  const { id } = jwt.decode(token); // userId
 
-  if (id) { // test if logged in
+  if (token) { // test if logged in
+    const { id } = jwt.decode(token); // userId
     const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/api/user/${id}`;
     const options = {
       method: 'GET',
