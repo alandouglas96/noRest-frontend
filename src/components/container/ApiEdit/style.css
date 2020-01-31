@@ -1,3 +1,131 @@
-.ApiEdit-test {
+.ApiEdit {
+  padding: 5px;
+  margin: 15px;
+  width: 80vw;
+}
+
+.ApiEdit-Warning {
+  display: flex;
+  flex-direction: row;
+  border-style: solid;
+  border-color: rgba(165, 42, 42, 0.79);
+  border-width: 1px;
+  background-color: rgba(220, 20, 60, 0.454);
+  border-radius: 7px;
+  padding: 10px;
+  margin: 15px;
+}
+
+.ApiEdit-Warning-cross {
+  text-align: center;
+  width: 100px;
+}
+
+p {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.ApiEdit-head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ApiEdit-head-name {
+  padding-bottom: 10px;
+  font-size: 30px;
+  font-weight: 500;
+  border-bottom: 1px solid;
+  border-color: rgb(125, 125, 125);
 
 }
+
+.ApiEdit-head-endpoint {
+  padding-bottom: 16px;
+  font-size: 25px;
+  font-weight: 400;
+  border-bottom: 1px solid;
+  border-color:  rgb(125, 125, 125);
+}
+
+.ApiEdit-head-endpoint-span {
+  font-size: 20px;
+  font-weight: 300;
+}
+
+.ApiEdit-head-button {
+  font-size: 20px;
+  font-weight: 400;
+  width: 200px;
+}
+
+.ApiEdit-Card {
+
+}
+
+.ApiEdit-Card-title {
+  padding-bottom: 10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 25px;
+  font-weight: 300;
+  border-bottom: 1px solid;
+  border-color:  rgb(125, 125, 125);
+  width: 300px;
+}
+
+.ApiEdit-Card-content {
+  margin-left: 30px;
+}
+
+.ApiEdit-Card-content-item {
+  display: flex;
+  flex-direction: row;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.ApiEdit-Card-content-title {
+  font-size: 20px;
+  font-weight: 400;
+  width: 220px;
+  text-justify: center;
+}
+
+.ApiEdit-Card-content-content {
+  font-size: 20px;
+  font-weight: 200;
+}
+
+.ApiEdit-Card-content-redText {
+  color: red;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.ApiEdit-Card-buttons {
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.ApiEdit-Card-buttons-text {
+
+}
+
+.ApiEdit-Card-content-keys1 {
+  display: flex;
+  flex-direction: column;
+}
+
+.ApiEdit-Card-content-keys2 {
+  display: flex;
+  flex-direction: column;
+  margin-left: 15px;
+}
+
+/*
+// Add missing classes
+
+*/
