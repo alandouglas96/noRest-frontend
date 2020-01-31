@@ -1,3 +1,76 @@
-.ApiEdit-test {
+.ApiEdit {
+  padding: 5px;
+  margin: 15px;
+  width: 80vw;
+}
 
+.ApiEdit-Warning {
+  display: flex;
+  flex-direction: row;
+  border-style: solid;
+  border-color: rgba(165, 42, 42, 0.79);
+  border-width: 1px;
+  background-color: rgba(220, 20, 60, 0.454);
+  border-radius: 7px;
+  padding: 10px;
+  margin: 15px;
+}
+
+.ApiEdit-Warning-cross {
+  text-align: center;
+  width: 100px;
+}
+
+p {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.ApiEdit-head {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ApiEdit-head-item {
+  padding: 0px;
+}
+
+.ApiEdit-head-name {
+  padding-bottom: 10px;
+  font-size: 30px;
+  font-weight: 500;
+  border-bottom: 1px solid;
+  border-color: rgb(125, 125, 125);
+
+}
+
+.ApiEdit-head-endpoint {
+  padding-bottom: 16px;
+  font-size: 25px;
+  font-weight: 400;
+  border-bottom: 1px solid;
+  border-color:  rgb(125, 125, 125);
+}
+
+.ApiEdit-head-endpoint-span {
+  font-size: 15px;
+  font-weight: 300;
+}
+
+.ApiEdit-head-button {
+  font-size: 20px;
+  font-weight: 400;
+  width: 200px;
+}
+
+
+/*
+// Add missing classes
+
+*/
+
+.ApiEdit-PublicStatus-reminder {
+  color: red;
 }

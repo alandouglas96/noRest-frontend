@@ -30,11 +30,11 @@ function CreateApiForm ({submitApi, history})  {
     }}
 
   const [fieldRows, dispatch] = useReducer(fieldRowsReducer, FIELD_ROWS_INITIAL_STATE);
-    console.log('ENTERED->>>',fieldRows)
+    // console.log('ENTERED->>>',fieldRows)
   function fieldRowsReducer (fieldRows, action) {
-    console.log('REDUCER', action.payload)
+    // console.log('REDUCER', action.payload)
     switch(action.type) {
-      case 'SET_NEW_ROW': 
+      case 'SET_NEW_ROW':
       return  {
         rows:
         {
@@ -48,7 +48,7 @@ function CreateApiForm ({submitApi, history})  {
           }
         }
       }
-      case 'SET_SELECT_ROW': 
+      case 'SET_SELECT_ROW':
       return  {
         rows:
         {
@@ -60,7 +60,7 @@ function CreateApiForm ({submitApi, history})  {
           }
         }
       }
-      case 'SET_ALLOW_NULL_ROW': 
+      case 'SET_ALLOW_NULL_ROW':
       return  {
         rows:
         {
@@ -91,7 +91,7 @@ function CreateApiForm ({submitApi, history})  {
         const updatedRows = _.reduce(fieldRows.rows,(acc,element, key) => {
           console.log('element', element);
           console.log('key', key);
-          
+
           if (key !== action.payload) {
             acc[key]=element
           }
@@ -99,22 +99,22 @@ function CreateApiForm ({submitApi, history})  {
         }, {})
 
         console.log('updatedRows', updatedRows);
-        
+
         //const temp = _.Each(fieldRows.rows, (rowKeys) => Object.keys(rowKeys) === action.payload  )
-      
+
         return {
           rows:
           {
             ...updatedRows,
           }
         }
-      default: 
+      default:
         return fieldRows
     }
   }
 
   const [isPublicState, setIsPublicState] = useState(true);
-  
+
   const [apiName, setApiName] = useState({
     value:'',
     error:'',
@@ -160,7 +160,7 @@ function CreateApiForm ({submitApi, history})  {
     function handleSelectChange (event, inputName, rowId, type) {
       dispatch({type: 'SET_SELECT_ROW', payload: {value: event.target.value, inputName, rowId}})
     }
-    
+
     function handleChange (event, inputName, rowId, type) {
       let error='';
       if ((type==='input') && (event.target.value==='')) {
@@ -180,7 +180,7 @@ function CreateApiForm ({submitApi, history})  {
   }
 
   return (
-    
+
     <div className="box">
     <form onSubmit={(e) => handleApiSubmit(e, fieldRows, apiName, submitApi, isPublicState, history, description )}>
       <div className="CreateApiForm-title1">Create your own RESTful API</div>
@@ -230,12 +230,12 @@ function CreateApiForm ({submitApi, history})  {
         </div>
         <div className="CreateApiForm-title2">Describe your collection</div>
       <div className="flex-column">
-      
+
         <div className="flex-column">
         {_.map(fieldRows.rows,(row, rowKey) => {
           console.log(rowKey)
           return (
-          <FieldRow 
+          <FieldRow
             handleChange={handleChange}
             handleSelectChange={handleSelectChange}
             deleteRow={deleteRow}

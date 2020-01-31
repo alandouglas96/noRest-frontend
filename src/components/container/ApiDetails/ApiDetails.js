@@ -22,7 +22,7 @@ const ApiDetails = (props) => {
           {currentApi.api_name}
           </div>
           <div className="ApiDetails-head-item ApiDetails-head-endpoint">
-            Endpoint:{" "}
+            Endpoint:
             <span className="ApiDetails-head-endpoint-span">
               https://no-rest-api.herokuapp.com/api/{currentApi.api_name}
             </span>
