@@ -15,9 +15,6 @@ export default ({
     error,
     touched
   }) => {
-    console.log('rowID',rowId );
-    console.log('rows',fieldRows.rows );
-
     
     const [state, setState] = useState(fieldRows.rows[rowId].value)
     function handleOnChange (e) {

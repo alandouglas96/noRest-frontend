@@ -1,5 +1,7 @@
 import React, { useState, useReducer } from 'react';
 import { TextField, Button } from '@material-ui/core';
+import { Link } from "react-router-dom";
+import { Grid } from "@material-ui/core";
 import uuid from 'uuid';
 import _ from 'lodash';
 import { connect } from 'react-redux';
@@ -10,6 +12,8 @@ import FieldRow from '../../presentional/CreateApiFormRow/CreateApiFormRow'
 import IsPublicSelect from '../../presentional/IsPublicSelect'
 
 import {handleApiSubmit} from '../../../services/createApiformServices'
+
+import BreadCrumb from '../../presentional/breadcrumps/apiDetailsBC';
 
 
 import './style.css';
@@ -30,9 +34,13 @@ function CreateApiForm ({submitApi, history})  {
     }}
 
   const [fieldRows, dispatch] = useReducer(fieldRowsReducer, FIELD_ROWS_INITIAL_STATE);
+<<<<<<< HEAD
     // console.log('ENTERED->>>',fieldRows)
   function fieldRowsReducer (fieldRows, action) {
     // console.log('REDUCER', action.payload)
+=======
+  function fieldRowsReducer (fieldRows, action) {
+>>>>>>> Feat: some styling in general, unified css, style on user dashboard, api details, implementing bread scrumbs
     switch(action.type) {
       case 'SET_NEW_ROW':
       return  {
@@ -86,22 +94,26 @@ function CreateApiForm ({submitApi, history})  {
           }
         }
       case 'DELETE_ROW':
-
-        console.log('After deleted', fieldRows.rows)
         const updatedRows = _.reduce(fieldRows.rows,(acc,element, key) => {
+<<<<<<< HEAD
           console.log('element', element);
           console.log('key', key);
 
+=======
+>>>>>>> Feat: some styling in general, unified css, style on user dashboard, api details, implementing bread scrumbs
           if (key !== action.payload) {
             acc[key]=element
           }
           return acc
-        }, {})
+        }, {});
 
+<<<<<<< HEAD
         console.log('updatedRows', updatedRows);
 
         //const temp = _.Each(fieldRows.rows, (rowKeys) => Object.keys(rowKeys) === action.payload  )
 
+=======
+>>>>>>> Feat: some styling in general, unified css, style on user dashboard, api details, implementing bread scrumbs
         return {
           rows:
           {
@@ -127,11 +139,9 @@ function CreateApiForm ({submitApi, history})  {
 
     const handleIsPublicChange =  (event) => {
       setIsPublicState(event.target.value);
-      console.log(isPublicState);
     };
 
     function handleApiNameChange (event) {
-      console.log(apiName)
       setApiName({
         ...apiName,
         value: event.target.value,
@@ -139,7 +149,6 @@ function CreateApiForm ({submitApi, history})  {
     }
 
     function handleDescriptionChange (event) {
-      console.log(description)
       setDescription({
         ...description,
         value: event.target.value,
@@ -175,16 +184,24 @@ function CreateApiForm ({submitApi, history})  {
     }
 
   function deleteRow (e, rowId) {
-    console.log('STATE------>', fieldRows)
     dispatch({type: 'DELETE_ROW', payload: rowId})
   }
 
   return (
 
     <div className="box">
+    <div className="bread-crumb">
+        <BreadCrumb/>
+        <div className="flex">
+          <Link to="/">
+            <Button color="secondary" variant="contained" size="small">Back</Button>
+          </Link>
+        </div>
+      </div>
+      <div className="box2">
     <form onSubmit={(e) => handleApiSubmit(e, fieldRows, apiName, submitApi, isPublicState, history, description )}>
-      <div className="CreateApiForm-title1">Create your own RESTful API</div>
-      <div className="CreateApiForm-title2">API Name</div>
+      <div className="title1">Create your own RESTful API</div>
+      <div className="CreateApiForm-title">API Name</div>
       <div className="flex align-center">
         <TextField variant="outlined" size="small"
           onChange={handleApiNameChange}
@@ -195,7 +212,7 @@ function CreateApiForm ({submitApi, history})  {
           required
         />
         <div className="flex align-center">
-          <div className="CreateApiForm-title3" style={{marginRight:'20px', marginLeft:'40px'}}>Your endpoint: </div>
+          <div className="title2" style={{marginRight:'20px', marginLeft:'40px'}}>Your endpoint: </div>
           <div>https://no-rest-api.herokuapp.com/api/{apiName.value}</div>
         </div>
       </div>
@@ -214,26 +231,25 @@ function CreateApiForm ({submitApi, history})  {
        
       </div>
 
-        <div className="CreateApiForm-title2" style={{marginTop: '10px'}}>Privacy</div>
+        <div className="CreateApiForm-title" style={{marginTop: '10px'}}>Privacy</div>
         <div className="flex">
           <IsPublicSelect value={isPublicState} handleChange={handleIsPublicChange}></IsPublicSelect>
             <div className="flex-column">
               <div className="flex align-center">
-                <div className="CreateApiForm-title3" style={{marginRight:'20px', marginLeft:'40px'}}>Public:</div>
+                <div className="title2" style={{marginRight:'20px', marginLeft:'40px'}}>Public:</div>
                 <div>Everyone can do a get request to your Api</div>
               </div>
               <div className="flex align-center">
-                <div className="CreateApiForm-title3" style={{marginRight:'20px', marginLeft:'40px'}}>Private:</div>
+                <div className="title2" style={{marginRight:'20px', marginLeft:'40px'}}>Private:</div>
                 <div>Only You or who you decide can access de API</div>
               </div>
             </div>
         </div>
-        <div className="CreateApiForm-title2">Describe your collection</div>
+        <div className="CreateApiForm-title">Describe your collection</div>
       <div className="flex-column">
 
         <div className="flex-column">
         {_.map(fieldRows.rows,(row, rowKey) => {
-          console.log(rowKey)
           return (
           <FieldRow
             handleChange={handleChange}
@@ -265,6 +281,7 @@ function CreateApiForm ({submitApi, history})  {
         </div>
       </div>
       </form>
+      </div>
     </div>
   )
 }

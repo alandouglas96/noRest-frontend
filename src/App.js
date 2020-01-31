@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import { Grid } from '@material-ui/core';
 
 import { connect } from 'react-redux';
 import * as actions from './actions';
@@ -53,6 +54,12 @@ function App({fetchUser}) {
       <BrowserRouter>
         <div className="container">
           <NavBar/>
+          <Grid container direction="row"
+          justify="flex-start"
+          alignItems="center"
+          spacing={2}
+          >
+            <Grid item xs={12}>
           <div className="dashboard">
             <Switch>
               {/* <RoutePrivate exact path="/" component={LandingPage} /> */}
@@ -65,8 +72,16 @@ function App({fetchUser}) {
               <Route exact path="/apiDetails/edit/:apiName" component={ApiEdit} />
               <Route exact path="/apiDetails/docs/:apiName" component={ApiDocs} />
             </Switch>
+<<<<<<< HEAD
             {/* <Footer/> */}
+=======
+>>>>>>> Feat: some styling in general, unified css, style on user dashboard, api details, implementing bread scrumbs
           </div>
+            </Grid>
+            <Grid item xs={12}>
+            <Footer/>
+            </Grid>
+          </Grid>
         </div>
       </BrowserRouter>
     </MuiThemeProvider>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import React, { useState } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -5,6 +6,11 @@ import { Button } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
 import "./style.css";
+=======
+import React from "react";
+
+import './style.css';
+>>>>>>> Feat: some styling in general, unified css, style on user dashboard, api details, implementing bread scrumbs
 
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";

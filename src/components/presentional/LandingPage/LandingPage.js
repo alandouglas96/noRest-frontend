@@ -23,8 +23,6 @@ function LandingPage (props) {
     if (event.keyCode===13) {
       props.history.push({pathname: "/signup" , email: emailState})
     }  
-    console.log('ENTERED')
-    
   }
 
   if (props.auth)
@@ -32,7 +30,8 @@ function LandingPage (props) {
 
   return (
     <>
-    <div className="box">
+    <div className="box" style={{marginBottom:'0px'}}>
+      <div className="box2">
       <div className="flex backgroundImage">
         <div className="flex-column">
           <div className="bigTitle"> Create Your own APIs, serverless.</div>
@@ -65,6 +64,7 @@ function LandingPage (props) {
         </div>
         <div className="landingPageRight">
         </div>
+      </div>
       </div>
     </div>
     <div className=" flex justify-center" style={{background:'transparent', marginTop: '0px', paddingTop: '0px'}}>{ showMoreState ? null : <Button onClick={toggleLearnMore}>Learn More</Button>}</div>

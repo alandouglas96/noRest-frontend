@@ -26,7 +26,6 @@ export const handleApiSubmit = (e, fieldRows, apiName, submitApi, isPublic, hist
     },
     user: { id }
   }
-  console.log('OBJECT SENT', sendApiObject)
   submitApi(sendApiObject, history)
 }
 

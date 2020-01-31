@@ -4,7 +4,6 @@
           initialValues={{ email: '', password: '', apiName:'', apiDescription:'' }}
           validate={values => {
             const errors = {};
-            console.log('values.apiName', values);
             if (!values.apiName) {
               errors.apiName = 'Api Name Required';
             } else if (

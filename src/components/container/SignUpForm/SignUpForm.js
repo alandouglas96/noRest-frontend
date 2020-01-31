@@ -22,7 +22,6 @@ const SignUpForm  = (props) => {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    console.log('STATE', state)
     
     const url = process.env.REACT_APP_BACKEND_URL +'/webapp/signup';
     const options = {

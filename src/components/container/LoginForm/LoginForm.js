@@ -44,8 +44,13 @@ export const Login = (props) => {
     .then(body => localStorage.setItem('token', body.token))
     .then(()=> props.fetchUser())
     .then(() => props.history.push('/userDashboard'))
+<<<<<<< HEAD
     .catch(error => {
       if (error.message !== 'bypass') console.error('Error in fetch Login:', error);
+=======
+    .catch(e => {
+      console.log('Error on Login', e);
+>>>>>>> Feat: some styling in general, unified css, style on user dashboard, api details, implementing bread scrumbs
     });
   }
 
@@ -90,7 +95,7 @@ export const Login = (props) => {
               style={{width:'100%'}}
               required
             />
-            <div className="alignRight">
+            <div className="align-text-right">
               <a href='/login'>Forgot your password?</a>
             </div>
           </Grid> 
