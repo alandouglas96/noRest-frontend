@@ -126,11 +126,3 @@
 }
 
 
-.ApiDetails-credential-box {
-  padding: 30px;
-  margin: 20px;
-  display: flex;
-  flex-direction: column;
-  background-color: #fafafa; 
-  border-radius: 5px;
-}
