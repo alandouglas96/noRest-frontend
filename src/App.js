@@ -72,10 +72,6 @@ function App({fetchUser}) {
               <Route exact path="/apiDetails/edit/:apiName" component={ApiEdit} />
               <Route exact path="/apiDetails/docs/:apiName" component={ApiDocs} />
             </Switch>
-<<<<<<< HEAD
-            {/* <Footer/> */}
-=======
->>>>>>> Feat: some styling in general, unified css, style on user dashboard, api details, implementing bread scrumbs
           </div>
             </Grid>
             <Grid item xs={12}>

@@ -25,7 +25,6 @@ export const submitApi = (values, history) => async dispatch => {
   };
 
   fetch(url, options)
-<<<<<<< HEAD
     .then(response => {
       if (response.status !== 200 && response.status !== 201) {
         response.json().then(result => window.alert(result.error));
@@ -37,12 +36,6 @@ export const submitApi = (values, history) => async dispatch => {
     .then(() => history.push('/userDashboard'))
     .catch(error => {
       if (error.message !== 'bypass') console.error('Error in submitting create API:', error);
-=======
-    .then(response => response.json())
-    .then(() => history.push('/userDashboard'))
-    .catch(e => {
-      console.log('Error on actions/index', e);
->>>>>>> Feat: some styling in general, unified css, style on user dashboard, api details, implementing bread scrumbs
     });
 }
 
