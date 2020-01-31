@@ -50,6 +50,7 @@ const ApiEdit = props => {
     <>
       <div className="ApiEdit">
         <h1>Edit Your API</h1>
+
         <div className="ApiEdit-Warning">
           <div className="ApiEdit-Warning-text">
             <p>
@@ -64,25 +65,24 @@ const ApiEdit = props => {
             </IconButton>
           </div>
         </div>
+
         <div className="ApiEdit-head">
-          <div className="ApiEdit-head-item ApiEdit-head-name">
-            {currentApi.api_name}
-          </div>
-          <div className="ApiEdit-head-item ApiEdit-head-endpoint">
-            Endpoint:{" "}
+          <div className="ApiEdit-head-name">{currentApi.api_name}</div>
+          <div className="ApiEdit-head-endpoint">
+            Endpoint:
             <span className="ApiEdit-head-endpoint-span">
               https://no-rest-api.herokuapp.com/api/{currentApi.api_name}
             </span>
           </div>
-          <div className="ApiEdit-head-item">
+          <div className="">
             <Link to={`/apiDetails/${currentApi.api_name}`}>
               <Button
                 size="small"
                 variant="contained"
                 style={{
                   color: "white",
-                  backgroundColor: "#E85F48",
-                  width: "150px",
+                  backgroundColor: "#3371B0",
+                  width: "300px",
                   height: "40px"
                 }}
               >
@@ -94,41 +94,49 @@ const ApiEdit = props => {
           </div>
         </div>
 
-        <div className="ApiEdit-PublicStatus ApiEdit-Card">
+        <div className="ApiEdit-Card">
           <div className="ApiEdit-Card-title">Change API Public Status</div>
-          <div className="ApiEdit-Card-item">
-            <span className="ApiEdit-Status">Current API Status :</span>
-            <span className="ApiEdit-Status-content">{publicVar}</span>
-          </div>
-          <div className="ApiEdit-Card-item">
-            <span className="ApiEdit-Status">New API Status :</span>
-            <div className="ApiEdit-Status-selector">
-              <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel
-                  ref={inputLabel}
-                  id="demo-simple-select-outlined-label"
-                >
-                  Status
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-outlined-label"
-                  id="demo-simple-select-outlined"
-                  value={publicState}
-                  onChange={handleChange}
-                  labelWidth={labelWidth}
-                >
-                  <MenuItem value={"public"}>Public</MenuItem>
-                  <MenuItem value={"private"}>Private</MenuItem>
-                </Select>
-              </FormControl>
+          <div className="ApiEdit-Card-content">
+            <div className="ApiEdit-Card-content-item">
+              <span className="ApiEdit-Card-content-title">
+                Current API Status :
+              </span>
+              <span className="ApiEdit-Card-content-content">{publicVar}</span>
             </div>
-          </div>
-          <div className="ApiEdit-PublicStatus-reminder">
-            <p>
-              Remember if your API is set to Private, it won't be possible to
-              make GET
-            </p>
-            <p>requests and see the date without the KEYS.</p>
+            <div className="ApiEdit-Card-content-item">
+              <span className="ApiEdit-Card-content-title">
+                New API Status :
+              </span>
+              <div className="">
+                <FormControl variant="outlined" className={classes.formControl}>
+                  <InputLabel
+                    ref={inputLabel}
+                    id="demo-simple-select-outlined-label"
+                  >
+                    Status
+                  </InputLabel>
+                  <Select
+                    labelId="demo-simple-select-outlined-label"
+                    id="demo-simple-select-outlined"
+                    value={publicState}
+                    onChange={handleChange}
+                    labelWidth={labelWidth}
+                  >
+                    <MenuItem value={"public"}>Public</MenuItem>
+                    <MenuItem value={"private"}>Private</MenuItem>
+                  </Select>
+                </FormControl>
+              </div>
+            </div>
+
+            <div className="ApiEdit-Card-content-redText">
+              <p>
+                Remember if your API is set to Private, it won't be possible to
+                make GET
+              </p>
+              <p>requests and see the date without the KEYS.</p>
+            </div>
+
             <div className="ApiEdit-Card-buttons">
               <Button
                 size="small"
@@ -140,93 +148,162 @@ const ApiEdit = props => {
                   height: "40px"
                 }}
               >
-                <span className="">
-                  CANCEL
-                </span>
+                <span className="ApiEdit-Card-buttons-text">CANCEL</span>
               </Button>
               <Button
                 size="small"
                 variant="contained"
                 style={{
                   color: "white",
-                  backgroundColor: "#E85F48",
+                  backgroundColor: "#B4D173",
                   width: "150px",
                   height: "40px"
                 }}
               >
-                <span className="">
-                  SAVE
-                </span>
+                <span className="ApiEdit-Card-buttons-text">SAVE</span>
               </Button>
             </div>
           </div>
         </div>
 
+        <div className="ApiEdit-Card">
+          <div className="ApiEdit-Card-title">Change API Name</div>
+          <div className="ApiEdit-Card-content">
+            <div className="ApiEdit-Card-content-item">
+              <span className="ApiEdit-Card-content-title">
+                Current API Name:
+              </span>
+              <span className="ApiEdit-Card-content-content">
+                {currentApi.api_name}
+              </span>
+            </div>
 
+            <div className="ApiEdit-Card-content-item">
+              <span className="ApiEdit-Card-content-title">New API Name:</span>
+              <input value=""></input>
+            </div>
 
-        <div className="ApiEdit-PublicStatus ApiEdit-Card">
-          <div className="ApiEdit-Card-title">Change API Public Status</div>
-          <div className="ApiEdit-Card-item">
-            <span className="ApiEdit-Status">Current API Status :</span>
-            <span className="ApiEdit-Status-content">{publicVar}</span>
-          </div>
-          <div className="ApiEdit-Card-item">
-            <span className="ApiEdit-Status">New API Status :</span>
-            <div className="ApiEdit-Status-selector">
-              <FormControl variant="outlined" className={classes.formControl}>
-                <InputLabel
-                  ref={inputLabel}
-                  id="demo-simple-select-outlined-label"
+            <div className="ApiEdit-Card-item">
+              <span className="ApiEdit-Card-content-title">New endpoint:</span>
+              <span>https://no-rest-api.herokuapp.com/api/{"new-name"}</span>
+            </div>
+
+            <div className="ApiEdit-Card-content-redText">
+              <p>Careful! Once you change the name of the api the old</p>
+              <p>endpoint will no longer be accessible.</p>
+              <div className="ApiEdit-Card-buttons">
+                <Button
+                  size="small"
+                  variant="contained"
+                  style={{
+                    color: "white",
+                    backgroundColor: "#E85F48",
+                    width: "150px",
+                    height: "40px"
+                  }}
                 >
-                  Status
-                </InputLabel>
-                <Select
-                  labelId="demo-simple-select-outlined-label"
-                  id="demo-simple-select-outlined"
-                  value={publicState}
-                  onChange={handleChange}
-                  labelWidth={labelWidth}
+                  <span className="ApiEdit-Card-buttons-text">CANCEL</span>
+                </Button>
+                <Button
+                  size="small"
+                  variant="contained"
+                  style={{
+                    color: "white",
+                    backgroundColor: "#B4D173",
+                    width: "150px",
+                    height: "40px"
+                  }}
                 >
-                  <MenuItem value={"public"}>Public</MenuItem>
-                  <MenuItem value={"private"}>Private</MenuItem>
-                </Select>
-              </FormControl>
+                  <span className="ApiEdit-Card-buttons-text">SAVE</span>
+                </Button>
+              </div>
             </div>
           </div>
-          <div className="ApiEdit-PublicStatus-reminder">
-            <p>
-              Remember if your API is set to Private, it won't be possible to
-              make GET
-            </p>
-            <p>requests and see the date without the KEYS.</p>
+        </div>
+
+        <div className="ApiEdit-Card">
+          <div className="ApiEdit-Card-title">Change API Description</div>
+          <div className="ApiEdit-Card-content">
+            <div className="ApiEdit-Card-content-item">
+              <span className="ApiEdit-Card-content-title">
+                Current API Description:
+              </span>
+              <span className="ApiEdit-Card-content-content">
+                {currentApi.description}
+              </span>
+            </div>
+
+            <div className="ApiEdit-Card-content-item">
+              <span className="ApiEdit-Card-content-title">
+                New API Description:
+              </span>
+              <input value=""></input>
+            </div>
+
             <div className="ApiEdit-Card-buttons">
+              <div className="ApiEdit-Card-buttons">
+                <Button
+                  size="small"
+                  variant="contained"
+                  style={{
+                    color: "white",
+                    backgroundColor: "#E85F48",
+                    width: "150px",
+                    height: "40px"
+                  }}
+                >
+                  <span className="">CANCEL</span>
+                </Button>
+                <Button
+                  size="small"
+                  variant="contained"
+                  style={{
+                    color: "white",
+                    backgroundColor: "#B4D173",
+                    width: "150px",
+                    height: "40px"
+                  }}
+                >
+                  <span className="">SAVE</span>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="ApiEdit-Card">
+          <div className="ApiEdit-Card-title">Generate new keys</div>
+          <div className="ApiEdit-Card-content">
+            <div className="ApiEdit-Card-content-keys1">
+              <span className="ApiEdit-Card-content-title">Current Keys:</span>
+              <div className="ApiEdit-Card-content-keys2">
+                <div className="ApiEdit-Card-content-item">
+                  <span className="ApiEdit-Card-content-title">API KEY:</span>
+                  <span className="ApiEdit-Card-content-content">{currentApi.api_key}</span>
+                </div>
+                <div className="ApiEdit-Card-content-item">
+                  <span className="ApiEdit-Card-content-title">API SECRET KEY:</span>
+                  <span className="ApiEdit-Card-content-content">{currentApi.api_secret_key}</span>
+                </div>
+              </div>
+            </div>
+            <div className="ApiEdit-Card-content-redText">
+              <p>Careful! If you generate new keys, the old ones will stop</p>
+              <p>working. You may have to update your application or code</p>
+              <p>to fix it.</p>
+            </div>
+            <div>
               <Button
                 size="small"
                 variant="contained"
                 style={{
                   color: "white",
-                  backgroundColor: "#E85F48",
-                  width: "150px",
+                  backgroundColor: "#3371B0",
+                  width: "300px",
                   height: "40px"
                 }}
               >
-                <span className="">
-                  CANCEL
-                </span>
-              </Button>
-              <Button
-                size="small"
-                variant="contained"
-                style={{
-                  color: "white",
-                  backgroundColor: "#E85F48",
-                  width: "150px",
-                  height: "40px"
-                }}
-              >
-                <span className="">
-                  SAVE
-                </span>
+                <span className="">GENERATE NEW KEYS</span>
               </Button>
             </div>
           </div>
