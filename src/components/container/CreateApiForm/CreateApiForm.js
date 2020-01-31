@@ -34,13 +34,7 @@ function CreateApiForm ({submitApi, history})  {
     }}
 
   const [fieldRows, dispatch] = useReducer(fieldRowsReducer, FIELD_ROWS_INITIAL_STATE);
-<<<<<<< HEAD
-    // console.log('ENTERED->>>',fieldRows)
   function fieldRowsReducer (fieldRows, action) {
-    // console.log('REDUCER', action.payload)
-=======
-  function fieldRowsReducer (fieldRows, action) {
->>>>>>> Feat: some styling in general, unified css, style on user dashboard, api details, implementing bread scrumbs
     switch(action.type) {
       case 'SET_NEW_ROW':
       return  {
@@ -95,25 +89,12 @@ function CreateApiForm ({submitApi, history})  {
         }
       case 'DELETE_ROW':
         const updatedRows = _.reduce(fieldRows.rows,(acc,element, key) => {
-<<<<<<< HEAD
-          console.log('element', element);
-          console.log('key', key);
-
-=======
->>>>>>> Feat: some styling in general, unified css, style on user dashboard, api details, implementing bread scrumbs
           if (key !== action.payload) {
             acc[key]=element
           }
           return acc
         }, {});
 
-<<<<<<< HEAD
-        console.log('updatedRows', updatedRows);
-
-        //const temp = _.Each(fieldRows.rows, (rowKeys) => Object.keys(rowKeys) === action.payload  )
-
-=======
->>>>>>> Feat: some styling in general, unified css, style on user dashboard, api details, implementing bread scrumbs
         return {
           rows:
           {

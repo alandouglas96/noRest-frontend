@@ -44,13 +44,8 @@ export const Login = (props) => {
     .then(body => localStorage.setItem('token', body.token))
     .then(()=> props.fetchUser())
     .then(() => props.history.push('/userDashboard'))
-<<<<<<< HEAD
     .catch(error => {
       if (error.message !== 'bypass') console.error('Error in fetch Login:', error);
-=======
-    .catch(e => {
-      console.log('Error on Login', e);
->>>>>>> Feat: some styling in general, unified css, style on user dashboard, api details, implementing bread scrumbs
     });
   }
 
