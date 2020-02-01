@@ -15,11 +15,9 @@ function NavBarRight (props) {
   switch (props.auth) {
     case null:
       return (
-
           <Link to="/login">
            <Button variant="outlined" color="primary">Not Server</Button>
           </Link>
-
       )
       case false:
     return (
@@ -49,6 +47,5 @@ function NavBarRight (props) {
 function mapStateToProps({ auth }) {
   return { auth };
 }
-
 
 export default connect(mapStateToProps,actions)(NavBarRight);

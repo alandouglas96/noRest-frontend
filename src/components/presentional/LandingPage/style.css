@@ -11,7 +11,57 @@
 .backgroundImage {
   background-image: url("/img/api.png");
   background-repeat: no-repeat;
-  background-position:  80% 30%;
+  background-position:  90% 20%;
   background-size: 200px;
   z-index: 2;
 }
+
+@media screen and (max-width: 900px) {
+  .backgroundImage {
+    background: none;
+  }
+  .landingPageRight {
+    padding: 20px;
+    width: 0px;
+  }
+  .NavBar {
+    min-height: 60px;
+    max-height: 60px;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo {
+    width: 150px;
+  }
+  body {
+    font-size: 80%;
+  }
+
+}
+
+@media screen and (max-width: 625px) {
+  .backgroundImage {
+    background: none;
+  }
+  .landingPageRight {
+    padding: 20px;
+    width: 0px;
+  }
+  .NavBar {
+    min-height: 60px;
+    max-height: 60px;
+    background-color: rgb(255, 255, 255);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .logo {
+    width: 100px;
+  }
+
+}
+

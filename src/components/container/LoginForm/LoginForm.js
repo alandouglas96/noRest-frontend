@@ -98,7 +98,7 @@ export const Login = (props) => {
             <Button fullWidth type="submit" variant="contained" color="primary" >Login</Button>
           </Grid>
           <Grid item xs={12}>
-            Don't have an Account?
+            <div class="title4" style={{textAlign:'center'}}>Don't have an Account?</div>
           </Grid>
           <Grid item xs={12}>
             <Link to="/signUp">
