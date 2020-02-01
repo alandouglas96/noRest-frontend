@@ -2,9 +2,11 @@ import { combineReducers } from 'redux';
 import { reducer as reduxForm } from 'redux-form';
 import authReducer from './authReducer';
 import userApisReducer from './userApisReducer';
+import createApisReducer from './createApiReducer';
 
 export default combineReducers({
   auth: authReducer,
   form: reduxForm, // Not in use?
-  userApis: userApisReducer
+  userApis: userApisReducer,
+  fieldRows: createApisReducer,
 });
