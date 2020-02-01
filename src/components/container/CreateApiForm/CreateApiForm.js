@@ -78,9 +78,9 @@ function CreateApiForm ({
         </div>
       </div>
       <div className="box2">
-    
+
       <form onSubmit={(e) => handleApiSubmit(e, fieldRows, apiName, submitApi, isPublicState, history, description )}>
-        
+
         <div className="title1">Create your own RESTful API</div>
         <div className="CreateApiForm-title">API</div>
         <div className="flex align-center">
@@ -100,7 +100,7 @@ function CreateApiForm ({
         </div>
         <div className="errorText">{apiName.error}</div>
 
-        
+
         <div className="flex align-center">
           <TextField variant="outlined" size="small"
             onChange={handleDescriptionChange}
@@ -110,7 +110,7 @@ function CreateApiForm ({
             multiline={true}
             style={{width:'700px'}}
           />
-        
+
         </div>
 
         <div className="CreateApiForm-title" style={{marginTop: '30px'}}>Privacy</div>
@@ -152,10 +152,10 @@ function CreateApiForm ({
         </Button>
 
         <div className="flex justify-center" style={{paddingTop: '50px'}}>
-          <Button 
-            variant="contained" 
-            color="primary" 
-            type="submit" 
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
             style={{maxWidth: '300px', maxHeight: '40px', minWidth: '300px', minHeight: '40px'}}>
             Submit
           </Button>

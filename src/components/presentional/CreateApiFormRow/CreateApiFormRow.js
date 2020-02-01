@@ -11,12 +11,17 @@ export default ({
     error,
     touched
   }) => {
+<<<<<<< HEAD
     
     const [inputFieldValue, setinputFieldValue] = useState(fieldRows.rows[rowId].value)
+=======
+
+    const [state, setState] = useState(fieldRows.rows[rowId].value)
+>>>>>>> minor changes in ApiEdit
     function handleOnChange (e) {
       setinputFieldValue(e.target.value)
     }
-    
+
    return (
     <div className="flex">
       <div>
@@ -50,7 +55,13 @@ export default ({
         value = {fieldRows.rows[rowId].allowNull}
       />
       <div style={{width:'10px'}}></div>
+<<<<<<< HEAD
         <Button 
+=======
+        <Button
+          onClick={(e) => deleteRow(e, rowId)}
+          variant="contained"
+>>>>>>> minor changes in ApiEdit
           color="secondary"
           onClick={(e) => deleteRow(e, rowId)}
           size="small"

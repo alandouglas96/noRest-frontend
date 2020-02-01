@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import _ from 'lodash';
+// import _ from 'lodash';
 import { Button } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -44,12 +44,13 @@ const ApiEdit = props => {
     api_name: "",
     description: "",
     api_key: "",
-    api_secret_key: ""
+    api_secret_key: "",
+    api_fields: []
   });
 
   const handleChange = event => {
     const { name, value } = event.target;
-    setState(state => ({ ...state, [name]: value }));
+    setState(state => ({ ...state, [name]: value }));  // How to push fields into object
   };
 
   const onSave = event => {
@@ -82,7 +83,7 @@ const ApiEdit = props => {
           description: "",
           api_key: "",
           api_secret_key: "",
-          api_fields: {}
+          api_fields: []
         })
       )
       .catch(error => {
@@ -452,25 +453,25 @@ const ApiEdit = props => {
           <div className="ApiEdit-Card-title">Edit API Fields</div>
           <div className="ApiEdit-Card-content">
             <div className="ApiEdit-Card-content-item">
-              {/* {_.map(fieldRows.rows, (row, rowKey) => {
+              {/* {currentApi.api_fields.map((row, rowKey) => {
                 return (
                   <FieldRow
                     handleChange={handleChange}
-                    handleSelectChange={handleSelectChange}
-                    deleteRow={deleteRow}
+                    // handleSelectChange={handleSelectChange}
+                    // deleteRow={deleteRow}
                     fieldTypeName={`fielTypeName${rowKey}`}
                     fieldName={`fieldName${rowKey}`}
                     fieldAllowName={`fielTypeName${rowKey}`}
                     rowId={rowKey}
                     key={rowKey}
-                    fieldRows={fieldRows}
+                    // fieldRows={fieldRows}
                     error={row.error}
                     touched={row.touched}
                   />
                 );
               })} */}
 
-              EDITABLE TABLE
+              EDITABLE TABLE PENDING
             </div>
 
             <div className="ApiEdit-Card-buttons">
