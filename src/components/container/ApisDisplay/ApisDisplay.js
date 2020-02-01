@@ -15,8 +15,8 @@ const ApisDisplay = props => {
       { props.userApis.userApis.length ? null :
          <>
           <div className="title2">No APIs yet. Why don't you create one?</div>
-          <div className="ApiDisplay-CreateApi">
-          <span className="ApiDisplay-CreateApi-title">Create a new API</span>
+          <div className="ApiDisplay-CreateApi align-center">
+          <div className="ApiDisplay-CreateApi-title">Create a new API</div>
           <Link to="/createApi">
             <Button
               

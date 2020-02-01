@@ -29,6 +29,13 @@ const theme = createMuiTheme({
         disableElevation: true,
         color: 'white'
       }
+    },
+    typography: {
+      fontSize: '1rem',
+      button: {
+        textTransform: "none",
+        fontSize: '0.8rem',
+      }
     }
   })
 
@@ -57,7 +64,8 @@ function App({fetchUser}) {
           <Grid container direction="row"
           justify="flex-start"
           alignItems="center"
-          spacing={2}
+          spacing={0}
+          style={{maxWidth: '100vw'}}
           >
             <Grid item xs={12}>
           <div className="dashboard">

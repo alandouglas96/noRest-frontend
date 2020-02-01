@@ -16,7 +16,7 @@ function ShowMoreLandingPage () {
         marginTop:'50px'
         }}>
         <div className="bigTitle">How does NoRest work</div>
-        <div className="flex align-center justify-center" style={{width: '100%'}}>
+        <div className="flex align-center justify-center" style={{width: '100%', marginBottom: '100px'}}>
         <img src={diagram} alt="diagram" />
         </div>
     

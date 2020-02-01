@@ -70,17 +70,14 @@ export default function CustomizedTables(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-         
             <StyledTableRow>
               {apiFields.map((row) => <StyledTableCell style={{border: '1px solid black'}}align="center">
                 <div className="flex-column">
                   <div>Field type: {row.field_type}</div>
                   <div>Allow Null: {row.allow_null ? 'true' : 'false'}</div>
                 </div>
-                
                 </StyledTableCell>)}
             </StyledTableRow>
-          
         </TableBody>
       </Table>
     </TableContainer>

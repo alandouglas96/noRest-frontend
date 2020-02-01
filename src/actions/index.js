@@ -24,6 +24,8 @@ export const submitApi = (values, history) => async dispatch => {
     body: JSON.stringify(values)
   };
 
+  console.log('Values', JSON.stringify(values))
+
   fetch(url, options)
     .then(response => {
       if (response.status !== 200 && response.status !== 201) {
