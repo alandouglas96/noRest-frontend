@@ -7,10 +7,10 @@ export default ({label, handleChange, rowId, handelOnChange, error}
 ) => {
   return (
     <div>
-      <TextField size="small" autoComplete='off' id="outlined-basic"  variant="outlined"
-      label={label}
+     
+   
       onChange={handelOnChange}
-      onBlur={(e) => handleChange(e, 'value', rowId, 'input')}
+      onBlur={(e) => handleChange(e,'value', rowId)}
       key={`${rowId}`}
       required
        />
