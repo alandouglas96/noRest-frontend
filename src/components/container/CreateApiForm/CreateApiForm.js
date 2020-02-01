@@ -1,8 +1,6 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { Link } from "react-router-dom";
-import { Grid } from "@material-ui/core";
-import uuid from 'uuid';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -27,47 +25,46 @@ function CreateApiForm ({
   history,
 }){
 
-
   const [isPublicState, setIsPublicState] = useState(true);
 
   const [apiName, setApiName] = useState({
     value:'',
     error:'',
-  })
+  });
+
   const [description, setDescription] = useState({
     value:'',
     error:'',
-  })
+  });
 
+  const handleIsPublicChange =  (event) => {
+    setIsPublicState(event.target.value);
+  };
 
-    const handleIsPublicChange =  (event) => {
-      setIsPublicState(event.target.value);
-    };
+  function handleApiNameChange (event) {
+    setApiName({
+      ...apiName,
+      value: event.target.value,
+    })
+  }
 
-    function handleApiNameChange (event) {
-      setApiName({
-        ...apiName,
-        value: event.target.value,
-      })
+  function handleApiNameValidation (event) {
+    let error='';
+    if (event.target.value==='') {
+      error = ('*required')
     }
+    setApiName({
+      value: event.target.value,
+      error
+    })
+  }
 
-    function handleApiNameValidation (event) {
-      let error='';
-      if (event.target.value==='') {
-        error = ('*required')
-      }
-      setApiName({
-        value: event.target.value,
-        error
-      })
-    }
-
-    function handleDescriptionChange (event) {
-      setDescription({
-        ...description,
-        value: event.target.value,
-      })
-    }
+  function handleDescriptionChange (event) {
+    setDescription({
+      ...description,
+      value: event.target.value,
+    })
+  }
 
   return (
 
