@@ -11,30 +11,30 @@ export default ({
     error,
     touched
   }) => {
-    
+
     const [inputFieldValue, setinputFieldValue] = useState(fieldRows.rows[rowId].value)
     function handleOnChange (e) {
       setinputFieldValue(e.target.value)
     }
-    
+
    return (
     <div className="flex">
       <div>
         <TextField
-          autoComplete='off' 
+          autoComplete='off'
           error={error ? true : false}
-          id="outlined-basic"  
+          id="outlined-basic"
           label="Field Name"
           onBlur={(e) => handleChange(e,'value', rowId)}
           onChange={handleOnChange}
           required
-          size="small" 
+          size="small"
           value={inputFieldValue}
           variant="outlined"
         />
         <div className="errorText">{error}</div>
       </div>
-      
+
       <div style={{width:'10px'}}></div>
       <FieldTypeSelect
         component={FieldTypeSelect}
@@ -50,7 +50,7 @@ export default ({
         value = {fieldRows.rows[rowId].allowNull}
       />
       <div style={{width:'10px'}}></div>
-        <Button 
+        <Button
           color="secondary"
           onClick={(e) => deleteRow(e, rowId)}
           size="small"

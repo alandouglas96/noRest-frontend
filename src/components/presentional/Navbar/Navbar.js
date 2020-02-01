@@ -22,11 +22,10 @@ function NavBar (props) {
 }
 
 const mapStateToProps = state => ({
-  userApis: state.userApis
+  // userApis: state.userApis  // Needed???
 });
 
 const mapDispatchToProps = dispatch => ({
-  // Map your dispatch actions
   fetchUserApis: () => dispatch(fetchUserApisAction())
 });
 
