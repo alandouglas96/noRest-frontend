@@ -1,4 +1,4 @@
-import React, { useState, useReducer } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import { TextField, Button } from '@material-ui/core';
 import { Link } from "react-router-dom";
 import { Grid } from "@material-ui/core";
@@ -18,70 +18,15 @@ import BreadCrumb from '../../presentional/breadcrumps/apiDetailsBC';
 
 import './style.css';
 
-function CreateApiForm ({submitApi, history})  {
-  const [numberOfFields, setNumerOfFields] = useState(1);
+function CreateApiForm ({
+  submitApi,
+  handleRowChange,
+  addFormRow,
+  deleteRow,
+  fieldRows,
+  history,
+}){
 
-  const FIELD_ROWS_INITIAL_STATE = {
-    rows: {
-      [numberOfFields + '-' + uuid()]: {
-        valueType: 'String',
-        error: '',
-        touch: false,
-        value: '',
-        allowNull: true,
-      }
-    }}
-
-  const [fieldRows, dispatch] = useReducer(fieldRowsReducer, FIELD_ROWS_INITIAL_STATE);
-  
-  function fieldRowsReducer (fieldRows, action) {
-    switch(action.type) {
-      case 'SET_NEW_ROW':
-      return  {
-        rows:
-        {
-          ...fieldRows.rows, [(numberOfFields) + '-' + uuid()]: {
-          valueType: 'String',
-          error: '',
-          touch: false,
-          value: '',
-          allowNull: true,
-          description: ''
-          }
-        }
-      }
-      case 'SET_ROW':
-      return  {
-        rows:
-        {
-          ...fieldRows.rows,
-          [action.payload.rowId]: {
-            ...fieldRows.rows[action.payload.rowId],
-            [action.payload.inputName]: action.payload.value,
-            touched: true,
-            error: action.payload.error
-          }
-        }
-      }
-      
-      case 'DELETE_ROW':
-        const updatedRows = _.reduce(fieldRows.rows,(acc,element, key) => {
-          if (key !== action.payload) {
-            acc[key]=element
-          }
-          return acc
-        }, {});
-
-        return {
-          rows:
-          {
-            ...updatedRows,
-          }
-        }
-      default:
-        return fieldRows
-    }
-  }
 
   const [isPublicState, setIsPublicState] = useState(true);
 
@@ -124,24 +69,6 @@ function CreateApiForm ({submitApi, history})  {
       })
     }
 
-    function handleRowChange (event, inputName, rowId) {
-      let error='';
-      if ((inputName==='value') && (event.target.value==='')) {
-        error = ('*required')
-      }
-      console.log('event.target.value', inputName)
-      dispatch({type: 'SET_ROW', payload: {value: event.target.value, inputName, rowId, error}})
-    }
-
-  function addFormRow () {
-    dispatch({type: 'SET_NEW_ROW'})
-    setNumerOfFields(numberOfFields => numberOfFields + 1)
-    }
-
-  function deleteRow (e, rowId) {
-    dispatch({type: 'DELETE_ROW', payload: rowId})
-  }
-  console.log('STATE', fieldRows)
   return (
 
     <div className="box">
@@ -242,8 +169,8 @@ function CreateApiForm ({submitApi, history})  {
   )
 }
 
-function mapStateToProps() {
-  return {};
+function mapStateToProps({fieldRows}) {
+  return {fieldRows};
 }
 
 export default connect(mapStateToProps, actions)(withRouter(CreateApiForm));
