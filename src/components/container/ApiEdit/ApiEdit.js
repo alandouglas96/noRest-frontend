@@ -55,6 +55,18 @@ const ApiEdit = props => {
     setState(state => ({ ...state, [name]: value })); // How to push fields into object
   };
 
+  const handleCancel= () => {
+    setState({
+      public: "",
+      api_name: "",
+      description: "",
+      api_key: "",
+      api_secret_key: "",
+      api_fields: []
+    })
+    history.push(`/apiDetails/${currentApi.api_name}`);
+  }
+
   const onSave = event => {
     event.preventDefault();
     const token = localStorage.token;
@@ -90,7 +102,6 @@ const ApiEdit = props => {
       )
       .then(res => res.json())
       .then(data => {
-        console.log('DATA   ', data)
         history.push(`/apiDetails/edit/${data.api_name}`)
       })
       .then(() => fetchUserApisAction())
@@ -207,6 +218,7 @@ const ApiEdit = props => {
                   width: "150px",
                   height: "40px"
                 }}
+                onClick={() => handleCancel()}
               >
                 <span className="ApiEdit-Card-buttons-text">CANCEL</span>
               </Button>
@@ -269,6 +281,7 @@ const ApiEdit = props => {
                     width: "150px",
                     height: "40px"
                   }}
+                  onClick={() => handleCancel()}
                 >
                   <span className="ApiEdit-Card-buttons-text">CANCEL</span>
                 </Button>
@@ -327,6 +340,7 @@ const ApiEdit = props => {
                     width: "150px",
                     height: "40px"
                   }}
+                  onClick={() => handleCancel()}
                 >
                   <span className="ApiEdit-Card-buttons-text">CANCEL</span>
                 </Button>
@@ -437,6 +451,7 @@ const ApiEdit = props => {
                     width: "150px",
                     height: "40px"
                   }}
+                  onClick={() => handleCancel()}
                 >
                   <span className="ApiEdit-Card-buttons-text">CANCEL</span>
                 </Button>
@@ -493,6 +508,7 @@ const ApiEdit = props => {
                     width: "150px",
                     height: "40px"
                   }}
+                  onClick={() => handleCancel()}
                 >
                   <span className="ApiEdit-Card-buttons-text">CANCEL</span>
                 </Button>
