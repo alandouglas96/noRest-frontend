@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import * as actions from './actions';
 
 import NavBar from './components/presentional/Navbar/Navbar';
-import Footer from './components/presentional/Footer/';
+// import Footer from './components/presentional/Footer/';
 import LandingPage from './components/presentional/LandingPage/';
 import Login from './components/container/LoginForm/';
 import SignUpForm from './components/container/SignUpForm/';
@@ -20,6 +20,7 @@ import ApiDocs from './components/container/ApiDocs/';
 import NoAccess from './components/presentional/NoAccess';
 import FetchApi from './components/container/FetchApi';
 import ApiPostman from './components/container/ApiPostman'
+import PublicApis from './components/container/PublicApis';
 
 const theme = createMuiTheme({
   palette: {
@@ -33,7 +34,6 @@ const theme = createMuiTheme({
     }
   },
   typography: {
-    fontSize: "1rem",
     button: {
       textTransform: "none",
       fontSize: "0.8rem"
@@ -47,7 +47,6 @@ if (process.env.NODE_ENV === "development") {
 
 
 function App (props) {
-  console.log(props.auth);
 
   useEffect( () => {
     props.fetchUser();
@@ -70,12 +69,14 @@ function App (props) {
               <Route exact path="/" component={LandingPage} />
               <Route exact path="/signUp" component={SignUpForm} />
               <Route exact path="/login" component={Login} />
-              <RoutePrivate auth={props.auth} exact path="/createApi" component={CreateApiForm} />
-              <RoutePrivate  auth={props.auth} exact path="/userDashboard" component={UserDashboard} />
-              <RoutePrivate  auth={props.auth} exact path="/apiDetails/:apiName" component={ApiDetails} />
-              <RoutePrivate  auth={props.auth} exact path="/apiDetails/edit/:apiName" component={ApiEdit} />
-              <RoutePrivate  auth={props.auth} exact path="/apiDetails/docs/:apiName" component={ApiDocs} />
-              <RoutePrivate auth={props.auth} path="/apiPostman/:apiName" component={ApiPostman}/>
+              <Route exact path="/public-apis" component={PublicApis} />
+              <Route exact path="/public-apis/:apiName" publicRotue={true} component={ApiDetails} />
+              <RoutePrivate exact path="/createApi" auth={props.auth} component={CreateApiForm} />
+              <RoutePrivate exact path="/userDashboard" auth={props.auth} component={UserDashboard} />
+              <RoutePrivate exact path="/apiDetails/:apiName" auth={props.auth} component={ApiDetails} />
+              <RoutePrivate exact path="/apiDetails/edit/:apiName" auth={props.auth} component={ApiEdit} />
+              <RoutePrivate exact path="/apiDetails/docs/:apiName" auth={props.auth} component={ApiDocs} />
+              <RoutePrivate exact path="/apiPostman/:apiName" auth={props.auth} component={ApiPostman}/>
             </Switch>
           </div>
             </Grid>
@@ -90,7 +91,6 @@ function App (props) {
 }
 // function has to be outside component to work as it is.
 const RoutePrivate = ({ component: Component, auth, ...rest }) => {
-  console.log('inside', auth)
   return (<Route {...rest} render={(props) => (
     auth
       ? <> <FetchApi /> <Component {...props} /> </>
