@@ -12,6 +12,7 @@ import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
+import uuid from "uuid";
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -66,12 +67,12 @@ export default function CustomizedTables(props) {
       <Table className={classes.table} aria-label="customized table">
         <TableHead>
           <TableRow>
-            {apiFields.map(field => <StyledTableCell style={{border: '1px solid black', backgroundColor: '#d8d8d8', color: 'black' }} align="center">{field.field_name}</StyledTableCell>)}
+            {apiFields.map(field => <StyledTableCell key={uuid()} style={{border: '1px solid black', backgroundColor: '#d8d8d8', color: 'black' }} align="center">{field.field_name}</StyledTableCell>)}
           </TableRow>
         </TableHead>
         <TableBody>
             <StyledTableRow>
-              {apiFields.map((row) => <StyledTableCell style={{border: '1px solid black'}}align="center">
+              {apiFields.map((row) => <StyledTableCell key={uuid()}style={{border: '1px solid black'}}align="center">
                 <div className="flex-column">
                   <div>Field type: {row.field_type}</div>
                   <div>Allow Null: {row.allow_null ? 'true' : 'false'}</div>

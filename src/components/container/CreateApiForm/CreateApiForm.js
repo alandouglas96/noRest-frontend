@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import * as actions from '../../../actions';
+import * as actions from '../../../actions/createApiActions';
 // import { fetchUserApisAction } from "../../../actions/";
 
 import FieldRow from '../../presentional/CreateApiFormRow/CreateApiFormRow'
@@ -12,18 +12,20 @@ import IsPublicSelect from '../../presentional/IsPublicSelect'
 
 import {handleApiSubmit} from '../../../services/createApiformServices'
 
+
 import BreadCrumb from '../../presentional/breadcrumps/apiDetailsBC';
 
 
 import './style.css';
 
 function CreateApiForm ({
-  submitApi,
+  submitApiAction,
   handleRowChange,
   addFormRow,
   deleteRow,
   fieldRows,
   history,
+  fetchUserApis
 }){
 
   const [isPublicState, setIsPublicState] = useState(true);
@@ -80,9 +82,9 @@ function CreateApiForm ({
       </div>
       <div className="box2">
 
-      <form onSubmit={(e) => handleApiSubmit(e, fieldRows, apiName, submitApi, isPublicState, history, description )}>
+      <form onSubmit={(e) => handleApiSubmit(e, fieldRows, apiName, submitApiAction, isPublicState, history, description,  )}>
 
-        <div className="title1">Create your own RESTful API</div>
+        <div className="">Create your own RESTful API</div>
         <div className="CreateApiForm-title">API</div>
         <div className="flex align-center">
           <TextField variant="outlined" size="small"
@@ -139,7 +141,6 @@ function CreateApiForm ({
             rowId= {rowKey}
             key= {rowKey}
             fieldRows = {fieldRows}
-            error= {row.error}
             touched = {row.touched}
           />
         )})}

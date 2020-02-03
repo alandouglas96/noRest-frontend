@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import jwt from 'jsonwebtoken'
-
-export const handleApiSubmit = (e, fieldRows, apiName, submitApi, isPublic, history, description ) => {
+import { submitApi } from '../../services'
+export const handleApiSubmit = (e, fieldRows, apiName, submitApiAction, isPublic, history, description, fetchUserApis ) => {
   e.preventDefault();
 
   const { id } = jwt.decode(localStorage.token);
@@ -26,6 +26,16 @@ export const handleApiSubmit = (e, fieldRows, apiName, submitApi, isPublic, hist
     },
     user: { id }
   }
-  submitApi(sendApiObject, history);
+
+  submitApi(sendApiObject, history, submitApiAction)
+  .then(data => ( submitApiAction(), data))
+  //.then(data => (submitApiAction(), data))
+  .then((data) => {
+    history.push(`/apiDetails/${data.api_name}`)
+  }).catch((err) => console.log('Error in Submit Api in helper',err))
+  // submitApi(sendApiObject, history).then((data)=> {
+  //     history.push(`/apiDetails/${data.api_name}`);
+  //     dispatch(fetchUseApiAction);
+  // })
 }
 

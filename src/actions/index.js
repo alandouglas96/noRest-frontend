@@ -14,7 +14,7 @@ export const fetchUser = () => async dispatch => {
 
 export const fetchUserApisAction = () => async dispatch =>{
   const token = localStorage.token;
-
+  console.log('HERE')
   if (token) { // test if logged in
     const { id } = jwt.decode(token); // userId
     const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/api/user/${id}`;
@@ -45,33 +45,6 @@ export const resetUserApis = () => dispatch => {
   dispatch({type: FETCH_USER_APIS, payload: []});
 }
 
-export const submitApi = (values, history) => async dispatch => {
-  const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/api`;
-  const token = localStorage.token;
-  const options = {
-    method: 'POST',
-    headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json;charset=UTF-8',
-      'Authorization': `Bearer ${token}`
-    },
-    body: JSON.stringify(values)
-  };
-
-  fetch(url, options)
-    .then(response => {
-      if (response.status !== 200 && response.status !== 201) {
-        response.json().then(result => window.alert(result.error));
-        throw new Error('bypass');
-      } else return response;
-    })
-    .then(res => res.json())
-    .then(data => history.push(`/apiDetails/${data.api_name}`))
-    .then(data => (dispatch(fetchUserApisAction()), data))
-    .catch(error => {
-      if (error.message !== 'bypass') console.error('Error in submitting create API:', error);
-    });
-}
 
 export const deleteApiData = (apiName, history) => async dispatch => {
   const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/data/api/${apiName}`;
@@ -187,23 +160,9 @@ export const fetchSingleApiAction = (apiName) => async dispatch =>{
 }
 
 
-export const handleRowChange = (event, inputName, rowId) => dispatch => {
-  let error='';
-  if ((inputName==='value') && (event.target.value==='')) error = ('*required');
-  dispatch({type: 'SET_ROW', payload: {value: event.target.value, inputName, rowId, error}});
-}
 
-export const addFormRow = () => dispatch => {
-  dispatch({type: 'SET_NEW_ROW'});
-  //(numberOfFields => numberOfFields + 1)
-  }
 
-  export const deleteRow = (e, rowId) => dispatch => {
-    dispatch({type: 'DELETE_ROW', payload: rowId});
-  }
 
-  export const setRow = () => dispatch => {
-    dispatch({type: 'SET_ROW'});
-  }
+
 
 

@@ -20,9 +20,9 @@ const ApiDetails = (props) => {
         <div className="bread-crumb">
           <BreadCrumb/>
           <div className="flex">
-            <Link to={`/apiDetails/docs/${currentApi.api_name}`}>
+            <Link to={`/apiPostman/${currentApi.api_name}`}>
               <Button size="small" variant="contained" color="primary" style={{marginRight:'5px'}}>
-                DOCS
+                POSTMAN
               </Button>
             </Link>
               <Link to={`/apiDetails/edit/${apiName}`}>
