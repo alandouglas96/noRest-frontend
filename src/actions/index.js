@@ -14,6 +14,7 @@ export const fetchUser = () => async dispatch => {
 
 export const fetchUserApisAction = () => async dispatch =>{
   const token = localStorage.token;
+  console.log('HERE')
   if (token) { // test if logged in
     const { id } = jwt.decode(token); // userId
     const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/api/user/${id}`;

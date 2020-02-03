@@ -70,15 +70,15 @@ function App (props) {
               <div className="dashboard">
                 <Switch>
                   {/* <RoutePrivate exact path="/" component={LandingPage} /> */}
-                  <Route exact path="/" component={LandingPage} />
+                  <Route  exact path="/" component={LandingPage} />
                   <Route exact path="/signUp" component={SignUpForm} />
                   <Route exact path="/login" component={Login} />
-                  <Route exact path="/createApi" component={CreateApiForm} />
-                  <Route exact path="/userDashboard" component={UserDashboard}/>
-                  <Route exact path="/apiDetails/:apiName" component={ApiDetails}/>
-                  <Route exact path="/apiDetails/edit/:apiName" component={ApiEdit}/>
-                  <Route exact path="/apiDetails/docs/:apiName" component={ApiDocs}/>
-                  <Route exact path="/apiPostman/:apiName" component={ApiPostman}/>
+                  <RoutePrivate auth={props.auth} path="/createApi" component={CreateApiForm} />
+                  <RoutePrivate auth={props.auth} path="/userDashboard" component={UserDashboard}/>
+                  <RoutePrivate auth={props.auth} path="/apiDetails/:apiName" component={ApiDetails}/>
+                  <RoutePrivate auth={props.auth} path="/apiDetails/edit/:apiName" component={ApiEdit}/>
+                  <RoutePrivate auth={props.auth} path="/apiDetails/docs/:apiName" component={ApiDocs}/>
+                  <RoutePrivate auth={props.auth} path="/apiPostman/:apiName" component={ApiPostman}/>
                 </Switch>
               </div>
             </Grid>
@@ -91,8 +91,6 @@ function App (props) {
     </MuiThemeProvider>
   );
 }
-
-
 // function has to be outside component to work as it is.
 const RoutePrivate = ({ component: Component, auth, ...rest }) => {
   console.log('inside', auth)
