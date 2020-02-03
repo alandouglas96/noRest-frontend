@@ -19,6 +19,7 @@ import ApiEdit from './components/container/ApiEdit/';
 import ApiDocs from './components/container/ApiDocs/';
 import NoAccess from './components/presentional/NoAccess';
 import FetchApi from './components/container/FetchApi';
+import ApiPostman from './components/container/ApiPostman'
 
 const theme = createMuiTheme({
   palette: {
@@ -66,21 +67,23 @@ function App (props) {
             style={{ maxWidth: "100vw" }}
           >
             <Grid item xs={12}>
-          <div className="dashboard">
-            <Switch>
-              <Route exact path="/" component={LandingPage} />
-              <Route exact path="/signUp" component={SignUpForm} />
-              <Route exact path="/login" component={Login} />
-              <RoutePrivate auth={props.auth} exact path="/createApi" component={CreateApiForm} />
-              <RoutePrivate  auth={props.auth} exact path="/userDashboard" component={UserDashboard} />
-              <RoutePrivate  auth={props.auth} exact path="/apiDetails/:apiName" component={ApiDetails} />
-              <RoutePrivate  auth={props.auth} exact path="/apiDetails/edit/:apiName" component={ApiEdit} />
-              <RoutePrivate  auth={props.auth} exact path="/apiDetails/docs/:apiName" component={ApiDocs} />
-            </Switch>
-          </div>
+              <div className="dashboard">
+                <Switch>
+                  {/* <RoutePrivate exact path="/" component={LandingPage} /> */}
+                  <Route exact path="/" component={LandingPage} />
+                  <Route exact path="/signUp" component={SignUpForm} />
+                  <Route exact path="/login" component={Login} />
+                  <Route exact path="/createApi" component={CreateApiForm} />
+                  <Route exact path="/userDashboard" component={UserDashboard}/>
+                  <Route exact path="/apiDetails/:apiName" component={ApiDetails}/>
+                  <Route exact path="/apiDetails/edit/:apiName" component={ApiEdit}/>
+                  <Route exact path="/apiDetails/docs/:apiName" component={ApiDocs}/>
+                  <Route exact path="/apiPostman/:apiName" component={ApiPostman}/>
+                </Switch>
+              </div>
             </Grid>
             <Grid item xs={12}>
-              {/* <Footer/> */}
+              <Footer/>
             </Grid>
           </Grid>
         </div>

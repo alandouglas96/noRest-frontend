@@ -12,6 +12,7 @@ import IsPublicSelect from '../../presentional/IsPublicSelect'
 
 import {handleApiSubmit} from '../../../services/createApiformServices'
 
+
 import BreadCrumb from '../../presentional/breadcrumps/apiDetailsBC';
 
 
@@ -24,6 +25,7 @@ function CreateApiForm ({
   deleteRow,
   fieldRows,
   history,
+  fetchUserApis
 }){
 
   const [isPublicState, setIsPublicState] = useState(true);
@@ -47,7 +49,7 @@ function CreateApiForm ({
       ...apiName,
       value: event.target.value,
     })
-  } 
+  }
 
   function handleApiNameValidation (event) {
     let error='';
@@ -80,7 +82,7 @@ function CreateApiForm ({
       </div>
       <div className="box2">
 
-      <form onSubmit={(e) => handleApiSubmit(e, fieldRows, apiName, submitApi, isPublicState, history, description )}>
+      <form onSubmit={(e) => handleApiSubmit(e, fieldRows, apiName, submitApi, isPublicState, history, description,  )}>
 
         <div className="">Create your own RESTful API</div>
         <div className="CreateApiForm-title">API</div>

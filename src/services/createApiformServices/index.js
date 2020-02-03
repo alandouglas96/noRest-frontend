@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import jwt from 'jsonwebtoken'
-
-export const handleApiSubmit = (e, fieldRows, apiName, submitApi, isPublic, history, description ) => {
+import { submitApi } from '../../services'
+export const handleApiSubmit = (e, fieldRows, apiName, submitApi1, isPublic, history, description, fetchUserApis ) => {
   e.preventDefault();
 
   const { id } = jwt.decode(localStorage.token);
@@ -26,6 +26,14 @@ export const handleApiSubmit = (e, fieldRows, apiName, submitApi, isPublic, hist
     },
     user: { id }
   }
-  submitApi(sendApiObject, history);
+  
+  console.log("TCL: handleApiSubmit -> history", history)
+  console.log("TCL: handleApiSubmit -> sendApiObject", sendApiObject)
+
+  submitApi(sendApiObject, history)
+  // submitApi(sendApiObject, history).then((data)=> {
+  //     history.push(`/apiDetails/${data.api_name}`);
+  //     dispatch(fetchUseApiAction);
+  // })
 }
 
