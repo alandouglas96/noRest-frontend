@@ -6,12 +6,12 @@ export const handleRowChange = (event, inputName, rowId) => dispatch => {
   if ((inputName==='value') && (event.target.value==='')) {
     error = ('*required')
   }
-  console.log('event.target.value', inputName)
+  // console.log('event.target.value', inputName)
   dispatch({type: 'SET_ROW', payload: {value: event.target.value, inputName, rowId, error}})
 }
 
 export const addFormRow = () => dispatch => {
-  console.log('INSIDE SET NEW ROW')
+  // console.log('INSIDE SET NEW ROW')
   dispatch({type: 'SET_NEW_ROW'})
   //(numberOfFields => numberOfFields + 1)
   }
@@ -25,11 +25,11 @@ export const addFormRow = () => dispatch => {
   }
 
   export const submitApiAction = () => async dispatch => {
-    console.log('INSIDE ACTION')
+    // console.log('INSIDE ACTION')
     dispatch(fetchUserApisAction())
 }
 
     //make dispatch
-  
+
 
 

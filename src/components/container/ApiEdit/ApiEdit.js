@@ -14,7 +14,10 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import FieldRow from "../../presentional/CreateApiFormRow/CreateApiFormRow";
 
-import * as actions from '../../../actions';
+import * as actions from "../../../actions";
+
+import _ from 'lodash';
+import uuid from 'uuid';
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -27,7 +30,14 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ApiEdit = props => {
-  const { userApis, deleteApi, deleteApiData, generateNewKeys, history, fetchUserApisAction } = props;
+  const {
+    userApis,
+    deleteApi,
+    deleteApiData,
+    generateNewKeys,
+    history,
+    fetchUserApisAction
+  } = props;
   const apiName = props.match.params.apiName;
   const currentApi = userApis.find(api => api.api_name === apiName);
   let publicVar;
@@ -47,8 +57,42 @@ const ApiEdit = props => {
     description: "",
     api_key: "",
     api_secret_key: "",
-    api_fields: []
+    api_fields: [] // Can I set initial to currentApi.api_fields ???
   });
+
+  // const field = {
+  //   _id: "",
+  //   field_name: "",
+  //   field_type: "",
+  //   allow_null: "",
+  //   default_value: ""
+  // };
+
+  const fieldRows = state.api_fields;  // edit this array
+
+  function addNewRow () {
+    setState({...state, api_fields: [
+      ...state.api_fields,
+      { _id: uuid(), field_name: "", field_type: "", allow_null: "", default_value: ""}
+    ]})
+  }
+
+  function handleRowChange (inputName, value, rowId) {
+    const findIndex = state.api_fields.indexOf(state.api_fields.find(el => el._id === rowId));
+    setState({...state, api_fields: [
+      ...state.api_fields,
+      state.api_fields[findIndex] = {...state.api_fields[findIndex], [inputName]:value}
+    ]})
+  };
+
+  function deleteRow (rowId) {
+    const updatedArr = state.api_fields.slice();
+    const findIndex = updatedArr.find(el => el._id === rowId);
+    updatedArr.splice(findIndex, 1);
+    setState({...state, api_fields: [
+      ...updatedArr,
+    ]})
+  }
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -477,23 +521,28 @@ const ApiEdit = props => {
           <div className="ApiEdit-Card-title">Edit API Fields</div>
           <div className="ApiEdit-Card-content">
             <div className="ApiEdit-Card-content-item">
-              {/* {currentApi.api_fields.map((row, rowKey) => {
-                return (
-                  <FieldRow
-                    handleChange={handleChange}
-                    // handleSelectChange={handleSelectChange}
-                    // deleteRow={deleteRow}
-                    fieldTypeName={`fielTypeName${rowKey}`}
-                    fieldName={`fieldName${rowKey}`}
-                    fieldAllowName={`fielTypeName${rowKey}`}
-                    rowId={rowKey}
-                    key={rowKey}
-                    // fieldRows={fieldRows}
-                    error={row.error}
-                    touched={row.touched}
-                  />
-                );
-              })} */}
+              <div className="flex-column">
+                {_.map(fieldRows.rows, (row, rowKey) => {
+                  return (
+                    <FieldRow
+                      handleChange={handleRowChange}
+                      deleteRow={deleteRow}
+                      rowId={rowKey}
+                      key={rowKey}
+                      fieldRows={fieldRows}
+                      touched={row.touched}
+                    />
+                  );
+                })}
+              </div>
+              <Button
+                size="small"
+                variant="contained"
+                color="primary"
+                onClick={() => addNewRow()}
+              >
+                Add Row
+              </Button>
               EDITABLE TABLE PENDING
             </div>
 
@@ -563,15 +612,15 @@ const ApiEdit = props => {
                   }}
                   onClick={() => deleteApi(currentApi.api_name, history)}
                 >
-                  <span className="ApiEdit-Card-buttons-text">
-                    DELETE API
-                  </span>
+                  <span className="ApiEdit-Card-buttons-text">DELETE API</span>
                 </Button>
               </div>
             </div>
             <div className="ApiEdit-Card-content-redText">
               <p>Careful! Deleting your API or the data in it is a permanent</p>
-              <p>action. You won't be able to retrieve any of the information</p>
+              <p>
+                action. You won't be able to retrieve any of the information
+              </p>
               <p>stored in the database we provide. Be sure to make a safe</p>
               <p>copy of the data if needed.</p>
             </div>
