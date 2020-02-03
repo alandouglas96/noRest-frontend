@@ -57,7 +57,7 @@ const ApiEdit = props => {
     description: "",
     api_key: "",
     api_secret_key: "",
-    api_fields: [] // Can I set initial to currentApi.api_fields ???
+    api_fields: [{ _id: uuid(), field_name: "", field_type: "", allow_null: "", default_value: ""}] // Can I set initial to currentApi.api_fields ???
   });
 
   // const field = {
@@ -520,21 +520,23 @@ const ApiEdit = props => {
         <div className="ApiEdit-Card">
           <div className="ApiEdit-Card-title">Edit API Fields</div>
           <div className="ApiEdit-Card-content">
-            <div className="ApiEdit-Card-content-item">
+            <div className="">
+            {/* <div className="ApiEdit-Card-content-item"> */}
               <div className="flex-column">
-                {_.map(fieldRows.rows, (row, rowKey) => {
+                {_.map(fieldRows, (row, rowKey) => {
                   return (
                     <FieldRow
-                      handleChange={handleRowChange}
+                      handleChange={() => handleRowChange()}
                       deleteRow={deleteRow}
                       rowId={rowKey}
                       key={rowKey}
                       fieldRows={fieldRows}
-                      touched={row.touched}
+                      touched={false}
                     />
                   );
                 })}
               </div>
+              <div>
               <Button
                 size="small"
                 variant="contained"
@@ -543,7 +545,11 @@ const ApiEdit = props => {
               >
                 Add Row
               </Button>
+              </div>
+              <div>
               EDITABLE TABLE PENDING
+
+              </div>
             </div>
 
             <div className="ApiEdit-Card-buttons">
