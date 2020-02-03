@@ -23,6 +23,9 @@ const SignUpForm  = (props) => {
   function handleSubmit(e) {
     e.preventDefault();
     
+    // reset user APIs state.
+    props.resetUserApis();
+
     const url = process.env.REACT_APP_BACKEND_URL +'/webapp/signup';
     const options = {
       method: 'POST',

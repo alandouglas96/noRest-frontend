@@ -8,6 +8,9 @@ import './style.css';
 
 function NavBarRight (props) {
   function handleLogout () {
+
+    actions.resetUserApis();
+    
     localStorage.setItem('token', '');
     props.fetchUser();
   }

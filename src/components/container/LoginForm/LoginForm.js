@@ -23,6 +23,10 @@ export const Login = (props) => {
 
   function handleSubmit(e) {
     e.preventDefault();
+    
+    // reset user APIs state.
+    props.resetUserApis();
+
     const url = `${process.env.REACT_APP_BACKEND_URL}/webapp/login`;
     const options = {
       method: 'POST',
