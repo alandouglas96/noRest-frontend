@@ -5,6 +5,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import * as actions from '../../../actions/createApiActions';
+import PostmanTable from '../../presentional/PostmanTable'
 // import { fetchUserApisAction } from "../../../actions/";
 
 import { getApiData } from '../../../services'
@@ -25,13 +26,20 @@ function ApiPostman ({
     return (api.api_name === apiName)
   })
   
-  console.log('Api name', apiName );
-  console.log('User API', userApi)
-  console.log('Data in user Api', userApis )
-  useEffect(()=>{
-      getApiData(apiName);
+  const [rows, setRows] = useState([])
+  console.log('user api--------->', userApi[0]);
+
+  useEffect( ()=> {
+
+    const stateSetter = async () => {
+      console.log('enters useEffect', apiName)
+      const data = await getApiData(apiName)
+        setRows(() => data) 
+    }
+    stateSetter();
   },[apiName]);
   
+  console.log('Data in use Effect----------------->', rows)
   return (
 
     <div className="box">
@@ -44,9 +52,8 @@ function ApiPostman ({
         </div>
       </div>
       <div className="box2">
-
-
-      <div className="title2">Postman</div>
+        <div className="title2">Postman</div>
+        {rows && rows.length ? <PostmanTable rows={rows} columns={userApi[0].api_fields}/> : null }
       </div>
     </div>
   )
