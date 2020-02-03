@@ -134,8 +134,8 @@ function CreateApiForm ({
         {_.map(fieldRows.rows,(row, rowKey) => {
           return (
           <FieldRow
-            handleChange={handleRowChange}
-            deleteRow={deleteRow}
+            handleChange= {handleRowChange}
+            deleteRow= {deleteRow}
             rowId= {rowKey}
             key= {rowKey}
             fieldRows = {fieldRows}
