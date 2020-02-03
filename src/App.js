@@ -57,33 +57,30 @@ function App (props) {
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
         <div className="container">
-          <NavBar />
-          <Grid
-            container
-            direction="row"
-            justify="flex-start"
-            alignItems="center"
-            spacing={0}
-            style={{ maxWidth: "100vw" }}
+          <NavBar/>
+          <Grid container direction="row"
+          justify="flex-start"
+          alignItems="center"
+          spacing={0}
+          style={{maxWidth: '100vw'}}
           >
             <Grid item xs={12}>
-              <div className="dashboard">
-                <Switch>
-                  {/* <RoutePrivate exact path="/" component={LandingPage} /> */}
-                  <Route  exact path="/" component={LandingPage} />
-                  <Route exact path="/signUp" component={SignUpForm} />
-                  <Route exact path="/login" component={Login} />
-                  <RoutePrivate auth={props.auth} path="/createApi" component={CreateApiForm} />
-                  <RoutePrivate auth={props.auth} path="/userDashboard" component={UserDashboard}/>
-                  <RoutePrivate auth={props.auth} path="/apiDetails/:apiName" component={ApiDetails}/>
-                  <RoutePrivate auth={props.auth} path="/apiDetails/edit/:apiName" component={ApiEdit}/>
-                  <RoutePrivate auth={props.auth} path="/apiDetails/docs/:apiName" component={ApiDocs}/>
-                  <RoutePrivate auth={props.auth} path="/apiPostman/:apiName" component={ApiPostman}/>
-                </Switch>
-              </div>
+          <div className="dashboard">
+            <Switch>
+              <Route exact path="/" component={LandingPage} />
+              <Route exact path="/signUp" component={SignUpForm} />
+              <Route exact path="/login" component={Login} />
+              <RoutePrivate auth={props.auth} exact path="/createApi" component={CreateApiForm} />
+              <RoutePrivate  auth={props.auth} exact path="/userDashboard" component={UserDashboard} />
+              <RoutePrivate  auth={props.auth} exact path="/apiDetails/:apiName" component={ApiDetails} />
+              <RoutePrivate  auth={props.auth} exact path="/apiDetails/edit/:apiName" component={ApiEdit} />
+              <RoutePrivate  auth={props.auth} exact path="/apiDetails/docs/:apiName" component={ApiDocs} />
+              <RoutePrivate auth={props.auth} path="/apiPostman/:apiName" component={ApiPostman}/>
+            </Switch>
+          </div>
             </Grid>
             <Grid item xs={12}>
-              <Footer/>
+            {/* <Footer/> */}
             </Grid>
           </Grid>
         </div>
@@ -101,10 +98,12 @@ const RoutePrivate = ({ component: Component, auth, ...rest }) => {
   )} />
   );
 }
-
 function mapStateToProps({ auth }) {
   return { auth };
 }
-
-
 export default connect(mapStateToProps, actions)(App);
+
+
+
+
+ 
