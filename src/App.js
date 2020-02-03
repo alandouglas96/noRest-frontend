@@ -7,16 +7,17 @@ import { Grid } from '@material-ui/core';
 import { connect } from 'react-redux';
 import * as actions from './actions';
 
-import NavBar from './components/presentional/Navbar/Navbar'
-import Footer from './components/presentional/Footer/'
-import LandingPage from './components/presentional/LandingPage/'
-import Login from './components/container/LoginForm/'
-import SignUpForm from './components/container/SignUpForm/'
-import CreateApiForm from './components/container/CreateApiForm/'
-import UserDashboard from './components/presentional/UserDashboard/'
-import ApiDetails from './components/container/ApiDetails/'
-import ApiEdit from './components/container/ApiEdit/'
-import ApiDocs from './components/container/ApiDocs/'
+import NavBar from './components/presentional/Navbar/Navbar';
+import Footer from './components/presentional/Footer/';
+import LandingPage from './components/presentional/LandingPage/';
+import Login from './components/container/LoginForm/';
+import SignUpForm from './components/container/SignUpForm/';
+import CreateApiForm from './components/container/CreateApiForm/';
+import UserDashboard from './components/presentional/UserDashboard/';
+import ApiDetails from './components/container/ApiDetails/';
+import ApiEdit from './components/container/ApiEdit/';
+import ApiDocs from './components/container/ApiDocs/';
+import NoAccess from './components/presentional/NoAccess';
 
 
 const theme = createMuiTheme({
@@ -43,18 +44,13 @@ if (process.env.NODE_ENV === 'development') {
   require('dotenv').config();
 }
 
-// const RoutePrivate = (props) => {
-//   {props.isLoggedIn
-//     ? <Route {...props} />
-//     : <Error404 />
-//   }
-// }
 
-function App({fetchUser}) {
+function App (props) {
+  console.log(props.auth);
 
   useEffect( () => {
-    fetchUser();
-  },[fetchUser])
+    props.fetchUser();
+  },[props.fetchUser])
 
   return (
     <MuiThemeProvider theme={theme}>
@@ -70,15 +66,14 @@ function App({fetchUser}) {
             <Grid item xs={12}>
           <div className="dashboard">
             <Switch>
-              {/* <RoutePrivate exact path="/" component={LandingPage} /> */}
               <Route exact path="/" component={LandingPage} />
               <Route exact path="/signUp" component={SignUpForm} />
               <Route exact path="/login" component={Login} />
-              <Route exact path="/createApi" component={CreateApiForm} />
-              <Route exact path="/userDashboard" component={UserDashboard} />
-              <Route exact path="/apiDetails/:apiName" component={ApiDetails} />
-              <Route exact path="/apiDetails/edit/:apiName" component={ApiEdit} />
-              <Route exact path="/apiDetails/docs/:apiName" component={ApiDocs} />
+              <RoutePrivate auth={props.auth} exact path="/createApi" component={CreateApiForm} />
+              <RoutePrivate  auth={props.auth} exact path="/userDashboard" component={UserDashboard} />
+              <RoutePrivate  auth={props.auth} exact path="/apiDetails/:apiName" component={ApiDetails} />
+              <RoutePrivate  auth={props.auth} exact path="/apiDetails/edit/:apiName" component={ApiEdit} />
+              <RoutePrivate  auth={props.auth} exact path="/apiDetails/docs/:apiName" component={ApiDocs} />
             </Switch>
           </div>
             </Grid>
@@ -92,4 +87,21 @@ function App({fetchUser}) {
   );
 }
 
-export default connect(null, actions)(App);
+
+// function has to be outside component to work as it is.
+const RoutePrivate = ({ component: Component, auth, ...rest }) => {
+  console.log('inside', auth)
+  return (<Route {...rest} render={(props) => (
+    auth
+      ? <Component {...props} />
+      : <NoAccess />
+  )} />
+  );
+}
+
+function mapStateToProps({ auth }) {
+  return { auth };
+}
+
+
+export default connect(mapStateToProps, actions)(App);
