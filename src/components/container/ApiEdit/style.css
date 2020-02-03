@@ -108,6 +108,10 @@ p {
 .ApiEdit-Card-buttons {
   padding-top: 5px;
   padding-bottom: 5px;
+  display: flex;
+  flex-direction: row;
+  width: 400px;
+  justify-content: space-around;
 }
 
 .ApiEdit-Card-buttons-text {
@@ -125,7 +129,10 @@ p {
   margin-left: 15px;
 }
 
-/*
-// Add missing classes
-
-*/
+.danger-zone {
+  border-style: solid;
+  border-color: red;
+  border-width: 1px;
+  padding: 15px;
+  margin: 10px;
+}

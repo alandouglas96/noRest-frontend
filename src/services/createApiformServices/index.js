@@ -26,6 +26,6 @@ export const handleApiSubmit = (e, fieldRows, apiName, submitApi, isPublic, hist
     },
     user: { id }
   }
-  submitApi(sendApiObject, history)
+  submitApi(sendApiObject, history);
 }
 

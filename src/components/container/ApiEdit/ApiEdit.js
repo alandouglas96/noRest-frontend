@@ -14,6 +14,8 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import FieldRow from "../../presentional/CreateApiFormRow/CreateApiFormRow";
 
+import * as actions from '../../../actions';
+
 const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(1),
@@ -25,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ApiEdit = props => {
-  const { userApis } = props;
+  const { userApis, deleteApi, deleteApiData, history, fetchUserApisAction } = props;
   const apiName = props.match.params.apiName;
   const currentApi = userApis.find(api => api.api_name === apiName);
   let publicVar;
@@ -50,7 +52,7 @@ const ApiEdit = props => {
 
   const handleChange = event => {
     const { name, value } = event.target;
-    setState(state => ({ ...state, [name]: value }));  // How to push fields into object
+    setState(state => ({ ...state, [name]: value })); // How to push fields into object
   };
 
   const onSave = event => {
@@ -86,9 +88,12 @@ const ApiEdit = props => {
           api_fields: []
         })
       )
+      .then(res => res.json())
+      .then(data => history.push(`/apiDetails/edit/${data.api_name}`))
+      .then(() => fetchUserApisAction())
       .catch(error => {
         if (error.message !== "bypass")
-          console.error("Error in submitting create API:", error);
+          console.error("Error on editing API:", error);
       });
   };
 
@@ -237,7 +242,7 @@ const ApiEdit = props => {
                 type="text"
                 name="api_name"
                 placeholder="Insert a name..."
-                value={state.name}
+                value={state.api_name}
                 onChange={handleChange}
                 required
               ></input>
@@ -470,7 +475,6 @@ const ApiEdit = props => {
                   />
                 );
               })} */}
-
               EDITABLE TABLE PENDING
             </div>
 
@@ -505,6 +509,54 @@ const ApiEdit = props => {
             </div>
           </div>
         </div>
+
+        <div className="ApiEdit-Card">
+          <div className="ApiEdit-Card-title">Danger Zone</div>
+          <div className="danger-zone">
+            {/* <div className="ApiEdit-Card-content-item">DANGER ZONE</div> */}
+
+            <div className="ApiEdit-Card-buttons">
+              <div className="ApiEdit-Card-buttons">
+                <Button
+                  size="small"
+                  variant="contained"
+                  style={{
+                    color: "white",
+                    backgroundColor: "#E85F48",
+                    width: "150px",
+                    height: "40px"
+                  }}
+                  onClick={() => deleteApiData(currentApi.api_name, history)}
+                >
+                  <span className="ApiEdit-Card-buttons-text">
+                    DELETE API DATA
+                  </span>
+                </Button>
+                <Button
+                  size="small"
+                  variant="contained"
+                  style={{
+                    color: "white",
+                    backgroundColor: "#E85F48",
+                    width: "150px",
+                    height: "40px"
+                  }}
+                  onClick={() => deleteApi(currentApi.api_name, history)}
+                >
+                  <span className="ApiEdit-Card-buttons-text">
+                    DELETE API
+                  </span>
+                </Button>
+              </div>
+            </div>
+            <div className="ApiEdit-Card-content-redText">
+              <p>Careful! Deleting your API or the data in it is a permanent</p>
+              <p>action. You won't be able to retrieve any of the information</p>
+              <p>stored in the database we provide. Be sure to make a safe</p>
+              <p>copy of the data if needed.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </>
   );
@@ -514,4 +566,4 @@ const mapStateToProps = state => ({
   userApis: state.userApis.userApis
 });
 
-export default connect(mapStateToProps, null)(ApiEdit);
+export default connect(mapStateToProps, actions)(ApiEdit);
