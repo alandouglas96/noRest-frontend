@@ -28,7 +28,7 @@ export const handleApiSubmit = (e, fieldRows, apiName, submitApiAction, isPublic
   }
 
   submitApi(sendApiObject, history, submitApiAction)
-  .then(data => ( submitApiAction(), data))
+  .then(data => (submitApiAction(), data))
   //.then(data => (submitApiAction(), data))
   .then((data) => {
     history.push(`/apiDetails/${data.api_name}`)

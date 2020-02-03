@@ -166,3 +166,21 @@ export const fetchSingleApiAction = (apiName) => async dispatch =>{
 
 
 
+export const setPublicApisAction = () => dispatch => {
+  const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/public`;
+    const options = { method: 'GET' };
+    fetch(url, options)
+    .then(response => {
+      if (response.status !== 200) {
+        response.json().then(result => window.alert(result.error));
+        throw new Error('bypass');
+      } else return response;
+    })
+    .then(res => res.json())
+    .then(data => {
+      dispatch({ type: 'fetch_public_apis', payload: data })})
+    .catch(error => {
+      if (error.message !== 'bypass') console.error('Error fetching public APIs:', error);
+    });
+}
+

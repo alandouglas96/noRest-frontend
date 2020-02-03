@@ -7,12 +7,31 @@ import BreadCrumb from '../../presentional/breadcrumps/apiDetailsBC';
 import ApiTable from '../ApiTable'
 
 const ApiDetails = (props) => {
-  const { userApis } = props;
-  const apiName = props.match.params.apiName;
-  const currentApi = userApis.find(api => api.api_name === apiName)
-  console.log('API INFO-------------------',currentApi)
-  if (!currentApi) return null;
 
+  const { location } = props;
+
+  // determines whether route is that of a public view mode api or not
+  const path = location.pathname;
+  const regex = RegExp('/public-apis/.*');
+  const publicDetails = regex.test(path);
+  // const publicDetails = location.pathname.test(/\/public-apis\/.*/);
+
+  // depending on the test gets current API from publicApis state or from user
+  // apis.
+
+  if (publicDetails) {
+    const { publicApis } = props;
+    var apiName = props.match.params.apiName;
+    if (publicApis.length) {
+     var currentApi = publicApis.find(api => api.api_name === apiName)
+    }
+    if (!currentApi) return null;
+  } else {
+    const { userApis } = props;
+    var apiName = props.match.params.apiName;
+    var currentApi = userApis.find(api => api.api_name === apiName)
+    if (!currentApi) return null;
+  }
 
   return (
     <>
@@ -25,11 +44,16 @@ const ApiDetails = (props) => {
                 POSTMAN
               </Button>
             </Link>
-              <Link to={`/apiDetails/edit/${apiName}`}>
-                <Button size="small" variant="contained" color="secondary">
-                  EDIT API
-                </Button>
-              </Link>
+            { publicDetails 
+              ? 
+                '' 
+              :
+                <Link to={`/apiDetails/edit/${apiName}`}>
+                  <Button size="small" variant="contained" color="secondary">
+                    EDIT API
+                  </Button>
+                </Link>
+            }
             </div>
           </div>
         <div className="box2">
@@ -43,19 +67,24 @@ const ApiDetails = (props) => {
               <span className="title2 margin-top">Endpoint:{" "}</span>
               <span className="title3">https://no-rest-api.herokuapp.com/api/{currentApi.api_name}</span>
             </div>
-          <div className="flex align-center justify-center" style={{minWidth:'100%'}}>
-            <div className="ApiDetails-credential-box">
-              <div className="title2 white-underline">Your API Credentials</div>
-              <div className="margin-top">
-                <span className="title4 bold">API SECRET KEY:{" "}</span>
-                <span className="title4">{currentApi.api_secret_key}</span>
+          { publicDetails
+            ? 
+              'As a Public API you can do GET requests without any type of API KEY'
+            :
+              <div className="flex align-center justify-center" style={{minWidth:'100%'}}>
+                <div className="ApiDetails-credential-box">
+                  <div className="title2 white-underline">Your API Credentials</div>
+                  <div className="margin-top">
+                    <span className="title4 bold">API SECRET KEY:{" "}</span>
+                    <span className="title4">{currentApi.api_secret_key}</span>
+                  </div>
+                  <div>
+                    <span className="title4 bold">API KEY:{" "}</span>
+                    <span className="title4">{currentApi.api_key}</span>
+                  </div>
+                </div>
               </div>
-              <div>
-                <span className="title4 bold">API KEY:{" "}</span>
-                <span className="title4">{currentApi.api_key}</span>
-              </div>
-            </div>
-          </div>
+           }
           </div>
         </div>
         <div>
@@ -88,30 +117,37 @@ const ApiDetails = (props) => {
                 Returns a JSON Object with all the rows whose #field column value is equal to #name
                 </span>
               </Grid>
-              <Grid item xs={2}>
-                <span className="title2">PUT/id</span>
-              </Grid>
-              <Grid item xs={10}>
-                <span className="title4">
-                  Send in the body a JSON object with the ID to update the record
-                </span>
-              </Grid>
-              <Grid item xs={2}>
-                <span className="title2">POST</span>
-              </Grid>
-              <Grid item xs={10}>
-                <span className="title4">
-                  Send in the body a JSON Object which will be input in the DB
-                </span>
-              </Grid>
-              <Grid item xs={2}>
-                <span className="title2">DELETE/id</span>
-              </Grid>
-              <Grid item xs={10}>
-                <span className="title4">
-                  Deletes the record with such ID and returns the deleted record
-                </span>
-              </Grid>
+              { publicDetails
+                ?
+                  ''
+                :
+                  <>
+                    <Grid item xs={2}>
+                      <span className="title2">PUT/id</span>
+                    </Grid>
+                    <Grid item xs={10}>
+                      <span className="title4">
+                        Send in the body a JSON object with the ID to update the record
+                      </span>
+                    </Grid>
+                    <Grid item xs={2}>
+                      <span className="title2">POST</span>
+                    </Grid>
+                    <Grid item xs={10}>
+                      <span className="title4">
+                        Send in the body a JSON Object which will be input in the DB
+                      </span>
+                    </Grid>
+                    <Grid item xs={2}>
+                      <span className="title2">DELETE/id</span>
+                    </Grid>
+                    <Grid item xs={10}>
+                      <span className="title4">
+                        Deletes the record with such ID and returns the deleted record
+                      </span>
+                    </Grid>
+                  </>
+              }
             </Grid>
           </div>
           </div>
@@ -126,7 +162,8 @@ const ApiDetails = (props) => {
 };
 
 const mapStateToProps = state => ({
-  userApis: state.userApis.userApis
+  userApis: state.userApis.userApis,
+  publicApis: state.publicApis
 });
 
 export default connect(mapStateToProps, null)(ApiDetails);

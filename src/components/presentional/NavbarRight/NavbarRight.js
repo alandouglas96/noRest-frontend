@@ -38,7 +38,9 @@ function NavBarRight (props) {
       return (
         <div className="NavBarItem">
           <div className="linkStyle">Home</div>
-          <div className="linkStyle">Public APIs</div>
+          <Link to="/public-apis">
+            <div className="linkStyle">Public APIs</div>
+          </Link>
           <div className="linkStyle">Features</div>
           <Link to="/">
            <Button variant="contained" color="primary" onClick={handleLogout}>Log Out</Button>
