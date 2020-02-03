@@ -1,5 +1,5 @@
-export const getApiData = (props) => {
-  const url = `${process.env.REACT_APP_BACKEND_URL}/api/${props.apiName}`;
+export const getApiData = async (apiName) => {
+  const url = `${process.env.REACT_APP_BACKEND_URL}/api/${apiName}`;
     const token = localStorage.token;
     const options = {
       method: 'GET',
@@ -9,22 +9,21 @@ export const getApiData = (props) => {
         'Authorization': `Bearer ${token}`
       },
     };
-    if (props.apiName) {
-      fetch(url, options)
+
+    
+      const data = await fetch(url, options)
         .then(response => {
           if (response.status !== 200 && response.status !== 201) {
             response.json().then(result => window.alert(result.error));
             throw new Error('bypass');
           } else return response;
         })
-        .then(res => res.json())
-        //.then(data => history.push(`/apiDetails/${data.api_name}`))
-        //.then(data => (dispatch(fetchUserApisAction()), data))
-        .then(data => console.log('done', data))
         .catch(error => {
           if (error.message !== 'bypass') console.error('Error in Api Postman:', error);
         });
-    }
+
+      return data.json();
+    
 }
 
 export const submitApi = (values, history, submitApiAction) => {

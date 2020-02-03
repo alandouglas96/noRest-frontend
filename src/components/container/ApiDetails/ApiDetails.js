@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Button, Grid } from "@material-ui/core";
 import "./style.css";
 import BreadCrumb from '../../presentional/breadcrumps/apiDetailsBC';
-import ApiTable from '../ApiTable'
+import ApiTable from '../../presentional/ApiDetailsTable'
 
 const ApiDetails = (props) => {
 
