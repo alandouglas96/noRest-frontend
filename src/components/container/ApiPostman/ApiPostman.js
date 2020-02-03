@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-dom';
 import * as actions from '../../../actions/createApiActions';
 // import { fetchUserApisAction } from "../../../actions/";
 
-import {getApiData} from '../../../services'
+import { getApiData } from '../../../services'
 import BreadCrumb from '../../presentional/breadcrumps/apiDetailsBC';
 
 
@@ -29,10 +29,7 @@ function ApiPostman ({
   console.log('User API', userApi)
   console.log('Data in user Api', userApis )
   useEffect(()=>{
-    console.log('API NAME IN UEEFFECT', apiName)
-    if(apiName){
       getApiData(apiName);
-    }
   },[apiName]);
   
   return (

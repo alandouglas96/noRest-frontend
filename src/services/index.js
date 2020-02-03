@@ -34,7 +34,7 @@ export const getApiData = (props) => {
 
 }
 
-export const submitApi = (values, history) => {
+export const submitApi = (values, history, submitApiAction) => {
   const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/api`;
     const token = localStorage.token;
     const options = {
@@ -57,8 +57,8 @@ export const submitApi = (values, history) => {
         } else return response;
       })
       .then(res => res.json())
-      // .then(data => history.push(`/apiDetails/${data.api_name}`))
-      // .then(data => (dispatch(fetchUserApisAction()), data))
+      //.then(data => history.push(`/apiDetails/${data.api_name}`))
+      //.then(data => (submitApiAction(), data))
       .then(data => data)
       
       //.then(data => console.log('done', data))

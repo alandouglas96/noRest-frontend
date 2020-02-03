@@ -19,7 +19,7 @@ import BreadCrumb from '../../presentional/breadcrumps/apiDetailsBC';
 import './style.css';
 
 function CreateApiForm ({
-  submitApi,
+  submitApiAction,
   handleRowChange,
   addFormRow,
   deleteRow,
@@ -82,7 +82,7 @@ function CreateApiForm ({
       </div>
       <div className="box2">
 
-      <form onSubmit={(e) => handleApiSubmit(e, fieldRows, apiName, submitApi, isPublicState, history, description,  )}>
+      <form onSubmit={(e) => handleApiSubmit(e, fieldRows, apiName, submitApiAction, isPublicState, history, description,  )}>
 
         <div className="">Create your own RESTful API</div>
         <div className="CreateApiForm-title">API</div>
