@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ApiEdit = props => {
-  const { userApis, deleteApi, deleteApiData, history, fetchUserApisAction } = props;
+  const { userApis, deleteApi, deleteApiData, generateNewKeys, history, fetchUserApisAction } = props;
   const apiName = props.match.params.apiName;
   const currentApi = userApis.find(api => api.api_name === apiName);
   let publicVar;
@@ -89,7 +89,10 @@ const ApiEdit = props => {
         })
       )
       .then(res => res.json())
-      .then(data => history.push(`/apiDetails/edit/${data.api_name}`))
+      .then(data => {
+        console.log('DATA   ', data)
+        history.push(`/apiDetails/edit/${data.api_name}`)
+      })
       .then(() => fetchUserApisAction())
       .catch(error => {
         if (error.message !== "bypass")
@@ -383,6 +386,7 @@ const ApiEdit = props => {
                   height: "40px",
                   margin: "20px"
                 }}
+                onClick={() => generateNewKeys(currentApi.api_name, history)}
               >
                 <span className="ApiEdit-Card-buttons-text">
                   GENERATE NEW KEYS

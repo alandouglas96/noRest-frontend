@@ -100,10 +100,6 @@ export const deleteApiData = (apiName, history) => async dispatch => {
     });
 }
 
-
-
-
-
 export const deleteApi = (apiName, history) => async dispatch => {
   const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/api/${apiName}`;
   const token = localStorage.token;
@@ -125,12 +121,46 @@ export const deleteApi = (apiName, history) => async dispatch => {
     })
     // .then(res => res.json())
     .then(() => history.push('/userDashboard'))
-    .then(() => (dispatch(fetchUserApisAction())))  // HISTORY BEFORE??
+    .then(() => dispatch(fetchUserApisAction()))  // HISTORY BEFORE??
     .catch(error => {
       if (error.message !== 'bypass') console.error('Error in deleting API data:', error);
     });
 }
 
+
+
+
+
+
+
+
+export const generateNewKeys = (apiName, history) => async dispatch => {
+  const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/api/${apiName}/keys`;
+  const token = localStorage.token;
+  const options = {
+    method: 'GET',
+    headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json;charset=UTF-8',
+      'Authorization': `Bearer ${token}`
+    }
+  };
+
+  fetch(url, options)
+    .then(response => {
+      if (response.status !== 200 && response.status !== 201) {
+        response.json().then(result => window.alert(result.error));
+        throw new Error('bypass');
+      } else return response;
+    })
+    .then(res => res.json())
+    .then(data => console.log('KEYS   ', data))
+    // .then(() => history.push(`/apiDetails/${apiName}`))
+    .then(() => (dispatch(fetchUserApisAction())))  // HISTORY BEFORE??
+    .catch(error => {
+      if (error.message !== 'bypass') console.error('Error in generating API keys:', error);
+    });
+}
 
 
 
