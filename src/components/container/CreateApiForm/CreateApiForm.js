@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import * as actions from '../../../actions';
+import * as actions from '../../../actions/createApiActions';
 // import { fetchUserApisAction } from "../../../actions/";
 
 import FieldRow from '../../presentional/CreateApiFormRow/CreateApiFormRow'
@@ -47,7 +47,7 @@ function CreateApiForm ({
       ...apiName,
       value: event.target.value,
     })
-  }
+  } 
 
   function handleApiNameValidation (event) {
     let error='';
@@ -82,7 +82,7 @@ function CreateApiForm ({
 
       <form onSubmit={(e) => handleApiSubmit(e, fieldRows, apiName, submitApi, isPublicState, history, description )}>
 
-        <div className="title1">Create your own RESTful API</div>
+        <div className="">Create your own RESTful API</div>
         <div className="CreateApiForm-title">API</div>
         <div className="flex align-center">
           <TextField variant="outlined" size="small"
@@ -139,7 +139,6 @@ function CreateApiForm ({
             rowId= {rowKey}
             key= {rowKey}
             fieldRows = {fieldRows}
-            error= {row.error}
             touched = {row.touched}
           />
         )})}

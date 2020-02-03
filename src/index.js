@@ -17,7 +17,6 @@ const middleware = [reduxThunk];
 const store = createStore(reducers, composeWithDevTools(
   applyMiddleware(...middleware)
 ));
-
 ReactDOM.render(
   <Provider store={store}>
     <App />

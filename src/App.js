@@ -1,8 +1,8 @@
-import React, {useEffect} from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import './App.css';
-import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
-import { Grid } from '@material-ui/core';
+import React, { useEffect } from "react";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import "./App.css";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import { Grid } from "@material-ui/core";
 
 import { connect } from 'react-redux';
 import * as actions from './actions';
@@ -22,26 +22,26 @@ import FetchApi from './components/container/FetchApi';
 
 const theme = createMuiTheme({
   palette: {
-    primary: { main: '#6eabfb', contrastText: "white" },
-    secondary: { main: '#fb6e6e', contrastText: "white" }
-    },
-    props: {
-      MuiButton: {
-        disableElevation: true,
-        color: 'white'
-      }
-    },
-    typography: {
-      fontSize: '1rem',
-      button: {
-        textTransform: "none",
-        fontSize: '0.8rem',
-      }
+    primary: { main: "#6eabfb", contrastText: "white" },
+    secondary: { main: "#fb6e6e", contrastText: "white" }
+  },
+  props: {
+    MuiButton: {
+      disableElevation: true,
+      color: "white"
     }
-  })
+  },
+  typography: {
+    fontSize: "1rem",
+    button: {
+      textTransform: "none",
+      fontSize: "0.8rem"
+    }
+  }
+});
 
-if (process.env.NODE_ENV === 'development') {
-  require('dotenv').config();
+if (process.env.NODE_ENV === "development") {
+  require("dotenv").config();
 }
 
 
@@ -50,18 +50,20 @@ function App (props) {
 
   useEffect( () => {
     props.fetchUser();
-  },[props.fetchUser])
+  },[props, props.fetchUser])
 
   return (
     <MuiThemeProvider theme={theme}>
       <BrowserRouter>
         <div className="container">
-          <NavBar/>
-          <Grid container direction="row"
-          justify="flex-start"
-          alignItems="center"
-          spacing={0}
-          style={{maxWidth: '100vw'}}
+          <NavBar />
+          <Grid
+            container
+            direction="row"
+            justify="flex-start"
+            alignItems="center"
+            spacing={0}
+            style={{ maxWidth: "100vw" }}
           >
             <Grid item xs={12}>
           <div className="dashboard">
@@ -78,7 +80,7 @@ function App (props) {
           </div>
             </Grid>
             <Grid item xs={12}>
-            {/* <Footer/> */}
+              {/* <Footer/> */}
             </Grid>
           </Grid>
         </div>
