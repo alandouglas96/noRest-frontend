@@ -18,7 +18,7 @@ import ApiDetails from './components/container/ApiDetails/';
 import ApiEdit from './components/container/ApiEdit/';
 import ApiDocs from './components/container/ApiDocs/';
 import NoAccess from './components/presentional/NoAccess';
-
+import FetchApi from './components/container/FetchApi';
 
 const theme = createMuiTheme({
   palette: {
@@ -93,7 +93,7 @@ const RoutePrivate = ({ component: Component, auth, ...rest }) => {
   console.log('inside', auth)
   return (<Route {...rest} render={(props) => (
     auth
-      ? <Component {...props} />
+      ? <> <FetchApi /> <Component {...props} /> </>
       : <NoAccess />
   )} />
   );

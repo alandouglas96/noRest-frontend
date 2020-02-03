@@ -8,10 +8,10 @@ import './style.css';
 
 
 function NavBar (props) {
-  const { fetchUserApis } = props;
-  useEffect(() => {
-    fetchUserApis();
-  }, [fetchUserApis]);
+  // const { fetchUserApis } = props;
+  // useEffect(() => {
+  //   fetchUserApis();
+  // }, [fetchUserApis]);
 
   return (
     <div className="NavBar">

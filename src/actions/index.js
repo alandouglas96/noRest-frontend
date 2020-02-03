@@ -41,6 +41,10 @@ export const fetchUserApisAction = () => async dispatch =>{
   }
 }
 
+export const resetUserApis = () => dispatch => {
+  dispatch({type: FETCH_USER_APIS, payload: []});
+}
+
 export const submitApi = (values, history) => async dispatch => {
   const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/api`;
   const token = localStorage.token;
@@ -94,26 +98,21 @@ export const fetchSingleApiAction = (apiName) => async dispatch =>{
 
 export const handleRowChange = (event, inputName, rowId) => dispatch => {
   let error='';
-  if ((inputName==='value') && (event.target.value==='')) {
-    error = ('*required')
-  }
-  console.log('event.target.value', inputName)
-  dispatch({type: 'SET_ROW', payload: {value: event.target.value, inputName, rowId, error}})
+  if ((inputName==='value') && (event.target.value==='')) error = ('*required');
+  dispatch({type: 'SET_ROW', payload: {value: event.target.value, inputName, rowId, error}});
 }
 
 export const addFormRow = () => dispatch => {
-  console.log('INSIDE SET NEW ROW')
-  dispatch({type: 'SET_NEW_ROW'})
+  dispatch({type: 'SET_NEW_ROW'});
   //(numberOfFields => numberOfFields + 1)
   }
 
   export const deleteRow = (e, rowId) => dispatch => {
-    dispatch({type: 'DELETE_ROW', payload: rowId})
+    dispatch({type: 'DELETE_ROW', payload: rowId});
   }
 
   export const setRow = () => dispatch => {
-    dispatch({type: 'SET_ROW'})
+    dispatch({type: 'SET_ROW'});
   }
-
 
 
