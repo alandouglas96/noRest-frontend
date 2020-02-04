@@ -19,7 +19,7 @@ const UserDashboard = () => {
           <Link to="/createApi">
             <Button color="primary" variant="contained" size="small" style={{marginRight:'10px'}}>Create New Api</Button>
           </Link>
-          <Link to="/createApi">
+          <Link to="/account-settings">
             <Button color="secondary" variant="contained" size="small">Account Settings</Button>
           </Link>
         </div>

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import "./App.css";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { Grid } from "@material-ui/core";
@@ -21,6 +21,7 @@ import NoAccess from './components/presentional/NoAccess';
 import FetchApi from './components/container/FetchApi';
 import ApiPostman from './components/container/ApiPostman'
 import PublicApis from './components/container/PublicApis';
+import AccountSettings from './components/container/AccountSettings';
 
 const theme = createMuiTheme({
   palette: {
@@ -66,17 +67,18 @@ function App (props) {
             <Grid item xs={12}>
           <div className="dashboard">
             <Switch>
-              <Route exact path="/" component={LandingPage} />
+              <Route exact path="/">{props.auth ? <Redirect to="/userDashboard" /> : <LandingPage />}</Route>
               <Route exact path="/signUp" component={SignUpForm} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/public-apis" component={PublicApis} />
               <Route exact path="/public-apis/:apiName" publicRotue={true} component={ApiDetails} />
+              <RoutePrivate exact path="/account-settings" auth={props.auth} component={AccountSettings} />
               <RoutePrivate exact path="/createApi" auth={props.auth} component={CreateApiForm} />
               <RoutePrivate exact path="/userDashboard" auth={props.auth} component={UserDashboard} />
               <RoutePrivate exact path="/apiDetails/:apiName" auth={props.auth} component={ApiDetails} />
               <RoutePrivate exact path="/apiDetails/edit/:apiName" auth={props.auth} component={ApiEdit} />
               <RoutePrivate exact path="/apiDetails/docs/:apiName" auth={props.auth} component={ApiDocs} />
-              <RoutePrivate exact path="/apiPostman/:apiName" auth={props.auth} component={ApiPostman}/>
+              <RoutePrivate exact path="/apiPostman/:apiName" auth={props.auth} component={ApiPostman} />
             </Switch>
           </div>
             </Grid>
