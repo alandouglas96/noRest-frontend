@@ -13,7 +13,7 @@ export const fetchUser = () => async dispatch => {
 
 
 export const fetchUserApisAction = () => async dispatch =>{
-  const token = localStorage.token; 
+  const token = localStorage.token;
   if (token) { // test if logged in
     const { id } = jwt.decode(token); // userId
     const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/api/user/${id}`;
@@ -25,6 +25,7 @@ export const fetchUserApisAction = () => async dispatch =>{
         'Authorization': `Bearer ${token}`
       }
     };
+
     fetch(url, options)
     .then(response => {
       if (response.status !== 200 && response.status !== 204 ) {
