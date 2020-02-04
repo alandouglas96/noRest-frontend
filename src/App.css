@@ -102,6 +102,9 @@ div {
   min-width: 250px;
   border-radius: 5px;
 }
+.marginTopBox {
+  margin-top: 10px;
+}
 
 /* Text Styles */
 

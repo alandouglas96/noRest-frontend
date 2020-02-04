@@ -82,19 +82,25 @@ function CreateApiForm ({
       </div>
       <div className="box2">
 
-      <form onSubmit={(e) => handleApiSubmit(e, fieldRows, apiName, submitApiAction, isPublicState, history, description,  )}>
+      <form onSubmit= { async (e) => {
+          const data = await handleApiSubmit( e, fieldRows, apiName,isPublicState, history, description);
+          submitApiAction();
+          history.push(`/apiDetails/${data.api_name}`);
+        }}>
 
         <div className="">Create your own RESTful API</div>
         <div className="CreateApiForm-title">API</div>
         <div className="flex align-center">
-          <TextField variant="outlined" size="small"
-            onChange={handleApiNameChange}
-            onBlur={handleApiNameValidation}
-            name="Api Name"
-            label="Api Name"
-            value={apiName.value}
+          <TextField 
             error={apiName.error ? true : false}
+            label="Api Name"
+            name="Api Name"
+            onBlur={handleApiNameValidation}
+            onChange={handleApiNameChange}
             required
+            size="small"
+            value={apiName.value}
+            variant="outlined" 
           />
           <div className="flex align-center">
             <div className="title2" style={{marginRight:'20px', marginLeft:'40px'}}>Your endpoint: </div>

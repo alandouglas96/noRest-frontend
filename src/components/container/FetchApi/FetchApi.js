@@ -7,7 +7,6 @@ function FetchApi (props) {
   const { fetchUserApis } = props;
   
   useEffect(() => {
-    console.log('GHOST')
     fetchUserApis();
   }, [fetchUserApis]);
 
