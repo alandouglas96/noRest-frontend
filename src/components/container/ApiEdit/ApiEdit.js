@@ -16,8 +16,8 @@ import FieldRow from "../../presentional/CreateApiFormRow/CreateApiFormRow";
 
 import * as actions from "../../../actions";
 
-import _ from 'lodash';
-import uuid from 'uuid';
+import _ from "lodash";
+import uuid from "uuid";
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -42,56 +42,101 @@ const ApiEdit = props => {
   const currentApi = userApis.find(api => api.api_name === apiName);
   let publicVar;
 
+
+  function formatDataToRows(thisApi) {
+    let initialState = {
+
+    };
+    Object.assign(initialState, thisApi);
+    const fieldsToRows = {};
+    if (thisApi) {
+      for (let i = 0; i < initialState.api_fields.length; i++) {
+        let field = initialState.api_fields[i];
+        fieldsToRows[field._id] = {
+          value: field.field_name,
+          valueType: field.field_type,
+          allowNull: field.allow_null,
+          default_value: field.default_value,
+          error:''
+        };
+      }
+    }
+
+    delete initialState.api_fields;
+    initialState.rows = fieldsToRows;
+    return initialState;
+  }
+
+
+  const initialState  = formatDataToRows(currentApi);
+  const [state, setState] = useState(initialState);
+
+
   // STYLE-START
   const classes = useStyles();
   const inputLabel = React.useRef(10);
   const [labelWidth, setLabelWidth] = React.useState(0);
   useEffect(() => {
     setLabelWidth(inputLabel.current.offsetWidth);
+    setState(formatDataToRows(currentApi));
+  }, [currentApi]);
+
+  useEffect(() => {
+    setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
   // STYLE-END
 
-  const [state, setState] = useState({
-    public: "",
-    api_name: "",
-    description: "",
-    api_key: "",
-    api_secret_key: "",
-    api_fields: [{ _id: uuid(), field_name: "", field_type: "", allow_null: "", default_value: ""}] // Can I set initial to currentApi.api_fields ???
-  });
-
-  // const field = {
+  // const format1 = {
   //   _id: "",
   //   field_name: "",
   //   field_type: "",
   //   allow_null: "",
   //   default_value: ""
+  //   api_fields: [{ _id: uuid(), field_name: "", field_type: "", allow_null: "", default_value: ""}]
   // };
 
-  const fieldRows = state.api_fields;  // edit this array
+  const fieldRows = state.rows;  // edit this array
 
-  function addNewRow () {
-    setState({...state, api_fields: [
-      ...state.api_fields,
-      { _id: uuid(), field_name: "", field_type: "", allow_null: "", default_value: ""}
-    ]})
+  function addNewRow() {
+    setState({...state,
+      rows:
+      {
+        ...state.rows, [uuid()]: {
+        value: '',
+        valueType: 'String',
+        allowNull: true,
+        default_value: '',
+        // error: ''
+        }
+      }
+    });
   }
 
-  function handleRowChange (inputName, value, rowId) {
-    const findIndex = state.api_fields.indexOf(state.api_fields.find(el => el._id === rowId));
-    setState({...state, api_fields: [
-      ...state.api_fields,
-      state.api_fields[findIndex] = {...state.api_fields[findIndex], [inputName]:value}
-    ]})
-  };
+  function handleRowChange(inputName, value, thisRowId) {
+    setState({...state,
+      rows:
+      {
+        ...state.rows,
+        [thisRowId]: {
+          ...state.rows[thisRowId],
+          [inputName]: value,
+          // error: ''
+        }
+      }
+    })
+  }
 
-  function deleteRow (rowId) {
-    const updatedArr = state.api_fields.slice();
-    const findIndex = updatedArr.find(el => el._id === rowId);
-    updatedArr.splice(findIndex, 1);
-    setState({...state, api_fields: [
-      ...updatedArr,
-    ]})
+  function deleteRow(thisRowId) {
+    const updatedRows = {}
+    Object.assign(updatedRows, state.rows)
+    delete updatedRows[thisRowId]
+
+    setState({...state,
+      rows:
+      {
+        ...updatedRows,
+      }
+    })
   }
 
   const handleChange = event => {
@@ -112,6 +157,7 @@ const ApiEdit = props => {
   }
 
   const onSave = event => {
+    // Transform state to data to send in original format (array of fields instead of rows property)
     event.preventDefault();
     const token = localStorage.token;
 
@@ -134,16 +180,16 @@ const ApiEdit = props => {
           return response;
         }
       })
-      .then(
-        setState({
-          public: "",
-          api_name: "",
-          description: "",
-          api_key: "",
-          api_secret_key: "",
-          api_fields: []
-        })
-      )
+      // .then(
+      //   setState({
+      //     // public: "",
+      //     // api_name: "",
+      //     // description: "",
+      //     // api_key: "",
+      //     // api_secret_key: "",
+      //     // api_fields: []
+      //   })
+      // )
       .then(res => res.json())
       .then(data => {
         history.push(`/apiDetails/edit/${data.api_name}`)
@@ -155,6 +201,7 @@ const ApiEdit = props => {
       });
   };
 
+  console.log("STATE  ", state);
   if (!currentApi) return null;
 
   if (currentApi.public) publicVar = "public";
@@ -194,7 +241,7 @@ const ApiEdit = props => {
                 size="small"
                 variant="contained"
                 style={{
-                  color: "white",
+                  color: "primary",
                   backgroundColor: "#3371B0",
                   width: "300px",
                   height: "40px"
@@ -257,7 +304,7 @@ const ApiEdit = props => {
                 size="small"
                 variant="contained"
                 style={{
-                  color: "white",
+                  color: "primary",
                   backgroundColor: "#E85F48",
                   width: "150px",
                   height: "40px"
@@ -270,7 +317,7 @@ const ApiEdit = props => {
                 size="small"
                 variant="contained"
                 style={{
-                  color: "white",
+                  color: "primary",
                   backgroundColor: "#B4D173",
                   width: "150px",
                   height: "40px"
@@ -301,7 +348,7 @@ const ApiEdit = props => {
                 type="text"
                 name="api_name"
                 placeholder="Insert a name..."
-                value={state.api_name}
+                value={state.api_name||""}
                 onChange={handleChange}
                 required
               ></input>
@@ -320,7 +367,7 @@ const ApiEdit = props => {
                   size="small"
                   variant="contained"
                   style={{
-                    color: "white",
+                    color: "primary",
                     backgroundColor: "#E85F48",
                     width: "150px",
                     height: "40px"
@@ -333,7 +380,7 @@ const ApiEdit = props => {
                   size="small"
                   variant="contained"
                   style={{
-                    color: "white",
+                    color: "primary",
                     backgroundColor: "#B4D173",
                     width: "150px",
                     height: "40px"
@@ -367,7 +414,7 @@ const ApiEdit = props => {
                 type="text"
                 name="description"
                 placeholder="Insert description..."
-                value={state.description}
+                value={state.description || ""}
                 onChange={handleChange}
                 required
               ></input>
@@ -379,7 +426,7 @@ const ApiEdit = props => {
                   size="small"
                   variant="contained"
                   style={{
-                    color: "white",
+                    color: "primary",
                     backgroundColor: "#E85F48",
                     width: "150px",
                     height: "40px"
@@ -392,7 +439,7 @@ const ApiEdit = props => {
                   size="small"
                   variant="contained"
                   style={{
-                    color: "white",
+                    color: "primary",
                     backgroundColor: "#B4D173",
                     width: "150px",
                     height: "40px"
@@ -438,7 +485,7 @@ const ApiEdit = props => {
                 size="small"
                 variant="contained"
                 style={{
-                  color: "white",
+                  color: "primary",
                   backgroundColor: "#3371B0",
                   width: "300px",
                   height: "40px",
@@ -463,7 +510,7 @@ const ApiEdit = props => {
                     type="text"
                     name="api_key"
                     placeholder="Insert new key..."
-                    value={state.api_key}
+                    value={state.api_key || ""}
                     onChange={handleChange}
                     required
                   ></input>
@@ -476,7 +523,7 @@ const ApiEdit = props => {
                     type="text"
                     name="api_secret_key"
                     placeholder="Insert new secret key..."
-                    value={state.api_secret_key}
+                    value={state.api_secret_key || ""}
                     onChange={handleChange}
                     required
                   ></input>
@@ -490,7 +537,7 @@ const ApiEdit = props => {
                   size="small"
                   variant="contained"
                   style={{
-                    color: "white",
+                    color: "primary",
                     backgroundColor: "#E85F48",
                     width: "150px",
                     height: "40px"
@@ -503,7 +550,7 @@ const ApiEdit = props => {
                   size="small"
                   variant="contained"
                   style={{
-                    color: "white",
+                    color: "primary",
                     backgroundColor: "#B4D173",
                     width: "150px",
                     height: "40px"
@@ -521,35 +568,32 @@ const ApiEdit = props => {
           <div className="ApiEdit-Card-title">Edit API Fields</div>
           <div className="ApiEdit-Card-content">
             <div className="">
-            {/* <div className="ApiEdit-Card-content-item"> */}
+              {/* <div className="ApiEdit-Card-content-item"> */}
               <div className="flex-column">
-                {_.map(fieldRows, (row, rowKey) => {
+                {_.map(state.rows, (row, rowKey) => {
                   return (
                     <FieldRow
                       handleChange={() => handleRowChange()}
-                      deleteRow={deleteRow}
+                      deleteRow={() => deleteRow(rowKey)}
                       rowId={rowKey}
                       key={rowKey}
-                      fieldRows={fieldRows}
+                      fieldRows={state}
                       touched={false}
                     />
                   );
                 })}
               </div>
               <div>
-              <Button
-                size="small"
-                variant="contained"
-                color="primary"
-                onClick={() => addNewRow()}
-              >
-                Add Row
-              </Button>
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="primary"
+                  onClick={() => addNewRow()}
+                >
+                  Add Row
+                </Button>
               </div>
-              <div>
-              EDITABLE TABLE PENDING
-
-              </div>
+              <div>EDITABLE TABLE PENDING</div>
             </div>
 
             <div className="ApiEdit-Card-buttons">
@@ -558,7 +602,7 @@ const ApiEdit = props => {
                   size="small"
                   variant="contained"
                   style={{
-                    color: "white",
+                    color: "primary",
                     backgroundColor: "#E85F48",
                     width: "150px",
                     height: "40px"
@@ -571,7 +615,7 @@ const ApiEdit = props => {
                   size="small"
                   variant="contained"
                   style={{
-                    color: "white",
+                    color: "primary",
                     backgroundColor: "#B4D173",
                     width: "150px",
                     height: "40px"
@@ -596,7 +640,7 @@ const ApiEdit = props => {
                   size="small"
                   variant="contained"
                   style={{
-                    color: "white",
+                    color: "primary",
                     backgroundColor: "#E85F48",
                     width: "150px",
                     height: "40px"
@@ -611,7 +655,7 @@ const ApiEdit = props => {
                   size="small"
                   variant="contained"
                   style={{
-                    color: "white",
+                    color: "primary",
                     backgroundColor: "#E85F48",
                     width: "150px",
                     height: "40px"

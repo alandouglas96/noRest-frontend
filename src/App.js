@@ -47,6 +47,10 @@ if (process.env.NODE_ENV === "development") {
 
 
 function App (props) {
+<<<<<<< HEAD
+=======
+  // console.log(props.auth);
+>>>>>>> First fields showing, testing pending
 
   useEffect( () => {
     props.fetchUser();
@@ -98,12 +102,13 @@ const RoutePrivate = ({ component: Component, auth, ...rest }) => {
   )} />
   );
 }
+
 function mapStateToProps({ auth }) {
   return { auth };
 }
+
 export default connect(mapStateToProps, actions)(App);
 
 
 
 
- 
