@@ -23,7 +23,7 @@ export const Login = (props) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    
+
     // reset user APIs state.
     props.resetUserApis();
 
@@ -78,7 +78,7 @@ export const Login = (props) => {
               type="email"
               style={{width:'100%'}}
               required
-              
+
             />
           </Grid>
           <Grid item xs={12}>
@@ -97,12 +97,12 @@ export const Login = (props) => {
             <div className="align-text-right">
               <a href='/login'>Forgot your password?</a>
             </div>
-          </Grid> 
+          </Grid>
           <Grid item xs={12}>
             <Button fullWidth type="submit" variant="contained" color="primary" >Login</Button>
           </Grid>
           <Grid item xs={12}>
-            <div class="title4" style={{textAlign:'center'}}>Don't have an Account?</div>
+            <div className="title4" style={{textAlign:'center'}}>Don't have an Account?</div>
           </Grid>
           <Grid item xs={12}>
             <Link to="/signUp">
@@ -112,8 +112,8 @@ export const Login = (props) => {
         </Grid>
       </form>
     </div>
-      
-    
+
+
   )
 }
 
