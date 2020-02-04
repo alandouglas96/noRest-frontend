@@ -1,6 +1,5 @@
 import React, { useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
-// import { TextField, Button } from '@material-ui/core';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import * as actions from '../../../actions/createApiActions';
@@ -11,7 +10,6 @@ function DropZone ({ match }) {
   const apiName = match.params.apiName;
 
   const onDrop = useCallback(file => {
-    // const reader = new FileReader();
     console.log(file);
     const formData = new FormData();
     formData.append('file', file[0]);
@@ -36,7 +34,7 @@ function DropZone ({ match }) {
         if (error.message !== 'bypass') console.error('Error fetching user APIs:', error);
       });
   }, [apiName]);
-  
+
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
   return (

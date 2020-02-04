@@ -70,7 +70,6 @@ function ApiPostman ({
       <div className="bread-crumb">
         <BreadCrumb/>
         <div className="flex">
-          <DropZone/>
           <Link to="/">
             <Button color="secondary" variant="contained" size="small">Back</Button>
           </Link>
@@ -80,6 +79,7 @@ function ApiPostman ({
         <div className="bigTitle">Postman</div>
         <div className="margin-top flex-column align-center justify-center">
         <div className="flex align-center">
+        <DropZone/>
         <TextField
           autoComplete='off'
           id="inputSearch"
