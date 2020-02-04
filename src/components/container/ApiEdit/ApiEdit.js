@@ -135,14 +135,7 @@ const ApiEdit = props => {
   };
 
   const handleCancel= () => {
-    setState({
-      public: "",
-      api_name: "",
-      description: "",
-      api_key: "",
-      api_secret_key: "",
-      api_fields: []
-    })
+    setState(formatDataToRows(currentApi));
     history.push(`/apiDetails/${currentApi.api_name}`);
   }
 
