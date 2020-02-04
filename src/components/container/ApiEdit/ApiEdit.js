@@ -14,7 +14,10 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import FieldRow from "../../presentional/CreateApiFormRow/CreateApiFormRow";
 
-import * as actions from '../../../actions';
+import * as actions from "../../../actions";
+
+import _ from "lodash";
+import uuidv1 from "uuid/v1";
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -27,28 +30,104 @@ const useStyles = makeStyles(theme => ({
 }));
 
 const ApiEdit = props => {
-  const { userApis, deleteApi, deleteApiData, generateNewKeys, history, fetchUserApisAction } = props;
+  const {
+    userApis,
+    deleteApi,
+    deleteApiData,
+    generateNewKeys,
+    history,
+    fetchUserApisAction
+  } = props;
   const apiName = props.match.params.apiName;
   const currentApi = userApis.find(api => api.api_name === apiName);
   let publicVar;
+
+
+  function formatDataToRows(thisApi) {
+    let initialState = {};
+    Object.assign(initialState, thisApi);
+    const fieldsToRows = {};
+    if (thisApi) {
+      for (let i = 0; i < initialState.api_fields.length; i++) {
+        let field = initialState.api_fields[i];
+        fieldsToRows[field._id] = {
+          value: field.field_name,
+          valueType: field.field_type,
+          allowNull: field.allow_null,
+          default_value: field.default_value,
+          error:''
+        };
+      }
+    }
+
+    delete initialState.api_fields;
+    initialState.rows = fieldsToRows;
+    return initialState;
+  }
+
+  const initialState  = formatDataToRows(currentApi);
+  const [state, setState] = useState(initialState);
+  useEffect(() => {
+    setState(formatDataToRows(currentApi));
+  }, [currentApi]);
+
 
   // STYLE-START
   const classes = useStyles();
   const inputLabel = React.useRef(10);
   const [labelWidth, setLabelWidth] = React.useState(0);
+
   useEffect(() => {
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
   // STYLE-END
 
-  const [state, setState] = useState({
-    public: "",
-    api_name: "",
-    description: "",
-    api_key: "",
-    api_secret_key: "",
-    api_fields: []
-  });
+  function addNewRow () {
+    setState({...state,
+      rows:
+      {
+        ...state.rows, [uuidv1()]: {
+        value: '',
+        valueType: 'String',
+        allowNull: true,
+        default_value: '',
+        error: ''
+        }
+      }
+    });
+  }
+
+  function handleRowChange(e, inputName , thisRowId) {
+    let error = "";
+    if (inputName === "value" && e.target.value === "") {
+      error = "*required";
+    }
+
+    setState({...state,
+      rows:
+      {
+        ...state.rows,
+        [thisRowId]: {
+          ...state.rows[thisRowId],
+          [inputName]: e.target.value,
+          error: error
+        }
+      }
+    })
+  }
+
+  function deleteRow(e,thisRowId) {
+    const updatedRows = {}
+    Object.assign(updatedRows, state.rows)
+    delete updatedRows[thisRowId]
+
+    setState({...state,
+      rows:
+      {
+        ...updatedRows,
+      }
+    })
+  }
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -71,6 +150,30 @@ const ApiEdit = props => {
     event.preventDefault();
     const token = localStorage.token;
 
+    const stateCopy = {};
+    Object.assign(stateCopy, state);
+
+    const fieldsObjectToArray=[];
+
+    _.each(state.rows, row => {
+      fieldsObjectToArray
+      .push({
+        field_name: row.value,
+        field_type: row.valueType,
+        allow_null: row.allowNull
+      })
+    });
+
+    const ApiObjectToSend = {
+      api_name: stateCopy.api_name,
+      description: stateCopy.description,
+      api_key: stateCopy.api_key,
+      api_secret_key: stateCopy.api_secret_key,
+      api_fields: fieldsObjectToArray
+    }
+
+    console.log('OBJECT TO SEND   ', ApiObjectToSend)
+
     const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/api/${currentApi.api_name}`;
     const options = {
       method: "PUT",
@@ -79,8 +182,9 @@ const ApiEdit = props => {
         "Content-Type": "application/json;charset=UTF-8",
         Authorization: `Bearer ${token}`
       },
-      body: JSON.stringify(state)
+      body: JSON.stringify(ApiObjectToSend)
     };
+
     fetch(url, options)
       .then(response => {
         if (response.status !== 200 && response.status !== 201) {
@@ -90,21 +194,12 @@ const ApiEdit = props => {
           return response;
         }
       })
-      .then(
-        setState({
-          public: "",
-          api_name: "",
-          description: "",
-          api_key: "",
-          api_secret_key: "",
-          api_fields: []
-        })
-      )
       .then(res => res.json())
       .then(data => {
         history.push(`/apiDetails/edit/${data.api_name}`)
       })
       .then(() => fetchUserApisAction())
+      .then(setState(formatDataToRows(currentApi)))
       .catch(error => {
         if (error.message !== "bypass")
           console.error("Error on editing API:", error);
@@ -150,7 +245,7 @@ const ApiEdit = props => {
                 size="small"
                 variant="contained"
                 style={{
-                  color: "white",
+                  color: "primary",
                   backgroundColor: "#3371B0",
                   width: "300px",
                   height: "40px"
@@ -213,7 +308,7 @@ const ApiEdit = props => {
                 size="small"
                 variant="contained"
                 style={{
-                  color: "white",
+                  color: "primary",
                   backgroundColor: "#E85F48",
                   width: "150px",
                   height: "40px"
@@ -226,7 +321,7 @@ const ApiEdit = props => {
                 size="small"
                 variant="contained"
                 style={{
-                  color: "white",
+                  color: "primary",
                   backgroundColor: "#B4D173",
                   width: "150px",
                   height: "40px"
@@ -257,7 +352,7 @@ const ApiEdit = props => {
                 type="text"
                 name="api_name"
                 placeholder="Insert a name..."
-                value={state.api_name}
+                value={""}
                 onChange={handleChange}
                 required
               ></input>
@@ -276,7 +371,7 @@ const ApiEdit = props => {
                   size="small"
                   variant="contained"
                   style={{
-                    color: "white",
+                    color: "primary",
                     backgroundColor: "#E85F48",
                     width: "150px",
                     height: "40px"
@@ -289,7 +384,7 @@ const ApiEdit = props => {
                   size="small"
                   variant="contained"
                   style={{
-                    color: "white",
+                    color: "primary",
                     backgroundColor: "#B4D173",
                     width: "150px",
                     height: "40px"
@@ -323,7 +418,7 @@ const ApiEdit = props => {
                 type="text"
                 name="description"
                 placeholder="Insert description..."
-                value={state.description}
+                value={""}
                 onChange={handleChange}
                 required
               ></input>
@@ -335,7 +430,7 @@ const ApiEdit = props => {
                   size="small"
                   variant="contained"
                   style={{
-                    color: "white",
+                    color: "primary",
                     backgroundColor: "#E85F48",
                     width: "150px",
                     height: "40px"
@@ -348,7 +443,7 @@ const ApiEdit = props => {
                   size="small"
                   variant="contained"
                   style={{
-                    color: "white",
+                    color: "primary",
                     backgroundColor: "#B4D173",
                     width: "150px",
                     height: "40px"
@@ -394,7 +489,7 @@ const ApiEdit = props => {
                 size="small"
                 variant="contained"
                 style={{
-                  color: "white",
+                  color: "primary",
                   backgroundColor: "#3371B0",
                   width: "300px",
                   height: "40px",
@@ -419,7 +514,7 @@ const ApiEdit = props => {
                     type="text"
                     name="api_key"
                     placeholder="Insert new key..."
-                    value={state.api_key}
+                    value={""}
                     onChange={handleChange}
                     required
                   ></input>
@@ -432,7 +527,7 @@ const ApiEdit = props => {
                     type="text"
                     name="api_secret_key"
                     placeholder="Insert new secret key..."
-                    value={state.api_secret_key}
+                    value={""}
                     onChange={handleChange}
                     required
                   ></input>
@@ -446,7 +541,7 @@ const ApiEdit = props => {
                   size="small"
                   variant="contained"
                   style={{
-                    color: "white",
+                    color: "primary",
                     backgroundColor: "#E85F48",
                     width: "150px",
                     height: "40px"
@@ -459,7 +554,7 @@ const ApiEdit = props => {
                   size="small"
                   variant="contained"
                   style={{
-                    color: "white",
+                    color: "primary",
                     backgroundColor: "#B4D173",
                     width: "150px",
                     height: "40px"
@@ -476,25 +571,32 @@ const ApiEdit = props => {
         <div className="ApiEdit-Card">
           <div className="ApiEdit-Card-title">Edit API Fields</div>
           <div className="ApiEdit-Card-content">
-            <div className="ApiEdit-Card-content-item">
-              {/* {currentApi.api_fields.map((row, rowKey) => {
-                return (
-                  <FieldRow
-                    handleChange={handleChange}
-                    // handleSelectChange={handleSelectChange}
-                    // deleteRow={deleteRow}
-                    fieldTypeName={`fielTypeName${rowKey}`}
-                    fieldName={`fieldName${rowKey}`}
-                    fieldAllowName={`fielTypeName${rowKey}`}
-                    rowId={rowKey}
-                    key={rowKey}
-                    // fieldRows={fieldRows}
-                    error={row.error}
-                    touched={row.touched}
-                  />
-                );
-              })} */}
-              EDITABLE TABLE PENDING
+            <div className="ApiEdit-fieldsTable">
+              {/* <div className="ApiEdit-Card-content-item"> */}
+              <div className="flex-column">
+                {_.map(state.rows, (row, rowKey) => {
+                  return (
+                    <FieldRow
+                      handleChange={handleRowChange}
+                      deleteRow={deleteRow}
+                      rowId={rowKey}
+                      key={rowKey}
+                      fieldRows={state}
+                      touched={false}
+                    />
+                  );
+                })}
+              </div>
+              <div>
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="primary"
+                  onClick={() => addNewRow()}
+                >
+                  Add Row
+                </Button>
+              </div>
             </div>
 
             <div className="ApiEdit-Card-buttons">
@@ -503,7 +605,7 @@ const ApiEdit = props => {
                   size="small"
                   variant="contained"
                   style={{
-                    color: "white",
+                    color: "primary",
                     backgroundColor: "#E85F48",
                     width: "150px",
                     height: "40px"
@@ -516,7 +618,7 @@ const ApiEdit = props => {
                   size="small"
                   variant="contained"
                   style={{
-                    color: "white",
+                    color: "primary",
                     backgroundColor: "#B4D173",
                     width: "150px",
                     height: "40px"
@@ -541,7 +643,7 @@ const ApiEdit = props => {
                   size="small"
                   variant="contained"
                   style={{
-                    color: "white",
+                    color: "primary",
                     backgroundColor: "#E85F48",
                     width: "150px",
                     height: "40px"
@@ -556,22 +658,22 @@ const ApiEdit = props => {
                   size="small"
                   variant="contained"
                   style={{
-                    color: "white",
+                    color: "primary",
                     backgroundColor: "#E85F48",
                     width: "150px",
                     height: "40px"
                   }}
                   onClick={() => deleteApi(currentApi.api_name, history)}
                 >
-                  <span className="ApiEdit-Card-buttons-text">
-                    DELETE API
-                  </span>
+                  <span className="ApiEdit-Card-buttons-text">DELETE API</span>
                 </Button>
               </div>
             </div>
             <div className="ApiEdit-Card-content-redText">
               <p>Careful! Deleting your API or the data in it is a permanent</p>
-              <p>action. You won't be able to retrieve any of the information</p>
+              <p>
+                action. You won't be able to retrieve any of the information
+              </p>
               <p>stored in the database we provide. Be sure to make a safe</p>
               <p>copy of the data if needed.</p>
             </div>

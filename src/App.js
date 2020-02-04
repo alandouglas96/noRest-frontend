@@ -98,12 +98,13 @@ const RoutePrivate = ({ component: Component, auth, ...rest }) => {
   )} />
   );
 }
+
 function mapStateToProps({ auth }) {
   return { auth };
 }
+
 export default connect(mapStateToProps, actions)(App);
 
 
 
 
- 
