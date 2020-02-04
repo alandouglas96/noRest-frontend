@@ -67,7 +67,8 @@ function App (props) {
             <Grid item xs={12}>
           <div className="dashboard">
             <Switch>
-              <Route exact path="/">{props.auth ? <Redirect to="/userDashboard" /> : <LandingPage />}</Route>
+              {/*<Route exact path="/">{props.auth ? <Redirect to="/userDashboard" /> : <LandingPage />}</Route>*/}
+              <Route exact path="/" component={LandingPage} />
               <Route exact path="/signUp" component={SignUpForm} />
               <Route exact path="/login" component={Login} />
               <Route exact path="/public-apis" component={PublicApis} />
