@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { connect } from 'react-redux';
 import { Button, TextField } from '@material-ui/core';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import UserDashBoard from '../UserDashboard/UserDashboard'
 import ShowMoreLandingPage from '../ShowMoreLandingPage'
 
@@ -25,8 +25,6 @@ function LandingPage (props) {
     }  
   }
 
-  if (props.auth)
-  return <UserDashBoard/>
 
   return (
     <>

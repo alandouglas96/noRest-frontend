@@ -137,7 +137,7 @@ div {
   border-bottom: solid rgb(233, 233, 233) 1px;
 }
 
-.white-underline{
+.white-underline {
   border-bottom: solid rgb(255, 255, 255) 1px;
 }
 .errorText {
@@ -148,9 +148,14 @@ div {
   padding-top: 3px;
 }
 
-.boldTitle{
+.boldTitle {
   font-size: 1.4em;
   font-weight: 700;
+}
+
+.semiTitle {
+  font-size: 1.2em;
+  font-weight: 500;
 }
 
 .linkStyle {
