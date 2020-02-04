@@ -79,7 +79,6 @@ function CreateApiForm({
         </div>
       </div>
       <div className="box2">
-<<<<<<< HEAD
 
       <form onSubmit= { async (e) => {
           const data = await handleApiSubmit( e, fieldRows, apiName,isPublicState, history, description);
@@ -90,7 +89,7 @@ function CreateApiForm({
         <div className="">Create your own RESTful API</div>
         <div className="CreateApiForm-title">API</div>
         <div className="flex align-center">
-          <TextField 
+          <TextField
             error={apiName.error ? true : false}
             label="Api Name"
             name="Api Name"
@@ -99,37 +98,8 @@ function CreateApiForm({
             required
             size="small"
             value={apiName.value}
-            variant="outlined" 
+            variant="outlined"
           />
-=======
-        <form
-          onSubmit={e =>
-            handleApiSubmit(
-              e,
-              fieldRows,
-              apiName,
-              submitApiAction,
-              isPublicState,
-              history,
-              description
-            )
-          }
-        >
-          <div className="">Create your own RESTful API</div>
-          <div className="CreateApiForm-title">API</div>
->>>>>>> Basic logic for ApiEdit-fields
-          <div className="flex align-center">
-            <TextField
-              variant="outlined"
-              size="small"
-              onChange={handleApiNameChange}
-              onBlur={handleApiNameValidation}
-              name="Api Name"
-              label="Api Name"
-              value={apiName.value}
-              error={apiName.error ? true : false}
-              required
-            />
             <div className="flex align-center">
               <div
                 className="title2"
