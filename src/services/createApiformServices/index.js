@@ -27,12 +27,12 @@ export const handleApiSubmit = (e, fieldRows, apiName, submitApiAction, isPublic
     user: { id }
   }
 
-  submitApi(sendApiObject, history, submitApiAction)
-  .then(data => (submitApiAction(), data))
-  //.then(data => (submitApiAction(), data))
-  .then((data) => {
-    history.push(`/apiDetails/${data.api_name}`)
-  }).catch((err) => console.log('Error in Submit Api in helper',err))
+  return submitApi(sendApiObject, history, submitApiAction)
+  // .then(data => (submitApiAction(), data))
+  // //.then(data => (submitApiAction(), data))
+  // .then((data) => {
+    
+  // }).catch((err) => console.log('Error in Submit Api in helper',err))
   // submitApi(sendApiObject, history).then((data)=> {
   //     history.push(`/apiDetails/${data.api_name}`);
   //     dispatch(fetchUseApiAction);

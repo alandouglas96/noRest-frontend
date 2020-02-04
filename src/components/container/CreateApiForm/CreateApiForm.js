@@ -82,7 +82,14 @@ function CreateApiForm ({
       </div>
       <div className="box2">
 
-      <form onSubmit={(e) => handleApiSubmit(e, fieldRows, apiName, submitApiAction, isPublicState, history, description,  )}>
+      <form onSubmit={async (e) => {
+        const data = await handleApiSubmit( e, fieldRows, apiName, submitApiAction, isPublicState, history, description)
+        submitApiAction();
+        history.push(`/apiDetails/${data.api_name}`)
+
+        } 
+        
+        }>
 
         <div className="">Create your own RESTful API</div>
         <div className="CreateApiForm-title">API</div>
