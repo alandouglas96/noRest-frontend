@@ -51,7 +51,10 @@ export const AccountSettings = (props) => {
         throw new Error('bypass');
       } else return response;
     })
-    .then(res => window.alert('Name changed'))
+    .then(res => { 
+      setState(initialState);
+      window.alert('Name changed');
+    })
     .catch(error => {
       if (error.message !== 'bypass') console.error('Error in fetch Login:', error);
     });
@@ -64,7 +67,7 @@ export const AccountSettings = (props) => {
     setState({...state, name: ''});
 
     // check passwords match
-    if (state.password !== state.repeatPassword) {
+    if (state.newPassword !== state.repeatPassword) {
       window.alert("Passwords don't match");
       setState(initialState);
       return null;
@@ -89,7 +92,10 @@ export const AccountSettings = (props) => {
         throw new Error('bypass');
       } else return response;
     })
-    .then(res => window.alert('Password changed'))
+    .then(res => {
+      setState(initialState);
+      window.alert('Password changed');
+    })
     .catch(error => {
       if (error.message !== 'bypass') console.error('Error in fetch Login:', error);
     });
