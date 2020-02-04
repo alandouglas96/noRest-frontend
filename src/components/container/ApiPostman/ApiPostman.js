@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import * as actions from '../../../actions/createApiActions';
 import PostmanTable from '../../presentional/PostmanTable'
+import DropZone from '../DropZone/'
 // import { fetchUserApisAction } from "../../../actions/";
 
 import { getApiData } from '../../../services'
@@ -78,6 +79,7 @@ function ApiPostman ({
         <div className="bigTitle">Postman</div>
         <div className="margin-top flex-column align-center justify-center">
         <div className="flex align-center">
+        <DropZone/>
         <TextField
           autoComplete='off'
           id="inputSearch"
