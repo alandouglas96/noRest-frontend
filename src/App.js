@@ -47,10 +47,6 @@ if (process.env.NODE_ENV === "development") {
 
 
 function App (props) {
-<<<<<<< HEAD
-=======
-  // console.log(props.auth);
->>>>>>> First fields showing, testing pending
 
   useEffect( () => {
     props.fetchUser();

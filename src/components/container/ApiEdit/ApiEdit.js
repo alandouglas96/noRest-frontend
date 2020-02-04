@@ -17,7 +17,7 @@ import FieldRow from "../../presentional/CreateApiFormRow/CreateApiFormRow";
 import * as actions from "../../../actions";
 
 import _ from "lodash";
-import uuid from "uuid";
+import uuidv1 from "uuid/v1";
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -44,9 +44,7 @@ const ApiEdit = props => {
 
 
   function formatDataToRows(thisApi) {
-    let initialState = {
-
-    };
+    let initialState = {};
     Object.assign(initialState, thisApi);
     const fieldsToRows = {};
     if (thisApi) {
@@ -67,66 +65,58 @@ const ApiEdit = props => {
     return initialState;
   }
 
-
   const initialState  = formatDataToRows(currentApi);
   const [state, setState] = useState(initialState);
+  useEffect(() => {
+    setState(formatDataToRows(currentApi));
+  }, [currentApi]);
 
 
   // STYLE-START
   const classes = useStyles();
   const inputLabel = React.useRef(10);
   const [labelWidth, setLabelWidth] = React.useState(0);
-  useEffect(() => {
-    setLabelWidth(inputLabel.current.offsetWidth);
-    setState(formatDataToRows(currentApi));
-  }, [currentApi]);
 
   useEffect(() => {
     setLabelWidth(inputLabel.current.offsetWidth);
   }, []);
   // STYLE-END
 
-  // const format1 = {
-  //   _id: "",
-  //   field_name: "",
-  //   field_type: "",
-  //   allow_null: "",
-  //   default_value: ""
-  //   api_fields: [{ _id: uuid(), field_name: "", field_type: "", allow_null: "", default_value: ""}]
-  // };
-
-  const fieldRows = state.rows;  // edit this array
-
-  function addNewRow() {
+  function addNewRow () {
     setState({...state,
       rows:
       {
-        ...state.rows, [uuid()]: {
+        ...state.rows, [uuidv1()]: {
         value: '',
         valueType: 'String',
         allowNull: true,
         default_value: '',
-        // error: ''
+        error: ''
         }
       }
     });
   }
 
-  function handleRowChange(inputName, value, thisRowId) {
+  function handleRowChange(e, inputName , thisRowId) {
+    let error = "";
+    if (inputName === "value" && e.target.value === "") {
+      error = "*required";
+    }
+
     setState({...state,
       rows:
       {
         ...state.rows,
         [thisRowId]: {
           ...state.rows[thisRowId],
-          [inputName]: value,
-          // error: ''
+          [inputName]: e.target.value,
+          error: error
         }
       }
     })
   }
 
-  function deleteRow(thisRowId) {
+  function deleteRow(e,thisRowId) {
     const updatedRows = {}
     Object.assign(updatedRows, state.rows)
     delete updatedRows[thisRowId]
@@ -144,6 +134,7 @@ const ApiEdit = props => {
     setState(state => ({ ...state, [name]: value })); // How to push fields into object
   };
 
+<<<<<<< HEAD
   const handleCancel= () => {
     setState({
       public: "",
@@ -155,11 +146,44 @@ const ApiEdit = props => {
     })
     history.push(`/apiDetails/${currentApi.api_name}`);
   }
+=======
+  // const row format1 = {
+  //   _id: "",
+  //   field_name: "",
+  //   field_type: "",
+  //   allow_null: "",
+  //   default_value: ""
+  //   api_fields: [{ _id: uuidv1(), field_name: "", field_type: "", allow_null: "", default_value: ""}]
+  // };
+>>>>>>> Edit API fields implemented, bug fixing in backend pending
 
   const onSave = event => {
-    // Transform state to data to send in original format (array of fields instead of rows property)
     event.preventDefault();
     const token = localStorage.token;
+
+    const stateCopy = {};
+    Object.assign(stateCopy, state);
+
+    const fieldsObjectToArray=[];
+
+    _.each(state.rows, row => {
+      fieldsObjectToArray
+      .push({
+        field_name: row.value,
+        field_type: row.valueType,
+        allow_null: row.allowNull
+      })
+    });
+
+    const ApiObjectToSend = {
+      api_name: stateCopy.api_name,
+      description: stateCopy.description,
+      api_key: stateCopy.api_key,
+      api_secret_key: stateCopy.api_secret_key,
+      api_fields: fieldsObjectToArray
+    }
+
+    console.log('OBJECT TO SEND   ', ApiObjectToSend)
 
     const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/api/${currentApi.api_name}`;
     const options = {
@@ -169,8 +193,9 @@ const ApiEdit = props => {
         "Content-Type": "application/json;charset=UTF-8",
         Authorization: `Bearer ${token}`
       },
-      body: JSON.stringify(state)
+      body: JSON.stringify(ApiObjectToSend)
     };
+
     fetch(url, options)
       .then(response => {
         if (response.status !== 200 && response.status !== 201) {
@@ -180,28 +205,22 @@ const ApiEdit = props => {
           return response;
         }
       })
-      // .then(
-      //   setState({
-      //     // public: "",
-      //     // api_name: "",
-      //     // description: "",
-      //     // api_key: "",
-      //     // api_secret_key: "",
-      //     // api_fields: []
-      //   })
-      // )
       .then(res => res.json())
       .then(data => {
+<<<<<<< HEAD
         history.push(`/apiDetails/edit/${data.api_name}`)
+=======
+        history.push(`/apiDetails/edit/${data.api_name}`);
+>>>>>>> Edit API fields implemented, bug fixing in backend pending
       })
       .then(() => fetchUserApisAction())
+      .then(setState(formatDataToRows(currentApi)))
       .catch(error => {
         if (error.message !== "bypass")
           console.error("Error on editing API:", error);
       });
   };
 
-  console.log("STATE  ", state);
   if (!currentApi) return null;
 
   if (currentApi.public) publicVar = "public";
@@ -348,7 +367,7 @@ const ApiEdit = props => {
                 type="text"
                 name="api_name"
                 placeholder="Insert a name..."
-                value={state.api_name||""}
+                value={""}
                 onChange={handleChange}
                 required
               ></input>
@@ -414,7 +433,7 @@ const ApiEdit = props => {
                 type="text"
                 name="description"
                 placeholder="Insert description..."
-                value={state.description || ""}
+                value={""}
                 onChange={handleChange}
                 required
               ></input>
@@ -510,7 +529,7 @@ const ApiEdit = props => {
                     type="text"
                     name="api_key"
                     placeholder="Insert new key..."
-                    value={state.api_key || ""}
+                    value={""}
                     onChange={handleChange}
                     required
                   ></input>
@@ -523,7 +542,7 @@ const ApiEdit = props => {
                     type="text"
                     name="api_secret_key"
                     placeholder="Insert new secret key..."
-                    value={state.api_secret_key || ""}
+                    value={""}
                     onChange={handleChange}
                     required
                   ></input>
@@ -567,14 +586,14 @@ const ApiEdit = props => {
         <div className="ApiEdit-Card">
           <div className="ApiEdit-Card-title">Edit API Fields</div>
           <div className="ApiEdit-Card-content">
-            <div className="">
+            <div className="ApiEdit-fieldsTable">
               {/* <div className="ApiEdit-Card-content-item"> */}
               <div className="flex-column">
                 {_.map(state.rows, (row, rowKey) => {
                   return (
                     <FieldRow
-                      handleChange={() => handleRowChange()}
-                      deleteRow={() => deleteRow(rowKey)}
+                      handleChange={handleRowChange}
+                      deleteRow={deleteRow}
                       rowId={rowKey}
                       key={rowKey}
                       fieldRows={state}
@@ -593,7 +612,6 @@ const ApiEdit = props => {
                   Add Row
                 </Button>
               </div>
-              <div>EDITABLE TABLE PENDING</div>
             </div>
 
             <div className="ApiEdit-Card-buttons">

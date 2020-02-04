@@ -129,6 +129,10 @@ p {
   margin-left: 15px;
 }
 
+.ApiEdit-fieldsTable {
+  margin: 50px;
+}
+
 .danger-zone {
   border-style: solid;
   border-color: red;
