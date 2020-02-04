@@ -13,6 +13,8 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import uuid from "uuid";
 
+
+
 // const columns = [
 //   { id: 'name', label: 'Name', minWidth: 170 },
 //   { id: 'code', label: 'ISO\u00a0Code', minWidth: 100 },
@@ -48,10 +50,11 @@ const useStyles = makeStyles({
   },
 });
 
-function formatBoolean (value) {
+function formatValue (value) {
  
   if (value === true ) return 'true'
   else if (value === false) return 'false'
+  //else if ( typeof value  === 'number') return value.toString()
   return value 
 }
 
@@ -99,7 +102,7 @@ export default function StickyHeadTable({rows, columns}) {
                     const value = row[column.id];
                     return (
                       <TableCell key={column.id} align={column.align}>
-                        {column.format && typeof value === 'number' ? column.format(value) : formatBoolean(value)}
+                        {column.format && typeof value === 'number' ? column.format(value) : formatValue(value)}
                       </TableCell>
                     );
                   })}

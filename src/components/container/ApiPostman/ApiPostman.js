@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Button } from '@material-ui/core';
+import { Button, TextField } from '@material-ui/core';
 import { Link } from "react-router-dom";
 import _ from 'lodash';
 import { connect } from 'react-redux';
@@ -19,6 +19,7 @@ function ApiPostman ({
   history,
   match
 }){
+
   const apiName = match.params.apiName;
   
   
@@ -26,20 +27,42 @@ function ApiPostman ({
     return (api.api_name === apiName)
   })
   
-  const [rows, setRows] = useState([])
-  console.log('user api--------->', userApi[0]);
-
+  const [rows, setRows] = useState([]);
+  const [searchValue, setSearchValue] = useState('')
+  const [initialRows, setInitialRows] = useState([])
+  
   useEffect( ()=> {
 
     const stateSetter = async () => {
-      console.log('enters useEffect', apiName)
       const data = await getApiData(apiName)
-        setRows(() => data) 
+      setInitialRows(data);
+      setRows(() => data) 
     }
+    
     stateSetter();
   },[apiName]);
-  
-  console.log('Data in use Effect----------------->', rows)
+
+  function handleSearch (search) {
+    setRows((rows) => {
+      
+      const newRows = rows.filter((row) => {
+        let flag = false;
+        _.map(row, (rowValues, rowKey) => {
+           if (rowValues.toString().includes(search) && rowKey!=='_id' && rowKey!=='__v') flag=true
+        })
+        
+        return flag;
+      })
+      return newRows;
+    })
+  }
+  function handleOnChange (e)  {
+    setSearchValue(e.target.value);
+  }
+
+  function handleReset (initialRows) {
+    setRows(initialRows)
+  }
   return (
 
     <div className="box">
@@ -52,8 +75,48 @@ function ApiPostman ({
         </div>
       </div>
       <div className="box2">
-        <div className="title2">Postman</div>
-        {rows && rows.length ? <PostmanTable rows={rows} columns={userApi[0].api_fields}/> : null }
+        <div className="bigTitle">Postman</div>
+        <div className="margin-top flex-column align-center justify-center">
+        <div className="flex align-center">
+        <TextField
+          autoComplete='off'
+          id="inputSearch"
+          label="Search"
+          onChange={handleOnChange}
+          size="small"
+          value={searchValue}
+          variant="outlined"
+        />
+        <div style={{width:'10px'}}></div>
+        <Button 
+          onClick={() => handleSearch(searchValue)}
+          variant="contained"
+          color="primary"
+          size="small"
+          style={{maxWidth: '50px', maxHeight: '30px'}}
+          >
+          
+          Seach</Button>
+        </div>
+        <div className="margin-top margin-bottom">
+        
+        <Button 
+        variant="contained"
+          color="secondary"
+          size="small"
+          style={{maxWidth: '50px'}}
+          onClick={() => handleReset(initialRows)}>Reset</Button>
+          </div>
+          </div>
+        {rows && rows.length 
+          ? 
+            <div className="margin-top">
+            <PostmanTable
+              rows={rows} 
+              columns={userApi[0].api_fields}
+            />
+            </div>
+          : null }
       </div>
     </div>
   )
@@ -63,9 +126,5 @@ function ApiPostman ({
 const mapStateToProps = state => ({
   userApis: state.userApis.userApis
 });
-
-// const mapDispatchToProps = dispatch => ({
-//   fetchUserApis: () => dispatch(fetchUserApisAction())
-// });
 
 export default connect(mapStateToProps, actions)(withRouter(ApiPostman));
