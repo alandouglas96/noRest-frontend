@@ -134,7 +134,6 @@ const ApiEdit = props => {
     setState(state => ({ ...state, [name]: value })); // How to push fields into object
   };
 
-<<<<<<< HEAD
   const handleCancel= () => {
     setState({
       public: "",
@@ -146,16 +145,6 @@ const ApiEdit = props => {
     })
     history.push(`/apiDetails/${currentApi.api_name}`);
   }
-=======
-  // const row format1 = {
-  //   _id: "",
-  //   field_name: "",
-  //   field_type: "",
-  //   allow_null: "",
-  //   default_value: ""
-  //   api_fields: [{ _id: uuidv1(), field_name: "", field_type: "", allow_null: "", default_value: ""}]
-  // };
->>>>>>> Edit API fields implemented, bug fixing in backend pending
 
   const onSave = event => {
     event.preventDefault();
@@ -207,11 +196,7 @@ const ApiEdit = props => {
       })
       .then(res => res.json())
       .then(data => {
-<<<<<<< HEAD
         history.push(`/apiDetails/edit/${data.api_name}`)
-=======
-        history.push(`/apiDetails/edit/${data.api_name}`);
->>>>>>> Edit API fields implemented, bug fixing in backend pending
       })
       .then(() => fetchUserApisAction())
       .then(setState(formatDataToRows(currentApi)))
