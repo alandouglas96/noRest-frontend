@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import "./style.css";
 import PostField from '../PostField'
+import { Button } from '@material-ui/core';
 
 const PostDataRow = ({ fields }) => {
     const formatedFields = fields[0].api_fields.map((field) => {
@@ -19,7 +20,9 @@ const PostDataRow = ({ fields }) => {
     }
     
   return (
-    fieldsState.map((_, fieldKey)=> {
+    <div>
+      <div className="title2">Insert Data</div>
+    {fieldsState.map((_, fieldKey)=> {
       return  (
         <PostField 
           fieldKey={fieldKey}
@@ -28,7 +31,17 @@ const PostDataRow = ({ fields }) => {
           key={fieldKey} 
         />
       )
-    })
+    })}
+    <Button
+          size="small"
+          variant="contained"
+          color="primary"
+          //onClick={() => addFormRow(fieldRows)}>Add Row
+          >
+          Insert Row
+
+    </Button>
+    </div>
   )
 };
 
