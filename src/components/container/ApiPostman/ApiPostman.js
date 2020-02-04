@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import * as actions from '../../../actions/createApiActions';
 import PostmanTable from '../../presentional/PostmanTable'
+import DropZone from '../DropZone/'
 // import { fetchUserApisAction } from "../../../actions/";
 
 import { getApiData } from '../../../services'
@@ -69,6 +70,7 @@ function ApiPostman ({
       <div className="bread-crumb">
         <BreadCrumb/>
         <div className="flex">
+          <DropZone/>
           <Link to="/">
             <Button color="secondary" variant="contained" size="small">Back</Button>
           </Link>
