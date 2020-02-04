@@ -28,7 +28,13 @@ function ApiPostman ({
   const userApi = _.filter(userApis, (api) => {
     return (api.api_name === apiName)
   })
-  
+  let apiInfo= {};
+  const getApiInfo = _.forEach(userApis, (api) => {
+    if (api.api_name === apiName) {
+      apiInfo ={apiName: api.api_name, apiKey:api.api_key,apiSecretKey: api.api_secret_key}
+    }
+  })
+  console.log('Api KEYS', apiInfo)  
   const [rows, setRows] = useState([]);
   const [searchValue, setSearchValue] = useState('')
   const [initialRows, setInitialRows] = useState([])
@@ -81,7 +87,7 @@ function ApiPostman ({
         <div className="margin-top flex-column align-center justify-center">
         <DropZone/>
         <div className="margin-top margin-bottom">
-          {userApi[0] ? <PostDataRow fields={userApi}/> : null}
+          {userApi[0] ? <PostDataRow fields={userApi} apiInfo={apiInfo} /> : null}
         </div>
         <div className="flex align-center margin-top">
         
@@ -115,7 +121,7 @@ function ApiPostman ({
           onClick={() => handleReset(initialRows)}>Reset</Button>
           </div>
           </div>
-        {rows && rows.length 
+        {rows && rows.length && userApi[0]
           ? 
             <div className="margin-top">
             <PostmanTable
