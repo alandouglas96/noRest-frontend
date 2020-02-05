@@ -72,6 +72,8 @@ const ApiEdit = props => {
   // }
 
   // const initialState  = formatDataToRows(currentApi);
+
+
   const [state, setState] = useState({});
   useEffect(() => {
     setState((state) => {
@@ -233,7 +235,7 @@ const ApiEdit = props => {
 
           return {
             ...state,
-            public: '',
+            public: currentApi.public ? 'Public' : 'Private',
             api_name: '',
             api_description: '',
             api_key: '',  // currentApi.api_key,
@@ -259,9 +261,6 @@ const ApiEdit = props => {
   };
 
   if (!currentApi) return null;
-
-  // if (currentApi.public) publicVar = "public";
-  // else publicVar = "private";
 
   return (
     <>
