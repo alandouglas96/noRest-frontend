@@ -6,15 +6,12 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import * as actions from '../../../actions/createApiActions';
 import PostmanTable from '../../presentional/PostmanTable'
-import DropZone from '../DropZone/'
-// import { fetchUserApisAction } from "../../../actions/";
-
+import PostDataRow from '../../presentional/postDataRow'
 import { getApiData } from '../../../services'
-import BreadCrumb from '../../presentional/breadcrumps/apiDetailsBC';
 
 
 import './style.css';
-//const apiName = props.match.params.apiName;
+
 function ApiPostman ({
   userApis,
   history,
@@ -27,10 +24,17 @@ function ApiPostman ({
   const userApi = _.filter(userApis, (api) => {
     return (api.api_name === apiName)
   })
-  
+  let apiInfo= {};
+   _.forEach(userApis, (api) => {
+    if (api.api_name === apiName) {
+      apiInfo ={apiName: api.api_name, apiKey:api.api_key,apiSecretKey: api.api_secret_key}
+    }
+  })
+  console.log('Api KEYS', apiInfo)  
   const [rows, setRows] = useState([]);
   const [searchValue, setSearchValue] = useState('')
   const [initialRows, setInitialRows] = useState([])
+  const [togglePost, setTogglePost] = useState(false)
   
   useEffect( ()=> {
 
@@ -42,6 +46,10 @@ function ApiPostman ({
     
     stateSetter();
   },[apiName]);
+
+  function handleTogglePost (event) {
+    setTogglePost(!togglePost)
+  } 
 
   function handleSearch (search) {
     setRows((rows) => {
@@ -68,51 +76,72 @@ function ApiPostman ({
 
     <div className="box">
       <div className="bread-crumb">
-        <BreadCrumb/>
+        <div className="bc">Dashboard / API Details / API Data</div>
         <div className="flex">
-          <Link to="/">
-            <Button color="secondary" variant="contained" size="small">Back</Button>
+        <Link to={`/apiDetails/${apiName}`}>
+            <Button color="secondary" variant="contained">Back</Button>
           </Link>
         </div>
       </div>
       <div className="box2">
-        <div className="bigTitle">Postman</div>
-        <div className="margin-top flex-column align-center justify-center">
-        <div className="flex align-center">
-        <DropZone/>
-        <TextField
-          autoComplete='off'
-          id="inputSearch"
-          label="Search"
-          onChange={handleOnChange}
-          size="small"
-          value={searchValue}
-          variant="outlined"
-        />
-        <div style={{width:'10px'}}></div>
-        <Button 
-          onClick={() => handleSearch(searchValue)}
-          variant="contained"
-          color="primary"
-          size="small"
-          style={{maxWidth: '50px', maxHeight: '30px'}}
-          >
-          
-          Seach</Button>
-        </div>
-        <div className="margin-top margin-bottom">
+        <div className="bigTitle">Api Data</div>
+        <div className="linkStyle" style={{cursor:'pointer', fontSize:'1.3em'}} onClick={handleTogglePost}>Post Data {togglePost ? <span>-</span> : <span>+</span>}</div>
+        <div className=" flex-column justify-center">
         
-        <Button 
-        variant="contained"
-          color="secondary"
-          size="small"
-          style={{maxWidth: '50px'}}
-          onClick={() => handleReset(initialRows)}>Reset</Button>
+        <div className="flex-column margin-top  margin-bottom">
+          {userApi[0] && togglePost
+            ? 
+            <>
+            <PostDataRow fields={userApi} apiInfo={apiInfo} /> 
+            <div className="flex-column align-center">
+        </div>
+            </>
+            : null}
+        </div>
+        <div>
+
+         
+        </div>
+        
           </div>
-          </div>
-        {rows && rows.length 
+        {rows && rows.length && userApi[0]
           ? 
             <div className="margin-top">
+            <div className="flex align-center justify-right">
+            <TextField
+              autoComplete='off'
+              id="inputSearch"
+              label="Search"
+              onChange={handleOnChange}
+              size="small"
+              value={searchValue}
+              variant="outlined"
+            />
+            <div style={{width:'10px'}}></div>
+            <Button 
+              onClick={() => handleSearch(searchValue)}
+              variant="contained"
+              color="primary"
+              size="small"
+              style={{maxWidth: '50px', maxHeight: '30px'}}
+            >
+              Seach
+            </Button>
+              <div style={{width:'10px'}}></div>
+            <Button 
+              variant="contained"
+              color="secondary"
+              size="small"
+              style={{maxWidth: '50px'}}
+              onClick={() => handleReset(initialRows)}
+            >
+              Reset
+            </Button>
+          </div>
+          <div className="margin-top margin-bottom">
+        
+       
+          </div>
             <PostmanTable
               rows={rows} 
               columns={userApi[0].api_fields}

@@ -3,13 +3,11 @@ import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import { Button, Grid } from "@material-ui/core";
 import "./style.css";
-import BreadCrumb from '../../presentional/breadcrumps/apiDetailsBC';
 import ApiTable from '../../presentional/ApiDetailsTable'
 
 const ApiDetails = (props) => {
 
   const { location } = props;
-
   // determines whether route is that of a public view mode api or not
   const path = location.pathname;
   const regex = RegExp('/public-apis/.*');
@@ -18,18 +16,19 @@ const ApiDetails = (props) => {
 
   // depending on the test gets current API from publicApis state or from user
   // apis.
-
+  let apiName='';
+  let currentApi='';
   if (publicDetails) {
     const { publicApis } = props;
-    var apiName = props.match.params.apiName;
+    apiName = props.match.params.apiName;
     if (publicApis.length) {
-     var currentApi = publicApis.find(api => api.api_name === apiName)
+     currentApi = publicApis.find(api => api.api_name === apiName)
     }
     if (!currentApi) return null;
   } else {
     const { userApis } = props;
-    var apiName = props.match.params.apiName;
-    var currentApi = userApis.find(api => api.api_name === apiName)
+    apiName = props.match.params.apiName;
+    currentApi = userApis.find(api => api.api_name === apiName)
     if (!currentApi) return null;
   }
 
@@ -37,11 +36,11 @@ const ApiDetails = (props) => {
     <>
       <div className=" box">
         <div className="bread-crumb">
-          <BreadCrumb/>
+        <div className="bc">Dashboard / API Details</div>
           <div className="flex">
             <Link to={`/apiPostman/${currentApi.api_name}`}>
-              <Button size="small" variant="contained" color="primary" style={{marginRight:'5px'}}>
-                POSTMAN
+              <Button variant="contained" color="primary" style={{marginRight:'5px'}}>
+                API Data
               </Button>
             </Link>
             { publicDetails 
@@ -49,22 +48,25 @@ const ApiDetails = (props) => {
                 '' 
               :
                 <Link to={`/apiDetails/edit/${apiName}`}>
-                  <Button size="small" variant="contained" color="secondary">
-                    EDIT API
+                  <Button variant="contained" color="primary"  style={{marginRight:'5px'}}>
+                    Edit API
                   </Button>
                 </Link>
             }
+            <Link to={`/userDashboard`}>
+              <Button variant="contained" color="secondary">
+                Back
+              </Button>
+            </Link>
             </div>
           </div>
         <div className="box2">
         <div className="flex" style={{width:'100%'}}>
           <div style={{width:'100%'}}>
-            <div>
-             <span className="title2">Name:</span>
-             <span className="title3"> {currentApi.api_name}</span>
+             <div className="bigTitle"> {currentApi.api_name}
             </div>
-            <div>
-              <span className="title2 margin-top">Endpoint:{" "}</span>
+            <div className="margin-top">
+              <span className="title2">API Endpoint:{" "}</span>
               <span className="title3">https://no-rest-api.herokuapp.com/api/{currentApi.api_name}</span>
             </div>
           { publicDetails
@@ -88,8 +90,8 @@ const ApiDetails = (props) => {
           </div>
         </div>
         <div>
-          {currentApi.description ? <><span className="title2">Description: </span>
-          <span>{currentApi.description}</span></> : null}
+          {currentApi.description ? <><span className="title2">API Description: </span>
+          <span className="title3">{currentApi.description}</span></> : null}
         </div>
 
         <div className="flex-column">
@@ -152,7 +154,7 @@ const ApiDetails = (props) => {
           </div>
           </div>
           <div style={{marginBottom: '20px'}}>
-            <span className="title2">Fields Structure: </span>
+            <span className="title2">API Structure: </span>
           </div>
           <ApiTable apiFields={currentApi.api_fields}/>
         </div>

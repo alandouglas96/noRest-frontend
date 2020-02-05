@@ -1,7 +1,10 @@
-.card {
-  min-width: 100%;
+.ApiCard {
+  min-width: 300px;
+  max-width: 350px;
   height: 200px;
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   border-style: solid;
   border-color: rgba(0,0,0,0.05);
   border-width: 0.5px;

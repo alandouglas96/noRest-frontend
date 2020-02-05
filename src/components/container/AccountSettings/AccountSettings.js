@@ -111,12 +111,13 @@ export const AccountSettings = (props) => {
           alignItems="center"
           spacing={2}
         >
-          <Grid item xs={8}>
+          <Grid item xs={9}>
             <div className="boldTitle">Account Settings</div>
           </Grid>
-          <Grid item xs={4}>
+          <Grid item xs={3}>
             <Link to="/userDashboard">
-              <Button fullWidth variant="contained" color="alternative" >Go Back</Button>
+              <Button fullWidth variant="contained" 
+              color="secondary" >Back</Button>
             </Link>
           </Grid>
           <Grid item xs={12}>

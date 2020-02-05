@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
 import { connect } from 'react-redux';
 import { Button, TextField } from '@material-ui/core';
-import { Link, Redirect } from 'react-router-dom';
-import UserDashBoard from '../UserDashboard/UserDashboard'
+import { Link } from 'react-router-dom';
 import ShowMoreLandingPage from '../ShowMoreLandingPage'
 
 import './style.css';
@@ -68,7 +67,6 @@ function LandingPage (props) {
     <div className=" flex justify-center" style={{background:'transparent', marginTop: '0px', paddingTop: '0px'}}>{ showMoreState ? null : <Button onClick={toggleLearnMore}>Learn More</Button>}</div>
     {showMoreState ? <ShowMoreLandingPage/> : null}
     </>
-  
   )
 }
 

@@ -95,7 +95,7 @@ export const Login = (props) => {
               required
             />
             <div className="align-text-right">
-              <a href='/login'>Forgot your password?</a>
+              <a style={{fontSize:'0.8em'}}href='/login'>Forgot your password?</a>
             </div>
           </Grid>
           <Grid item xs={12}>
