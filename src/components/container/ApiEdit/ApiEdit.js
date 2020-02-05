@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 import * as actions from "../../../actions";
 import BackButton from "../../presentional/BackButton";
 import CancelSaveButtons from "../../presentional/CancelSaveButtons";
-import IsPublicSelect from '../../presentional/IsPublicSelect/'
+import IsPublicSelect from '../../presentional/IsPublicSelect/IsPublicSelect2'
 
 import { objectTransform } from "../../../services/ApiEditServices/objectTransform";
 
