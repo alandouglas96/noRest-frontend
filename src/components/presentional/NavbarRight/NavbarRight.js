@@ -19,27 +19,33 @@ function NavBarRight (props) {
           <Link to="/login">
            <Button variant="outlined" color="primary">Not Server</Button>
           </Link>
-      )
-      case false:
-    return (
-      <div className="NavBarItem flex">
-        <Link to="/login">
-         <Button variant="contained" color="primary">Login</Button>
-        </Link>
-        <div style={{width: '10px'}}></div>
-        <Link to="/signUp">
-         <Button variant="contained" color="secondary">Sign Up</Button>
-        </Link>
-      </div>
-    )
-    default:
+      );
+    case false:
       return (
-        <div className="NavBarItem">
-          <div className="linkStyle">Home</div>
+        <div className="NavBarItem flex">
           <Link to="/public-apis">
             <div className="linkStyle">Public APIs</div>
           </Link>
           <div className="linkStyle">Features</div>
+          <Link to="/login">
+           <Button variant="contained" color="primary">Login</Button>
+          </Link>
+          <div style={{width: '10px'}}></div>
+          <Link to="/signUp">
+           <Button variant="contained" color="secondary">Sign Up</Button>
+          </Link>
+        </div>
+      );
+    default:
+      return (
+        <div className="NavBarItem">
+          <Link to="/">
+            <div className="linkStyle">Dashboard</div>
+          </Link>
+          <Link to="/public-apis">
+            <div className="linkStyle">Public APIs</div>
+          </Link>
+          {/*<div className="linkStyle">Features</div>*/}
           <Link to="/">
            <Button variant="contained" color="primary" onClick={handleLogout}>Log Out</Button>
           </Link>

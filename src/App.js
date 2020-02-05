@@ -72,12 +72,13 @@ function App (props) {
               <Route exact path="/login" component={Login} />
               <Route exact path="/public-apis" component={PublicApis} />
               <Route exact path="/public-apis/:apiName" publicRotue={true} component={ApiDetails} />
+              <Route exact path="/public-apis/docs/:apiName" publicRotue={true} component={ApiDocs} />
               <RoutePrivate exact path="/account-settings" auth={props.auth} component={AccountSettings} />
               <RoutePrivate exact path="/createApi" auth={props.auth} component={CreateApiForm} />
               <RoutePrivate exact path="/userDashboard" auth={props.auth} component={UserDashboard} />
               <RoutePrivate exact path="/apiDetails/:apiName" auth={props.auth} component={ApiDetails} />
               <RoutePrivate exact path="/apiDetails/edit/:apiName" auth={props.auth} component={ApiEdit} />
-              <RoutePrivate exact path="/apiDetails/docs/:apiName" auth={props.auth} component={ApiDocs} />
+              <RoutePrivate exact path="/api-details/docs/:apiName" auth={props.auth} component={ApiDocs} />
               <RoutePrivate exact path="/apiPostman/:apiName" auth={props.auth} component={ApiPostman} />
             </Switch>
           </div>
