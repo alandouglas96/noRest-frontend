@@ -99,13 +99,6 @@ export const deleteApi = (apiName, history) => async dispatch => {
     });
 }
 
-
-
-
-
-
-
-
 export const generateNewKeys = (apiName, history) => async dispatch => {
   const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/api/${apiName}/keys`;
   const token = localStorage.token;

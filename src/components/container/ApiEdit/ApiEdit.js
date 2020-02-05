@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-// import _ from 'lodash';
-import { Button } from "@material-ui/core";
-import IconButton from "@material-ui/core/IconButton";
-import DeleteIcon from "@material-ui/icons/Delete";
-import "./style.css";
+import _ from "lodash";
+import uuidv1 from "uuid/v1";
 
+import "./style.css";
+import { Button } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
@@ -15,16 +13,15 @@ import Select from "@material-ui/core/Select";
 import FieldRow from "../../presentional/CreateApiFormRow/CreateApiFormRow";
 
 import * as actions from "../../../actions";
-import BackButton from '../../presentional/BackButton'
-import CancelSaveButtons from '../../presentional/CancelSaveButtons'
+import BackButton from "../../presentional/BackButton";
+import CancelSaveButtons from "../../presentional/CancelSaveButtons";
 
-import _ from "lodash";
-import uuidv1 from "uuid/v1";
+import { objectTransform } from "../../../services/ApiEditServices/objectTransform";
 
 const useStyles = makeStyles(theme => ({
   formControl: {
     margin: theme.spacing(0),
-    minWidth: 100,
+    minWidth: 100
   },
   selectEmpty: {
     marginTop: theme.spacing(1)
@@ -40,66 +37,39 @@ const ApiEdit = props => {
     history,
     fetchUserApisAction
   } = props;
+
   const apiName = props.match.params.apiName;
   const currentApi = userApis.find(api => api.api_name === apiName);
-  let publicVar;
 
-
-  // function formatDataToRows(thisApi) {
-  //   let initialState = {};
-  //   Object.assign(initialState, thisApi);
-  //   // console.log('INITIAL STATE after assing  :   ', initialState);
-  //   const fieldsToRows = {};
-  //   if (thisApi) {
-  //     for (let i = 0; i < initialState.api_fields.length; i++) {
-  //       let field = initialState.api_fields[i];
-  //       fieldsToRows[field._id] = {
-  //         value: field.field_name,
-  //         valueType: field.field_type,
-  //         allowNull: field.allow_null,
-  //         default_value: field.default_value,
-  //         error:''
-  //       };
-  //     }
-  //   }
-
-  //   delete initialState.api_fields;
-  //   initialState.rows = fieldsToRows;
-  //   // initialState.api_name = '';
-  //   // initialState.description = '';
-  //   // initialState.public = '';
-  //   return initialState;
-  // }
-
-  // const initialState  = formatDataToRows(currentApi);
   const [state, setState] = useState({});
+
+  const setInitialState = useCallback(function initialState(thisCurrentApi) {
+    if (thisCurrentApi) {
+      return {
+        ...state,
+        public: thisCurrentApi.public ? "Public" : "Private",
+        api_name: "",
+        description: "",
+        api_key: "",
+        api_secret_key: "",
+        rows: thisCurrentApi.api_fields.reduce((acc, field) => {
+          acc[field._id] = {
+            value: field.field_name,
+            valueType: field.field_type,
+            allowNull: field.allow_null,
+            default_value: field.default_value,
+            error: ""
+          };
+          return acc;
+        }, {})
+      };
+    }
+    return state;
+  }, []);
+
   useEffect(() => {
-    setState((state) => {
-      if (currentApi) {
-
-        return {
-          ...state,
-          public: currentApi.public ? 'Public' : 'Private',
-          api_name: '',
-          description: '',
-          api_key: '',  //currentApi.api_key,
-          api_secret_key: '', //currentApi.api_secret_key,
-          rows: currentApi.api_fields.reduce((acc, field) => {
-            acc[field._id] = {
-              value: field.field_name,
-              valueType: field.field_type,
-              allowNull: field.allow_null,
-              default_value: field.default_value,
-              error:''
-            };
-            return acc;
-          }, {})
-        }
-      }
-      return state;
-    });
-  }, [currentApi]);
-
+    setState(setInitialState(currentApi));
+  }, [setInitialState, currentApi]);
 
   // STYLE-START
   const classes = useStyles();
@@ -111,30 +81,32 @@ const ApiEdit = props => {
   }, []);
   // STYLE-END
 
-  function addNewRow () {
-    setState({...state,
-      rows:
-      {
-        ...state.rows, [uuidv1()]: {
-        value: '',
-        valueType: 'String',
-        allowNull: true,
-        default_value: '',
-        error: ''
+  //====================================================================== ROW HANDLING -- START
+  function addNewRow() {
+    setState({
+      ...state,
+      rows: {
+        ...state.rows,
+        [uuidv1()]: {
+          value: "",
+          valueType: "String",
+          allowNull: true,
+          default_value: "",
+          error: ""
         }
       }
     });
   }
 
-  function handleRowChange(e, inputName , thisRowId) {
+  function handleRowChange(e, inputName, thisRowId) {
     let error = "";
     if (inputName === "value" && e.target.value === "") {
       error = "*required";
     }
 
-    setState({...state,
-      rows:
-      {
+    setState({
+      ...state,
+      rows: {
         ...state.rows,
         [thisRowId]: {
           ...state.rows[thisRowId],
@@ -142,66 +114,33 @@ const ApiEdit = props => {
           error: error
         }
       }
-    })
+    });
   }
 
-  function deleteRow(e,thisRowId) {
-    const updatedRows = {}
-    Object.assign(updatedRows, state.rows)
-    delete updatedRows[thisRowId]
+  function deleteRow(e, thisRowId) {
+    const updatedRows = {};
+    Object.assign(updatedRows, state.rows);
+    delete updatedRows[thisRowId];
 
-    setState({...state,
-      rows:
-      {
-        ...updatedRows,
-      }
-    })
+    setState({ ...state, rows: { ...updatedRows } });
   }
+
+  //====================================================================== ROW HANDLING -- START
 
   const handleChange = event => {
     const { name, value } = event.target;
-    setState(state => ({ ...state, [name]: value })); // How to push fields into object
+    setState(state => ({ ...state, [name]: value }));
   };
 
-  const handleCancel= () => {
-    // setState(formatDataToRows(currentApi));
+  const handleCancel = () => {
     history.push(`/apiDetails/${currentApi.api_name}`);
-  }
+  };
 
   const onSave = event => {
     event.preventDefault();
     const token = localStorage.token;
 
-    const stateCopy = {};
-    Object.assign(stateCopy, state);
-
-    const fieldsObjectToArray=[];
-
-    _.each(state.rows, row => {
-      fieldsObjectToArray
-      .push({
-        field_name: row.value,
-        field_type: row.valueType,
-        allow_null: row.allowNull
-      })
-    });
-//============================================================================== change public from 'true'/'false' to 'public'/'private'
-    let publicVar;
-    if (state.public === 'Public') publicVar = true;
-    else publicVar = false;
-
-    const ApiObjectToSend = {
-      public: publicVar,
-      api_name: stateCopy.api_name,
-      description: stateCopy.description,
-      api_key: stateCopy.api_key,
-      api_secret_key: stateCopy.api_secret_key,
-      api_fields: fieldsObjectToArray
-    }
-
-    console.log('OBJECT TO SEND   ', ApiObjectToSend)
-
-    // console.log('STATE    :    ', state);
+    const ApiObjectToSend = objectTransform(state);
 
     const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/api/${currentApi.api_name}`;
     const options = {
@@ -225,33 +164,10 @@ const ApiEdit = props => {
       })
       .then(res => res.json())
       .then(data => {
-        history.push(`/apiDetails/edit/${data.api_name}`)
+        history.push(`/apiDetails/edit/${data.api_name}`);
       })
       .then(() => fetchUserApisAction())
-      .then(setState((state) => {
-        if (currentApi) {
-
-          return {
-            ...state,
-            public: '',
-            api_name: '',
-            api_description: '',
-            api_key: '',  // currentApi.api_key,
-            api_secret_key: '', // currentApi.api_secret_key,
-            rows: currentApi.api_fields.reduce((acc, field) => {
-              acc[field._id] = {
-                value: field.field_name,
-                valueType: field.field_type,
-                allowNull: field.allow_null,
-                default_value: field.default_value,
-                error:''
-              };
-              return acc;
-            }, {})
-          }
-        }
-        return state;
-      }))
+      .then(setState(setInitialState(currentApi)))
       .catch(error => {
         if (error.message !== "bypass")
           console.error("Error on editing API:", error);
@@ -259,9 +175,6 @@ const ApiEdit = props => {
   };
 
   if (!currentApi) return null;
-
-  // if (currentApi.public) publicVar = "public";
-  // else publicVar = "private";
 
   return (
     <>
@@ -271,230 +184,226 @@ const ApiEdit = props => {
           <BackButton />
         </div>
         <div className="box2">
-        <div className="ApiEdit-alert-box">
-          <div className="title4">
-            <p>
-              Warning! You are in edit mode, be careful with your changes as
-              some data may be lost forever.
-            </p>
-            <p>We recommend you backup your data before making any changes.</p>
+          <div className="ApiEdit-alert-box">
+            <div className="title4">
+              <p>
+                Warning! You are in edit mode, be careful with your changes as
+                some data may be lost forever.
+              </p>
+              <p>
+                We recommend you backup your data before making any changes.
+              </p>
+            </div>
           </div>
-        </div>
-
 
           <div className="bigTitle">{currentApi.api_name}</div>
           <div className="flex">
             <div className="title2">Endpoint:</div>
-            <div style={{width:'10px'}}></div>
+            <div style={{ width: "10px" }}></div>
             <div className="title3">
               https://no-rest-api.herokuapp.com/api/{currentApi.api_name}
             </div>
           </div>
 
-
-
-        <div className="ApiEdit-Card">
-          <div className="CreateApiForm-title">Change API Public Status</div>
-          <div className="ApiEdit-Card-content flex align-center ">
-            <div>
-            <div className="ApiEdit-Card-content-item">
-              <span className="title2">
-                Current API Status:
-              </span>
-              <div style={{width:'10px'}}></div>
-              <span className="title3">{state.public}</span>
-            </div>
-            <div className="ApiEdit-Card-content-item">
-              <div className="flex align-center">
-                <div>
-                  <span className="title2">
-                    New API Status
-                  </span>
+          <div className="ApiEdit-Card">
+            <div className="CreateApiForm-title">Change API Public Status</div>
+            <div className="ApiEdit-Card-content flex align-center ">
+              <div>
+                <div className="ApiEdit-Card-content-item">
+                  <span className="title2">Current API Status:</span>
+                  <div style={{ width: "10px" }}></div>
+                  <span className="title3">{state.public}</span>
                 </div>
-                <div style={{width:'10px'}}></div>
-                <FormControl variant="outlined" className={classes.formControl}>
-                  <InputLabel
-                    ref={inputLabel}
-                    id="demo-simple-select-outlined-label"
-                    size="small"
-                  >
-                  {state.public}
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-outlined-label"
-                    id="demo-simple-select-outlined"
-                    value={state.public || ""}
-                    onChange={handleChange}
-                    labelWidth={labelWidth}
-                    name="public"
-                  >
-                    <MenuItem value={'Public'}>Public</MenuItem>
-                    <MenuItem value={'Private'}>Private</MenuItem>
-                  </Select>
-                </FormControl>
-              </div>
-            </div>
-            <CancelSaveButtons onSave={onSave} handleCancel={handleCancel}/>
-              </div>
-
-            <div className="ApiEdit-alert-box" style={{width:'300px', marginLeft:'100px'}}>
-              <p>
-                Remember if your API is set to Private, it won't be possible to
-                make GET requests and see the date without the KEYS.</p>
-            </div>
-
-          </div>
-        </div>
-
-        <div className="ApiEdit-Card">
-          <div className="CreateApiForm-title">Change API Name</div>
-          <div className="ApiEdit-Card-content">
-            <div className="ApiEdit-Card-content-item">
-              <span className="title2">
-                Current API Name:
-              </span>
-              <div style={{width:'10px'}}></div>
-              <span className="title3">
-                {currentApi.api_name}
-              </span>
-            </div>
-            <div className="ApiEdit-Card-content-item flex-column align-center">
-              <span className="title2">New API Name:</span>
-              <div style={{width:'10px'}}></div>
-              <input
-                style={{minHeight:'40px', padding:'5px', fontSize:'1em'}}
-                type="text"
-                name="api_name"
-                placeholder="Insert a name..."
-                value={state.api_name || ""}
-                onChange={handleChange}
-                required
-              ></input>
-            </div>
-            <div className="ApiEdit-Card-item flex">
-              <span className="title3">New endpoint:</span>
-              <div style={{width:'10px'}}></div>
-              <span className="title3">https://no-rest-api.herokuapp.com/api/{"new-name"}</span>
-            </div>
-
-            <div className="ApiEdit-Card-content-redText">
-
-              <p>Careful! Once you change the name of the api the old</p>
-              <p>endpoint will no longer be accessible.</p>
-              <CancelSaveButtons onSave={onSave} handleCancel={handleCancel}/>
-            </div>
-          </div>
-        </div>
-
-        <div className="ApiEdit-Card">
-          <div className="CreateApiForm-title">Change API Description</div>
-          <div className="ApiEdit-Card-content">
-            <div className="ApiEdit-Card-content-item">
-              <span className="title2">
-                Current API Description:
-              </span>
-              <span className="title3">
-                {currentApi.description}
-              </span>
-            </div>
-
-            <div className="ApiEdit-Card-content-item">
-              <span className="title2">
-                New API Description:
-              </span>
-              <input
-                style={{minHeight:'40px', padding:'5px', fontSize:'1em'}}
-                type="text"
-                name="description"
-                placeholder="Insert description..."
-                value={state.description || ""}
-                onChange={handleChange}
-                required
-              ></input>
-            </div>
-
-             <CancelSaveButtons onSave={onSave} handleCancel={handleCancel}/>
-          </div>
-        </div>
-
-        <div className="ApiEdit-Card">
-          <div className="CreateApiForm-title">Generate new keys</div>
-          <div className="ApiEdit-Card-content">
-                  <span className="title3">API KEY:</span>
-                  <span className="slim title2">{currentApi.api_key}</span>
-                  <div className="flex">
-                  <span className="title3">
-                    API SECRET KEY:
-                  </span>
-                  <span className="title2 slim">
-                    {currentApi.api_secret_key}
-                  </span>
+                <div className="ApiEdit-Card-content-item">
+                  <div className="flex align-center">
+                    <div>
+                      <span className="title2">New API Status</span>
+                    </div>
+                    <div style={{ width: "10px" }}></div>
+                    <FormControl
+                      variant="outlined"
+                      className={classes.formControl}
+                    >
+                      <InputLabel
+                        ref={inputLabel}
+                        id="demo-simple-select-outlined-label"
+                        size="small"
+                      >
+                        {state.public}
+                      </InputLabel>
+                      <Select
+                        labelId="demo-simple-select-outlined-label"
+                        id="demo-simple-select-outlined"
+                        value={state.public || ""}
+                        onChange={handleChange}
+                        labelWidth={labelWidth}
+                        name="public"
+                      >
+                        <MenuItem value={"Public"}>Public</MenuItem>
+                        <MenuItem value={"Private"}>Private</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </div>
                 </div>
+                <CancelSaveButtons
+                  onSave={onSave}
+                  handleCancel={handleCancel}
+                />
+              </div>
 
-
-            <div className="ApiEdit-Card-content-redText">
-              <p>Careful! If you generate new keys, the old ones will stop</p>
-              <p>working. You may have to update your application or code</p>
-              <p>to fix it.</p>
-            </div>
-            <div>
-              <Button
-                size="small"
-                variant="contained"
-                color="primary"
-                style={{
-                  width: "300px",
-                  height: "40px",
-                  margin: "0px"
-                }}
-                onClick={() => generateNewKeys(currentApi.api_name, history)}
+              <div
+                className="ApiEdit-alert-box"
+                style={{ width: "300px", marginLeft: "100px" }}
               >
-                  GENERATE NEW KEYS
-              </Button>
-            </div>
-
-            <div className="ApiEdit-Card-content-keys1">
-              <span className="title2">
-                Generate your own keys:
-              </span>
-              <div className="ApiEdit-Card-content-keys2">
-                <div className="ApiEdit-Card-content-item">
-                  <span className="title3">API KEY:</span>
-                  <input
-                    style={{minHeight:'40px', padding:'5px', fontSize:'1em'}}
-                    type="text"
-                    name="api_key"
-                    placeholder="Insert new key..."
-                    value={state.api_key || ""}
-                    onChange={handleChange}
-                    required
-                  ></input>
-                </div>
-                <div className="ApiEdit-Card-content-item">
-                  <span className="title3">
-                    API SECRET KEY:
-                  </span>
-                  <input
-                    style={{minHeight:'40px', padding:'5px', fontSize:'1em'}}
-                    type="text"
-                    name="api_secret_key"
-                    placeholder="Insert new secret key..."
-                    value={state.api_secret_key || ""}
-                    onChange={handleChange}
-                    required
-                  ></input>
-                </div>
+                <p>
+                  Remember if your API is set to Private, it won't be possible
+                  to make GET requests and see the date without the KEYS.
+                </p>
               </div>
             </div>
-
-            <CancelSaveButtons onSave={onSave} handleCancel={handleCancel}/>
           </div>
-        </div>
 
-        <div className="ApiEdit-Card">
-          <div className="CreateApiForm-title">Edit API Fields</div>
+          <div className="ApiEdit-Card">
+            <div className="CreateApiForm-title">Change API Name</div>
+            <div className="ApiEdit-Card-content">
+              <div className="ApiEdit-Card-content-item">
+                <span className="title2">Current API Name:</span>
+                <div style={{ width: "10px" }}></div>
+                <span className="title3">{currentApi.api_name}</span>
+              </div>
+              <div className="ApiEdit-Card-content-item flex-column align-center">
+                <span className="title2">New API Name:</span>
+                <div style={{ width: "10px" }}></div>
+                <input
+                  style={{ minHeight: "40px", padding: "5px", fontSize: "1em" }}
+                  type="text"
+                  name="api_name"
+                  placeholder="Insert a name..."
+                  value={state.api_name || ""}
+                  onChange={handleChange}
+                  required
+                ></input>
+              </div>
+              <div className="ApiEdit-Card-item flex">
+                <span className="title3">New endpoint:</span>
+                <div style={{ width: "10px" }}></div>
+                <span className="title3">
+                  https://no-rest-api.herokuapp.com/api/{"new-name"}
+                </span>
+              </div>
+
+              <div className="ApiEdit-Card-content-redText">
+                <p>Careful! Once you change the name of the api the old</p>
+                <p>endpoint will no longer be accessible.</p>
+                <CancelSaveButtons
+                  onSave={onSave}
+                  handleCancel={handleCancel}
+                />
+              </div>
+            </div>
+          </div>
+
+          <div className="ApiEdit-Card">
+            <div className="CreateApiForm-title">Change API Description</div>
+            <div className="ApiEdit-Card-content">
+              <div className="ApiEdit-Card-content-item">
+                <span className="title2">Current API Description:</span>
+                <span className="title3">{currentApi.description}</span>
+              </div>
+
+              <div className="ApiEdit-Card-content-item">
+                <span className="title2">New API Description:</span>
+                <input
+                  style={{ minHeight: "40px", padding: "5px", fontSize: "1em" }}
+                  type="text"
+                  name="description"
+                  placeholder="Insert description..."
+                  value={state.description || ""}
+                  onChange={handleChange}
+                  required
+                ></input>
+              </div>
+
+              <CancelSaveButtons onSave={onSave} handleCancel={handleCancel} />
+            </div>
+          </div>
+
+          <div className="ApiEdit-Card">
+            <div className="CreateApiForm-title">Generate new keys</div>
+            <div className="ApiEdit-Card-content">
+              <span className="title3">API KEY:</span>
+              <span className="slim title2">{currentApi.api_key}</span>
+              <div className="flex">
+                <span className="title3">API SECRET KEY:</span>
+                <span className="title2 slim">{currentApi.api_secret_key}</span>
+              </div>
+
+              <div className="ApiEdit-Card-content-redText">
+                <p>Careful! If you generate new keys, the old ones will stop</p>
+                <p>working. You may have to update your application or code</p>
+                <p>to fix it.</p>
+              </div>
+              <div>
+                <Button
+                  size="small"
+                  variant="contained"
+                  color="primary"
+                  style={{
+                    width: "300px",
+                    height: "40px",
+                    margin: "0px"
+                  }}
+                  onClick={() => generateNewKeys(currentApi.api_name, history)}
+                >
+                  GENERATE NEW KEYS
+                </Button>
+              </div>
+
+              <div className="ApiEdit-Card-content-keys1">
+                <span className="title2">Generate your own keys:</span>
+                <div className="ApiEdit-Card-content-keys2">
+                  <div className="ApiEdit-Card-content-item">
+                    <span className="title3">API KEY:</span>
+                    <input
+                      style={{
+                        minHeight: "40px",
+                        padding: "5px",
+                        fontSize: "1em"
+                      }}
+                      type="text"
+                      name="api_key"
+                      placeholder="Insert new key..."
+                      value={state.api_key || ""}
+                      onChange={handleChange}
+                      required
+                    ></input>
+                  </div>
+                  <div className="ApiEdit-Card-content-item">
+                    <span className="title3">API SECRET KEY:</span>
+                    <input
+                      style={{
+                        minHeight: "40px",
+                        padding: "5px",
+                        fontSize: "1em"
+                      }}
+                      type="text"
+                      name="api_secret_key"
+                      placeholder="Insert new secret key..."
+                      value={state.api_secret_key || ""}
+                      onChange={handleChange}
+                      required
+                    ></input>
+                  </div>
+                </div>
+              </div>
+
+              <CancelSaveButtons onSave={onSave} handleCancel={handleCancel} />
+            </div>
+          </div>
+
+          <div className="ApiEdit-Card">
+            <div className="CreateApiForm-title">Edit API Fields</div>
             <div className="ApiEdit-fieldsTable">
-              {/* <div className="ApiEdit-Card-content-item"> */}
               <div className="flex-column align-center">
                 {_.map(state.rows, (row, rowKey) => {
                   return (
@@ -506,7 +415,6 @@ const ApiEdit = props => {
                       fieldRows={state}
                       touched={false}
                     />
-
                   );
                 })}
                 <Button
@@ -517,58 +425,63 @@ const ApiEdit = props => {
                 >
                   Add Row
                 </Button>
-                  <div style={{margin:'10px'}}></div>
-                <CancelSaveButtons onSave={onSave} handleCancel={handleCancel}/>
+                <div style={{ margin: "10px" }}></div>
+                <CancelSaveButtons
+                  onSave={onSave}
+                  handleCancel={handleCancel}
+                />
               </div>
             </div>
-        </div>
+          </div>
 
-        <div className="ApiEdit-Card">
-          <div className="CreateApiForm-title">Danger Zone</div>
-          <div className="ApiEdit-alert-box">
-            {/* <div className="ApiEdit-Card-content-item">DANGER ZONE</div> */}
-
-            <div className="flex justify-center">
-              <div className="ApiEdit-Card-buttons">
-                <Button
-                  size="small"
-                  variant="contained"
-                  color="secondary"
-                  style={{
-                    width: "150px",
-                    height: "40px"
-                  }}
-                  onClick={() => deleteApiData(currentApi.api_name, history)}
-                >
-                  <span className="ApiEdit-Card-buttons-text">
-                    DELETE API DATA
-                  </span>
-                </Button>
-                <Button
-                  size="small"
-                  variant="contained"
-                  color="secondary"
-                  style={{
-                    width: "150px",
-                    height: "40px"
-                  }}
-                  onClick={() => deleteApi(currentApi.api_name, history)}
-                >
-                  <span className="ApiEdit-Card-buttons-text">DELETE API</span>
-                </Button>
+          <div className="ApiEdit-Card">
+            <div className="CreateApiForm-title">Danger Zone</div>
+            <div className="ApiEdit-alert-box">
+              <div className="flex justify-center">
+                <div className="ApiEdit-Card-buttons">
+                  <Button
+                    size="small"
+                    variant="contained"
+                    color="secondary"
+                    style={{
+                      width: "150px",
+                      height: "40px"
+                    }}
+                    onClick={() => deleteApiData(currentApi.api_name, history)}
+                  >
+                    <span className="ApiEdit-Card-buttons-text">
+                      DELETE API DATA
+                    </span>
+                  </Button>
+                  <Button
+                    size="small"
+                    variant="contained"
+                    color="secondary"
+                    style={{
+                      width: "150px",
+                      height: "40px"
+                    }}
+                    onClick={() => deleteApi(currentApi.api_name, history)}
+                  >
+                    <span className="ApiEdit-Card-buttons-text">
+                      DELETE API
+                    </span>
+                  </Button>
+                </div>
               </div>
-            </div>
-            <div className="ApiEdit-Card-content-redText">
-              <p>Careful! Deleting your API or the data in it is a permanent</p>
-              <p>
-                action. You won't be able to retrieve any of the information
-              </p>
-              <p>stored in the database we provide. Be sure to make a safe</p>
-              <p>copy of the data if needed.</p>
+              <div className="ApiEdit-Card-content-redText">
+                <p>
+                  Careful! Deleting your API or the data in it is a permanent
+                </p>
+                <p>
+                  action. You won't be able to retrieve any of the information
+                </p>
+                <p>stored in the database we provide. Be sure to make a safe</p>
+                <p>copy of the data if needed.</p>
+              </div>
             </div>
           </div>
         </div>
-      </div>
       </div>
     </>
   );
