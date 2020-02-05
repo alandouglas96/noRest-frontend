@@ -128,12 +128,14 @@ div {
 }
 .title2 {
   font-size: 1.1em;
-  font-weight: 600;
+  font-weight: 400;
+  
 }
 
 .title3 {
   font-size: 1.1em;
-  font-weight: 400;
+  font-weight: 100;
+  color: #0f61cc;
 }
 
 .title4 {
