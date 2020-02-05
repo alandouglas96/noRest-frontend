@@ -52,7 +52,7 @@ const PostDataRow = ({ fields, apiInfo }) => {
         />
       )
     })}
-    <div className="flex align-center justify-center" style={{marginTop:'10px'}}>
+    <div className="flex align-center justify-right" style={{marginTop:'10px'}}>
     <Button
           size="small"
           variant="contained"

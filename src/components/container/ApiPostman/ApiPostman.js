@@ -104,7 +104,14 @@ function ApiPostman ({
         </div>
         <div>
 
-          <div className="flex align-center justify-right">
+         
+        </div>
+        
+          </div>
+        {rows && rows.length && userApi[0]
+          ? 
+            <div className="margin-top">
+            <div className="flex align-center justify-right">
             <TextField
               autoComplete='off'
               id="inputSearch"
@@ -135,15 +142,10 @@ function ApiPostman ({
               Reset
             </Button>
           </div>
-        </div>
-        <div className="margin-top margin-bottom">
+          <div className="margin-top margin-bottom">
         
        
           </div>
-          </div>
-        {rows && rows.length && userApi[0]
-          ? 
-            <div className="margin-top">
             <PostmanTable
               rows={rows} 
               columns={userApi[0].api_fields}

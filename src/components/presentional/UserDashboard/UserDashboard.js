@@ -3,11 +3,15 @@ import ApisDisplay from "../../container/ApisDisplay/ApisDisplay";
 import { Link } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import BreadCrumb from '../../presentional/breadcrumps/apiDetailsBC';
+import jwt from 'jsonwebtoken';
 
 import './style.css';
 
 
 const UserDashboard = () => {
+  const token = localStorage.token; 
+    const { name } = jwt.decode(token);
+    console.log('NAME', name)
   return (
     <>
     {/*<div className="box flex-column align-center">*/}
@@ -26,7 +30,7 @@ const UserDashboard = () => {
       </div>
       <div className="box2">
       <div className='flex-column'>
-        <div className="bigTitle">Your APIs</div>
+        <div className="bigTitle">{name} APIs</div>
         <ApisDisplay />
       </div>
     </div>

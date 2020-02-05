@@ -11,7 +11,7 @@ const PostField = ({ fieldsState, handleBlur, fieldKey }) => {
     setTextFieldState(e.target.value)
   }
   return  (
-    <div className="flex align-center" style={{minHeight: '50px'}} key={fieldKey}> 
+    <div className="flex align-center justify-right" style={{minHeight: '50px'}} key={fieldKey}> 
       <div className="title2" style={{marginRight: '10px'}}>
         {fieldsState[fieldKey].name} 
       </div>
