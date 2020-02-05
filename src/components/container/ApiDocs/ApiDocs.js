@@ -24,12 +24,13 @@ const ApiDocs = ({ userApis, publicApis, match, location }) => {
   else currentApi = _.filter(userApis, (api) => (api.api_name === apiName));
 
   if (!currentApi) return null;
-  if (currentApi.length > 0) currentApi = currentApi[0]
-  
+  if (currentApi.length > 0) {
+    currentApi = currentApi[0]
+    currentApi.queryKey = currentApi.api_fields[0].field_name
+  }
   // <--- CODE SNIPPETS --->
 
   function bodyGenerator (api) {
-    console.log('called', api, !api.length)
     if (!api.api_name) return '';
     let helper = ''
 
@@ -79,24 +80,24 @@ fetch(url, options)
   .then(data => console.log(data))
   .catch(error => console.log(error));`;
 
-//   const codeQueryingGetJS = 
-//   `const url = '${process.env.REACT_APP_BACKEND_URL}/api/${currentApi.api_name}';
-// const options = {
-//   method: 'GET'${publicDetails 
-//     ?
-//       '' 
-//     :
-//   `,\n  headers: {
-//     'API_KEY': '${currentApi.api_key}',
-//     'API_SECRET_KEY': '${currentApi.api_secret_key}'
-//   }`
-//      }
-// };
+  const codeQueryingGetJS = 
+    `const url = '${process.env.REACT_APP_BACKEND_URL}/api/${currentApi.api_name}/${currentApi.queryKey}/p/?match=endswith';
+const options = {
+  method: 'GET'${publicDetails 
+    ?
+      '' 
+    :
+  `,\n  headers: {
+    'API_KEY': '${currentApi.api_key}',
+    'API_SECRET_KEY': '${currentApi.api_secret_key}'
+  }`
+     }
+};
 
-// fetch(url, options)
-//   .then(response => response.json())
-//   .then(data => console.log(data))
-//   .catch(error => console.log(error));`;
+fetch(url, options)
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.log(error));`;
 
   const codePostJS = 
   `const url = '${process.env.REACT_APP_BACKEND_URL}/api/${currentApi.api_name}';
@@ -248,6 +249,40 @@ fetch(url, options)
                  {codeStandardGetJS}
                 </SyntaxHighlighter>
               </div>
+
+          {/* <--- Standard GET Request */}
+          <div className="docs-subtitle">'GET' Request - Queries</div>
+          <div className="body-text">
+            As well as a standard GET request you can also search with a query. To do a query, after the ? put match and they type of qury you're interested in. The different types of queries you can do are:
+            <br/>
+            <br />
+            - startswith <br />
+            - endswith <br />
+            - gt (greater than) <br />
+            - gt (less than) <br />
+            - gt (greater than or equal to) <br />
+            - gt (less than or equal to) <br />
+            <br />
+              </div>
+          <div className="input-output">
+            <div className="text-io">
+              <div className="text-io-title">Input (Body):</div>
+              <div className="text-io-value">Nothing</div>
+            </div>
+            <div className="text-io">
+              <div className="text-io-title">Output:</div>
+              <div className="text-io-value">Status: 200 | Body: JSON Array of objects with all the data in your API.</div>
+            </div>
+            <div className="text-io">
+              <div className="text-io-title">Error Output:</div>
+              <div className="text-io-value">Status: 500 | Reason: Internal server error | Body: {'{'} error: 'server error message' {'}'}</div>
+            </div>
+          </div>
+          <div className="code-block">
+            <SyntaxHighlighter language="javascript" style={okaidia} showLineNumbers={false}>
+              {codeQueryingGetJS}
+            </SyntaxHighlighter>
+          </div>
 
             {/* <--- Standard POST Request */}
               <div className="docs-subtitle">'POST' Request</div>
