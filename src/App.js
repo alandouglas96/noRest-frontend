@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import * as actions from './actions';
 
 import NavBar from './components/presentional/Navbar/Navbar';
-// import Footer from './components/presentional/Footer/';
+import Footer from './components/presentional/Footer/';
 import LandingPage from './components/presentional/LandingPage/';
 import Login from './components/container/LoginForm/';
 import SignUpForm from './components/container/SignUpForm/';
@@ -31,13 +31,12 @@ const theme = createMuiTheme({
   props: {
     MuiButton: {
       disableElevation: true,
-      color: "white"
     }
   },
   typography: {
     button: {
       textTransform: "none",
-      fontSize: "0.8rem"
+      fontSize: "0.9rem"
     }
   }
 });
@@ -83,7 +82,7 @@ function App (props) {
           </div>
             </Grid>
             <Grid item xs={12}>
-            {/* <Footer/> */}
+            <Footer/>
             </Grid>
           </Grid>
         </div>

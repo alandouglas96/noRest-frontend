@@ -25,7 +25,6 @@ export const fetchUserApisAction = () => async dispatch =>{
         'Authorization': `Bearer ${token}`
       }
     };
-
     fetch(url, options)
     .then(response => {
       if (response.status !== 200 && response.status !== 204 ) {

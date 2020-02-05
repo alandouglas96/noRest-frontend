@@ -1,5 +1,8 @@
 .dropzone {
-  border: 2px dashed grey;
-  margin-right: 20px;
-  padding: 20px;
+  border: 2px dashed #6eabfb;
+  padding: 40px;
+  border-radius: 5px;
+  text-align: center;
+  max-height: 200px;
+  color: #6eabfb;
 }

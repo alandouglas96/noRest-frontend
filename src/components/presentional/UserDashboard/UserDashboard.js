@@ -14,18 +14,19 @@ const UserDashboard = () => {
     <div className="box flex-column">
       
       <div className="bread-crumb">
-        <BreadCrumb/>
+        <div className="bc">Dashboard</div>
         <div className="flex">
           <Link to="/createApi">
-            <Button color="primary" variant="contained" size="small" style={{marginRight:'10px'}}>Create New Api</Button>
+            <Button color="primary" variant="contained"  style={{marginRight:'10px'}}>Create New Api</Button>
           </Link>
           <Link to="/account-settings">
-            <Button color="secondary" variant="contained" size="small">Account Settings</Button>
+            <Button color="secondary" variant="contained" >Account Settings</Button>
           </Link>
         </div>
       </div>
       <div className="box2">
       <div className='flex-column'>
+        <div className="bigTitle">Your APIs</div>
         <ApisDisplay />
       </div>
     </div>

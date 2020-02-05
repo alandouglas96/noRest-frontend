@@ -38,8 +38,7 @@ function DropZone ({ match }) {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 
   return (
-
-    <div className="dropzone" {...getRootProps()}>
+    <div className="dropzone" style={{maxWidth:'300px'}} {...getRootProps()}>
       <input {...getInputProps()} /> {
         isDragActive ?
           <p>Drop the files here ...</p> :

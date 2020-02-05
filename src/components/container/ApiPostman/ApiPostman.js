@@ -38,6 +38,7 @@ function ApiPostman ({
   const [rows, setRows] = useState([]);
   const [searchValue, setSearchValue] = useState('')
   const [initialRows, setInitialRows] = useState([])
+  const [togglePost, setTogglePost] = useState(false)
   
   useEffect( ()=> {
 
@@ -49,6 +50,10 @@ function ApiPostman ({
     
     stateSetter();
   },[apiName]);
+
+  function handleTogglePost (event) {
+    setTogglePost(!togglePost)
+  } 
 
   function handleSearch (search) {
     setRows((rows) => {
@@ -75,50 +80,65 @@ function ApiPostman ({
 
     <div className="box">
       <div className="bread-crumb">
-        <BreadCrumb/>
+        <div className="bc">Dashboard / API Details / API Data</div>
         <div className="flex">
-          <Link to="/">
-            <Button color="secondary" variant="contained" size="small">Back</Button>
+        <Link to={`/apiDetails/${apiName}`}>
+            <Button color="secondary" variant="contained">Back</Button>
           </Link>
         </div>
       </div>
       <div className="box2">
-        <div className="bigTitle">Postman</div>
-        <div className="margin-top flex-column align-center justify-center">
-        <DropZone/>
-        <div className="margin-top margin-bottom">
-          {userApi[0] ? <PostDataRow fields={userApi} apiInfo={apiInfo} /> : null}
-        </div>
-        <div className="flex align-center margin-top">
+        <div className="bigTitle">Api Data</div>
+        <div className="linkStyle" style={{cursor:'pointer', fontSize:'1.3em'}} onClick={handleTogglePost}>Post Data {togglePost ? <span>-</span> : <span>+</span>}</div>
+        <div className=" flex-column justify-center">
         
-        <TextField
-          autoComplete='off'
-          id="inputSearch"
-          label="Search"
-          onChange={handleOnChange}
-          size="small"
-          value={searchValue}
-          variant="outlined"
-        />
-        <div style={{width:'10px'}}></div>
-        <Button 
-          onClick={() => handleSearch(searchValue)}
-          variant="contained"
-          color="primary"
-          size="small"
-          style={{maxWidth: '50px', maxHeight: '30px'}}
-          >
-          
-          Seach</Button>
+        <div className="flex-column margin-top  margin-bottom">
+          {userApi[0] && togglePost
+            ? 
+            <>
+            <PostDataRow fields={userApi} apiInfo={apiInfo} /> 
+            <div className="flex-column align-center">
+        </div>
+            </>
+            : null}
+        </div>
+        <div>
+
+          <div className="flex align-center justify-right">
+            <TextField
+              autoComplete='off'
+              id="inputSearch"
+              label="Search"
+              onChange={handleOnChange}
+              size="small"
+              value={searchValue}
+              variant="outlined"
+            />
+            <div style={{width:'10px'}}></div>
+            <Button 
+              onClick={() => handleSearch(searchValue)}
+              variant="contained"
+              color="primary"
+              size="small"
+              style={{maxWidth: '50px', maxHeight: '30px'}}
+            >
+              Seach
+            </Button>
+              <div style={{width:'10px'}}></div>
+            <Button 
+              variant="contained"
+              color="secondary"
+              size="small"
+              style={{maxWidth: '50px'}}
+              onClick={() => handleReset(initialRows)}
+            >
+              Reset
+            </Button>
+          </div>
         </div>
         <div className="margin-top margin-bottom">
         
-        <Button 
-        variant="contained"
-          color="secondary"
-          size="small"
-          style={{maxWidth: '50px'}}
-          onClick={() => handleReset(initialRows)}>Reset</Button>
+       
           </div>
           </div>
         {rows && rows.length && userApi[0]

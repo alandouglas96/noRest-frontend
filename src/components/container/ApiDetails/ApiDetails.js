@@ -37,11 +37,11 @@ const ApiDetails = (props) => {
     <>
       <div className=" box">
         <div className="bread-crumb">
-          <BreadCrumb/>
+        <div className="bc">Dashboard / API Details</div>
           <div className="flex">
             <Link to={`/apiPostman/${currentApi.api_name}`}>
-              <Button size="small" variant="contained" color="primary" style={{marginRight:'5px'}}>
-                POSTMAN
+              <Button variant="contained" color="primary" style={{marginRight:'5px'}}>
+                API Data
               </Button>
             </Link>
             { publicDetails 
@@ -49,22 +49,25 @@ const ApiDetails = (props) => {
                 '' 
               :
                 <Link to={`/apiDetails/edit/${apiName}`}>
-                  <Button size="small" variant="contained" color="secondary">
-                    EDIT API
+                  <Button variant="contained" color="primary"  style={{marginRight:'5px'}}>
+                    Edit API
                   </Button>
                 </Link>
             }
+            <Link to={`/userDashboard`}>
+              <Button variant="contained" color="secondary">
+                Back
+              </Button>
+            </Link>
             </div>
           </div>
         <div className="box2">
         <div className="flex" style={{width:'100%'}}>
           <div style={{width:'100%'}}>
-            <div>
-             <span className="title2">Name:</span>
-             <span className="title3"> {currentApi.api_name}</span>
+             <div className="bigTitle"> {currentApi.api_name}
             </div>
-            <div>
-              <span className="title2 margin-top">Endpoint:{" "}</span>
+            <div className="margin-top">
+              <span className="title2">API Endpoint:{" "}</span>
               <span className="title3">https://no-rest-api.herokuapp.com/api/{currentApi.api_name}</span>
             </div>
           { publicDetails
@@ -88,8 +91,8 @@ const ApiDetails = (props) => {
           </div>
         </div>
         <div>
-          {currentApi.description ? <><span className="title2">Description: </span>
-          <span>{currentApi.description}</span></> : null}
+          {currentApi.description ? <><span className="title2">API Description: </span>
+          <span className="title3">{currentApi.description}</span></> : null}
         </div>
 
         <div className="flex-column">
@@ -152,7 +155,7 @@ const ApiDetails = (props) => {
           </div>
           </div>
           <div style={{marginBottom: '20px'}}>
-            <span className="title2">Fields Structure: </span>
+            <span className="title2">API Structure: </span>
           </div>
           <ApiTable apiFields={currentApi.api_fields}/>
         </div>

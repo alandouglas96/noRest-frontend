@@ -4,6 +4,7 @@ import PostField from '../PostField'
 import { Button } from '@material-ui/core';
 import { postNewRow } from '../../../services'
 import _ from 'lodash'
+import DropZone from '../../container/DropZone'
 
 
 const PostDataRow = ({ fields, apiInfo }) => {
@@ -39,8 +40,7 @@ const PostDataRow = ({ fields, apiInfo }) => {
     }
     
   return (
-    <div>
-      <div className="title2">Insert Data</div>
+    <div className="flex justify-space-between">
       <form onSubmit={handleSubmit}>
     {fieldsState.map((_, fieldKey)=> {
       return  (
@@ -52,6 +52,7 @@ const PostDataRow = ({ fields, apiInfo }) => {
         />
       )
     })}
+    <div className="flex align-center justify-center" style={{marginTop:'10px'}}>
     <Button
           size="small"
           variant="contained"
@@ -62,7 +63,10 @@ const PostDataRow = ({ fields, apiInfo }) => {
           Insert Row
 
     </Button>
+    </div>
     </form>
+    <DropZone/>
+    
     </div>
   )
 };

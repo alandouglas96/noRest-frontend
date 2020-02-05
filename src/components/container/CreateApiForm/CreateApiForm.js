@@ -69,10 +69,10 @@ function CreateApiForm({
   return (
     <div className="box">
       <div className="bread-crumb">
-        <BreadCrumb />
+      <div className="bc">Dashboard / Create API</div>
         <div className="flex">
-          <Link to="/">
-            <Button color="secondary" variant="contained" size="small">
+          <Link to="/userDashboard">
+            <Button color="secondary" variant="contained">
               Back
             </Button>
           </Link>
@@ -81,12 +81,17 @@ function CreateApiForm({
       <div className="box2">
 
       <form onSubmit= { async (e) => {
+        try {
           const data = await handleApiSubmit( e, fieldRows, apiName,isPublicState, history, description);
-          submitApiAction();
+          await submitApiAction();
           history.push(`/apiDetails/${data.api_name}`);
+          
+        } catch (error) {
+          console.log('Error in Submit', error)
+        }
         }}>
 
-        <div className="">Create your own RESTful API</div>
+        <div className="bigTitle">Create your own RESTful API</div>
         <div className="CreateApiForm-title">API</div>
         <div className="flex align-center">
           <TextField
