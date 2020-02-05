@@ -8,8 +8,10 @@ import './style.css';
 
 
 const UserDashboard = () => {
-  const token = localStorage.token;
-    const { name } = jwt.decode(token);
+
+  const token = localStorage.token; 
+  const { name } = jwt.decode(token);
+  
   return (
     <>
     {/*<div className="box flex-column align-center">*/}
@@ -28,7 +30,7 @@ const UserDashboard = () => {
       </div>
       <div className="box2">
       <div className='flex-column'>
-        <div className="bigTitle">{name} APIs</div>
+        <div className="bigTitle">{name.slice(-1) === 's' ||name.slice(-1) === 'S' ? name + '\'' : name+'\'s' } APIs</div>
         <ApisDisplay />
       </div>
     </div>
