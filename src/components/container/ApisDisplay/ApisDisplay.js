@@ -48,7 +48,7 @@ const ApisDisplay = props => {
               <Grid item xs={5}>
                 <div className="title2">DESCRIPTION</div>
               </Grid>
-              <Grid item xs={2}>
+              <Grid className="flex justify-center" item xs={2}>
                 <div className="title2">ROWS</div>
               </Grid>
               <Grid className="flex justify-center" item xs={2}>

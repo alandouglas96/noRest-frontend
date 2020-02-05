@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import { TextField, Button } from "@material-ui/core";
-import { Link } from "react-router-dom";
 import _ from "lodash";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import * as actions from "../../../actions/createApiActions";
 
 import FieldRow from "../../presentional/CreateApiFormRow/CreateApiFormRow";
+import BackButton from '../../presentional/BackButton'
 import IsPublicSelect from "../../presentional/IsPublicSelect";
 
 import { handleApiSubmit } from "../../../services/createApiformServices";
@@ -68,11 +68,7 @@ function CreateApiForm({
       <div className="bread-crumb">
       <div className="bc">Dashboard / Create API</div>
         <div className="flex">
-          <Link to="/userDashboard">
-            <Button color="secondary" variant="contained">
-              Back
-            </Button>
-          </Link>
+          <BackButton />
         </div>
       </div>
       <div className="box2">

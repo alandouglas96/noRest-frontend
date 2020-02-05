@@ -3,6 +3,7 @@
   width:35%;
   margin:20px;
   padding:30px;
+  max-width: 350px;
   min-width: 250px;
   border-radius: 5px;
 }

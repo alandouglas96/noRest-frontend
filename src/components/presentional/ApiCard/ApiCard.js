@@ -21,7 +21,7 @@ const ApiCard = ({ apiInfo }) => {
        <Grid item xs={5}>
           <div className="title3">{apiInfo.description}</div>
         </Grid> 
-        <Grid item xs={2}>
+        <Grid className="flex justify-center" item xs={2}>
           <div className="title3">{apiInfo.api_row_count}</div>
         </Grid> 
         <Grid className="flex justify-center" item xs={2}>
