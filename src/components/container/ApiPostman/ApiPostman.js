@@ -8,6 +8,7 @@ import * as actions from '../../../actions/createApiActions';
 import PostmanTable from '../../presentional/PostmanTable'
 import PostDataRow from '../../presentional/postDataRow'
 import { getApiData } from '../../../services'
+import BackButton from '../../presentional/BackButton'
 
 
 import './style.css';
@@ -78,9 +79,7 @@ function ApiPostman ({
       <div className="bread-crumb">
         <div className="bc">Dashboard / API Details / API Data</div>
         <div className="flex">
-        <Link to={`/apiDetails/${apiName}`}>
-            <Button color="secondary" variant="contained">Back</Button>
-          </Link>
+        <BackButton/>
         </div>
       </div>
       <div className="box2">

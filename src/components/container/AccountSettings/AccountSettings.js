@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import { TextField, Button } from '@material-ui/core';
-import { Link } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
+import BackButton from '../../presentional/BackButton'
 
 import './style.css';
 
@@ -115,10 +115,7 @@ export const AccountSettings = (props) => {
             <div className="boldTitle">Account Settings</div>
           </Grid>
           <Grid item xs={3}>
-            <Link to="/userDashboard">
-              <Button fullWidth variant="contained" 
-              color="secondary" >Back</Button>
-            </Link>
+           <BackButton />
           </Grid>
           <Grid item xs={12}>
             <div className="semiTitle" id="account-title">Change your Name</div>

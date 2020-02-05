@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Button, Grid } from "@material-ui/core";
 import "./style.css";
 import ApiTable from '../../presentional/ApiDetailsTable'
+import BackButton from '../../presentional/BackButton'
 
 const ApiDetails = (props) => {
 
@@ -53,11 +54,7 @@ const ApiDetails = (props) => {
                   </Button>
                 </Link>
             }
-            <Link to={`/userDashboard`}>
-              <Button variant="contained" color="secondary">
-                Back
-              </Button>
-            </Link>
+           <BackButton/>
             </div>
           </div>
         <div className="box2">
