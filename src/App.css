@@ -122,18 +122,34 @@ div {
   margin-bottom: 30px; 
 }
 
+.mediumTitle {
+  font-size: 1.5em;
+  font-weight: 500;
+  margin-bottom: 18px; 
+}
+
+.smallTitle {
+  font-size: 1.1em;
+  font-weight: 500;
+  margin-bottom: 10px; 
+}
+
+
+
 .title1 {
   font-size: 1.1em;
   font-weight: 400;
 }
 .title2 {
   font-size: 1.1em;
-  font-weight: 600;
+  font-weight: 400;
+  
 }
 
 .title3 {
   font-size: 1.1em;
-  font-weight: 400;
+  font-weight: 100;
+  color: #0f61cc;
 }
 
 .title4 {
@@ -172,8 +188,8 @@ div {
 
 .linkStyle {
   margin-right: 35px;
-  font-size: 0.9em;
-  font-weight: 700;
+  font-size: 1em;
+  font-weight: 600;
   color: #727171;
   cursor: pointer;
   padding: 5px;

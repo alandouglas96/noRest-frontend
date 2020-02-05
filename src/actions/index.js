@@ -119,7 +119,7 @@ export const generateNewKeys = (apiName, history) => async dispatch => {
       } else return response;
     })
     .then(res => res.json())
-    .then(data => console.log('KEYS   ', data))
+    .then(data => data)
     // .then(() => history.push(`/apiDetails/${apiName}`))
     .then(() => (dispatch(fetchUserApisAction())))  // HISTORY BEFORE??
     .catch(error => {
