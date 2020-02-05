@@ -30,12 +30,21 @@ const PostDataRow = ({ fields, apiInfo, fetchUserApisAction, refreshRows }) => {
       e.preventDefault();
 
       const newRow = _.reduce(fieldsState, (accum, field) => {
+
+        if (field.type === 'Number' && !/[0-9.,]/.test(field.value)) {
+          window.alert('Please check that all your input fields are of the corrct type.')
+          return;
+        } else if (field.type === 'Boolean' && (field.value !== 'true' || field.value !== 'false')) {
+          window.alert('Please check that all your input fields are of the corrct type.');
+          return
+        }
         return {...accum, [field.name]:field.value}
       },{})
       
-      console.log('FieldsState', fieldsState);
-      console.log('Object to send', newRow)
+      console.log('FieldsState', fieldsState.length);
+      console.log('Object to send', newRow.length)
 
+      if (Object.keys(newRow).length !== fieldsState.length) return;
 
       await postNewRow(newRow, apiInfo );
       refreshRows(newRow);
