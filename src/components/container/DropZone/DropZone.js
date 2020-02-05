@@ -6,10 +6,10 @@ import * as actions from '../../../actions/createApiActions';
 
 import './style.css';
 
-function DropZone ({ match }) {
+function DropZone ({ match, refreshRows }) {
   const apiName = match.params.apiName;
 
-  const onDrop = useCallback(file => {
+  const onDrop = useCallback((file) => {
     console.log(file);
     const formData = new FormData();
     formData.append('file', file[0]);
@@ -21,6 +21,8 @@ function DropZone ({ match }) {
       body: formData,
     }
 
+    //
+
     fetch(url, options)
       .then(response => {
         if (response.status !== 200 && response.status !== 204) {
@@ -29,11 +31,11 @@ function DropZone ({ match }) {
         } else return response;
       })
       .then(res => res.json())
-      .then(result => console.log(result))
+      .then(result => refreshRows(result))
       .catch(error => {
         if (error.message !== 'bypass') console.error('Error fetching user APIs:', error);
       });
-  }, [apiName]);
+  }, [apiName, refreshRows]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop })
 

@@ -1,21 +1,24 @@
 import React, {useState} from "react";
+import { connect } from "react-redux";
 import "./style.css";
 import PostField from '../PostField'
 import { Button } from '@material-ui/core';
 import { postNewRow } from '../../../services'
 import _ from 'lodash'
 import DropZone from '../../container/DropZone'
+import * as actions from "../../../actions";
 
 
-const PostDataRow = ({ fields, apiInfo }) => {
-    const formatedFields = fields[0].api_fields.map((field) => {
+
+const PostDataRow = ({ fields, apiInfo, fetchUserApisAction, refreshRows }) => {
+    const initialFieldsState = fields[0].api_fields.map((field) => {
       return { 
           name: field.field_name, 
           type: field.field_type ,
           value:''
       }
     })
-    const [fieldsState, setFieldsState] = useState(formatedFields)
+    const [fieldsState, setFieldsState] = useState(initialFieldsState)
     
     function handleBlur (event, fieldKey) {
       const newFieldsState = fieldsState.slice();
@@ -35,18 +38,20 @@ const PostDataRow = ({ fields, apiInfo }) => {
 
 
       await postNewRow(newRow, apiInfo );
-
-
+      refreshRows(newRow);
+      console.log(initialFieldsState)
+      setFieldsState(initialFieldsState)
     }
     
   return (
     <div className="flex justify-space-between">
       <form onSubmit={handleSubmit}>
     {fieldsState.map((_, fieldKey)=> {
+      console.log('fieldsState[fieldKey: ', fieldsState[fieldKey])
       return  (
         <PostField 
           fieldKey={fieldKey}
-          fieldsState={fieldsState} 
+          fieldState={fieldsState[fieldKey]} 
           handleBlur={handleBlur} 
           key={fieldKey} 
         />
@@ -65,10 +70,11 @@ const PostDataRow = ({ fields, apiInfo }) => {
     </Button>
     </div>
     </form>
-    <DropZone/>
+    <DropZone refreshRows={refreshRows}/>
     
     </div>
   )
 };
 
-export default PostDataRow;
+export default connect(_, actions)(PostDataRow);
+

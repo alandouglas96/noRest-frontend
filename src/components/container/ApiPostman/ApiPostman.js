@@ -42,7 +42,7 @@ function ApiPostman ({
     const stateSetter = async () => {
       const data = await getApiData(apiName)
       setInitialRows(data);
-      setRows(() => data) 
+      setRows(data) 
     }
     
     stateSetter();
@@ -73,6 +73,12 @@ function ApiPostman ({
   function handleReset (initialRows) {
     setRows(initialRows)
   }
+
+  function refreshRows(newRows) {
+    if (Array.isArray(newRows)) setRows([...rows, ...newRows])
+    else setRows([...rows, newRows])
+    console.log(rows)
+  }
   return (
 
     <div className="box">
@@ -91,7 +97,7 @@ function ApiPostman ({
           {userApi[0] && togglePost
             ? 
             <>
-            <PostDataRow fields={userApi} apiInfo={apiInfo} /> 
+            <PostDataRow refreshRows={refreshRows} fields={userApi} apiInfo={apiInfo} /> 
             <div className="flex-column align-center">
         </div>
             </>
