@@ -8,14 +8,14 @@ import './style.css';
 
 
 const UserDashboard = () => {
-  const token = localStorage.token; 
+  const token = localStorage.token;
     const { name } = jwt.decode(token);
-    console.log('NAME', name)
+    // console.log('NAME', name)
   return (
     <>
     {/*<div className="box flex-column align-center">*/}
     <div className="box flex-column">
-      
+
       <div className="bread-crumb">
         <div className="bc"></div>
         <div className="flex">
