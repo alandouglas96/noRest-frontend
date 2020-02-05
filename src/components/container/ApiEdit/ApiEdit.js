@@ -81,7 +81,7 @@ const ApiEdit = props => {
   }, []);
   // STYLE-END
 
-  //====================================================================== ROW HANDLING -- START
+  //----- ROW HANDLING -- START
   function addNewRow() {
     setState({
       ...state,
@@ -125,7 +125,7 @@ const ApiEdit = props => {
     setState({ ...state, rows: { ...updatedRows } });
   }
 
-  //====================================================================== ROW HANDLING -- START
+  //----- ROW HANDLING -- END
 
   const handleChange = event => {
     const { name, value } = event.target;
