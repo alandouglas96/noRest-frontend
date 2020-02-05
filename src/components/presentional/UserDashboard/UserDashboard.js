@@ -10,7 +10,6 @@ import './style.css';
 const UserDashboard = () => {
   const token = localStorage.token;
     const { name } = jwt.decode(token);
-    // console.log('NAME', name)
   return (
     <>
     {/*<div className="box flex-column align-center">*/}
