@@ -15,17 +15,19 @@ import Select from "@material-ui/core/Select";
 import FieldRow from "../../presentional/CreateApiFormRow/CreateApiFormRow";
 
 import * as actions from "../../../actions";
+import BackButton from '../../presentional/BackButton'
+import CancelSaveButtons from '../../presentional/CancelSaveButtons'
 
 import _ from "lodash";
 import uuidv1 from "uuid/v1";
 
 const useStyles = makeStyles(theme => ({
   formControl: {
-    margin: theme.spacing(1),
-    minWidth: 120
+    margin: theme.spacing(0),
+    minWidth: 100,
   },
   selectEmpty: {
-    marginTop: theme.spacing(2)
+    marginTop: theme.spacing(1)
   }
 }));
 
@@ -206,70 +208,58 @@ const ApiEdit = props => {
 
   return (
     <>
-      <div className="ApiEdit">
-        <h1>Edit Your API</h1>
-
-        <div className="ApiEdit-Warning">
-          <div className="ApiEdit-Warning-text">
+      <div className="box">
+        <div className="bread-crumb">
+          <div className="bc">Dashboard / API Details / Edit API</div>
+          <BackButton />
+        </div>
+        <div className="box2">
+        <div className="ApiEdit-alert-box">
+          <div className="title4">
             <p>
               Warning! You are in edit mode, be careful with your changes as
               some data may be lost forever.
             </p>
             <p>We recommend you backup your data before making any changes.</p>
           </div>
-          <div className="ApiEdit-Warning-cross">
-            <IconButton aria-label="delete">
-              <DeleteIcon />
-            </IconButton>
-          </div>
         </div>
 
-        <div className="ApiEdit-head">
-          <div className="ApiEdit-head-name">{currentApi.api_name}</div>
-          <div className="ApiEdit-head-endpoint">
-            Endpoint:
-            <span className="ApiEdit-head-endpoint-span">
+        
+          <div className="bigTitle">{currentApi.api_name}</div>
+          <div className="flex">
+            <div className="title2">Endpoint:</div>
+            <div style={{width:'10px'}}></div>
+            <div className="title3">
               https://no-rest-api.herokuapp.com/api/{currentApi.api_name}
-            </span>
+            </div>
           </div>
-          <div className="">
-            <Link to={`/apiDetails/${currentApi.api_name}`}>
-              <Button
-                size="small"
-                variant="contained"
-                style={{
-                  color: "primary",
-                  backgroundColor: "#3371B0",
-                  width: "300px",
-                  height: "40px"
-                }}
-              >
-                <span className="ApiDetails-head-button">
-                  GO BACK TO DETAILS
-                </span>
-              </Button>
-            </Link>
-          </div>
-        </div>
+         
+
 
         <div className="ApiEdit-Card">
-          <div className="ApiEdit-Card-title">Change API Public Status</div>
-          <div className="ApiEdit-Card-content">
+          <div className="CreateApiForm-title">Change API Public Status</div>
+          <div className="ApiEdit-Card-content flex align-center ">
+            <div>
             <div className="ApiEdit-Card-content-item">
-              <span className="ApiEdit-Card-content-title">
-                Current API Status :
+              <span className="title2">
+                Current API Status:
               </span>
-              <span className="ApiEdit-Card-content-content">{publicVar}</span>
+              <div style={{width:'10px'}}></div>
+              <span className="title3">{publicVar}</span>
             </div>
             <div className="ApiEdit-Card-content-item">
-              <span className="ApiEdit-Card-content-title">
-                New API Status :
-              </span>
-              <div className="">
+              <div className="flex align-center">
+                <div>
+                  <span className="title2">
+                    New API Status
+                  </span>
+                </div>
+                <div style={{width:'10px'}}></div>
                 <FormControl variant="outlined" className={classes.formControl}>
                   <InputLabel
                     ref={inputLabel}
                     id="demo-simple-select-outlined-label"
+                    size="small"
                   >
                     {publicVar}
                   </InputLabel>
@@ -287,61 +277,35 @@ const ApiEdit = props => {
                 </FormControl>
               </div>
             </div>
-
-            <div className="ApiEdit-Card-content-redText">
+            <CancelSaveButtons onSave={onSave} handleCancel={handleCancel}/>
+              </div>
+            
+            <div className="ApiEdit-alert-box" style={{width:'300px', marginLeft:'100px'}}>
               <p>
                 Remember if your API is set to Private, it won't be possible to
-                make GET
-              </p>
-              <p>requests and see the date without the KEYS.</p>
+                make GET requests and see the date without the KEYS.</p>
             </div>
-
-            <div className="ApiEdit-Card-buttons">
-              <Button
-                size="small"
-                variant="contained"
-                style={{
-                  color: "primary",
-                  backgroundColor: "#E85F48",
-                  width: "150px",
-                  height: "40px"
-                }}
-                onClick={() => handleCancel()}
-              >
-                <span className="ApiEdit-Card-buttons-text">CANCEL</span>
-              </Button>
-              <Button
-                size="small"
-                variant="contained"
-                style={{
-                  color: "primary",
-                  backgroundColor: "#B4D173",
-                  width: "150px",
-                  height: "40px"
-                }}
-                onClick={onSave}
-              >
-                <span className="ApiEdit-Card-buttons-text">SAVE</span>
-              </Button>
-            </div>
+            
           </div>
         </div>
 
         <div className="ApiEdit-Card">
-          <div className="ApiEdit-Card-title">Change API Name</div>
+          <div className="CreateApiForm-title">Change API Name</div>
           <div className="ApiEdit-Card-content">
             <div className="ApiEdit-Card-content-item">
-              <span className="ApiEdit-Card-content-title">
+              <span className="title2">
                 Current API Name:
               </span>
-              <span className="ApiEdit-Card-content-content">
+              <div style={{width:'10px'}}></div>
+              <span className="title3">
                 {currentApi.api_name}
               </span>
             </div>
-
-            <div className="ApiEdit-Card-content-item">
-              <span className="ApiEdit-Card-content-title">New API Name:</span>
+            <div className="ApiEdit-Card-content-item flex-column align-center">
+              <span className="title2">New API Name:</span>
+              <div style={{width:'10px'}}></div>
               <input
+                style={{minHeight:'40px', padding:'5px', fontSize:'1em'}}
                 type="text"
                 name="api_name"
                 placeholder="Insert a name..."
@@ -350,64 +314,39 @@ const ApiEdit = props => {
                 required
               ></input>
             </div>
-
-            <div className="ApiEdit-Card-item">
-              <span className="ApiEdit-Card-content-title">New endpoint:</span>
-              <span>https://no-rest-api.herokuapp.com/api/{"new-name"}</span>
+            <div className="ApiEdit-Card-item flex">
+              <span className="title3">New endpoint:</span>
+              <div style={{width:'10px'}}></div>
+              <span className="title3">https://no-rest-api.herokuapp.com/api/{"new-name"}</span>
             </div>
 
             <div className="ApiEdit-Card-content-redText">
+            
               <p>Careful! Once you change the name of the api the old</p>
               <p>endpoint will no longer be accessible.</p>
-              <div className="ApiEdit-Card-buttons">
-                <Button
-                  size="small"
-                  variant="contained"
-                  style={{
-                    color: "primary",
-                    backgroundColor: "#E85F48",
-                    width: "150px",
-                    height: "40px"
-                  }}
-                  onClick={() => handleCancel()}
-                >
-                  <span className="ApiEdit-Card-buttons-text">CANCEL</span>
-                </Button>
-                <Button
-                  size="small"
-                  variant="contained"
-                  style={{
-                    color: "primary",
-                    backgroundColor: "#B4D173",
-                    width: "150px",
-                    height: "40px"
-                  }}
-                  onClick={onSave}
-                >
-                  <span className="ApiEdit-Card-buttons-text">SAVE</span>
-                </Button>
-              </div>
+              <CancelSaveButtons onSave={onSave} handleCancel={handleCancel}/>
             </div>
           </div>
         </div>
 
         <div className="ApiEdit-Card">
-          <div className="ApiEdit-Card-title">Change API Description</div>
+          <div className="CreateApiForm-title">Change API Description</div>
           <div className="ApiEdit-Card-content">
             <div className="ApiEdit-Card-content-item">
-              <span className="ApiEdit-Card-content-title">
+              <span className="title2">
                 Current API Description:
               </span>
-              <span className="ApiEdit-Card-content-content">
+              <span className="title3">
                 {currentApi.description}
               </span>
             </div>
 
             <div className="ApiEdit-Card-content-item">
-              <span className="ApiEdit-Card-content-title">
+              <span className="title2">
                 New API Description:
               </span>
               <input
+                style={{minHeight:'40px', padding:'5px', fontSize:'1em'}}
                 type="text"
                 name="description"
                 placeholder="Insert description..."
@@ -417,61 +356,25 @@ const ApiEdit = props => {
               ></input>
             </div>
 
-            <div className="ApiEdit-Card-buttons">
-              <div className="ApiEdit-Card-buttons">
-                <Button
-                  size="small"
-                  variant="contained"
-                  style={{
-                    color: "primary",
-                    backgroundColor: "#E85F48",
-                    width: "150px",
-                    height: "40px"
-                  }}
-                  onClick={() => handleCancel()}
-                >
-                  <span className="ApiEdit-Card-buttons-text">CANCEL</span>
-                </Button>
-                <Button
-                  size="small"
-                  variant="contained"
-                  style={{
-                    color: "primary",
-                    backgroundColor: "#B4D173",
-                    width: "150px",
-                    height: "40px"
-                  }}
-                  onClick={onSave}
-                >
-                  <span className="ApiEdit-Card-buttons-text">SAVE</span>
-                </Button>
-              </div>
-            </div>
+             <CancelSaveButtons onSave={onSave} handleCancel={handleCancel}/>
           </div>
         </div>
 
         <div className="ApiEdit-Card">
-          <div className="ApiEdit-Card-title">Generate new keys</div>
+          <div className="CreateApiForm-title">Generate new keys</div>
           <div className="ApiEdit-Card-content">
-            <div className="ApiEdit-Card-content-keys1">
-              <span className="ApiEdit-Card-content-title">Current Keys:</span>
-              <div className="ApiEdit-Card-content-keys2">
-                <div className="ApiEdit-Card-content-item">
-                  <span className="ApiEdit-Card-content-title">API KEY:</span>
-                  <span className="ApiEdit-Card-content-content">
-                    {currentApi.api_key}
-                  </span>
-                </div>
-                <div className="ApiEdit-Card-content-item">
-                  <span className="ApiEdit-Card-content-title">
+                  <span className="title3">API KEY:</span>
+                  <span className="slim title2">{currentApi.api_key}</span>
+                  <div className="flex">
+                  <span className="title3">
                     API SECRET KEY:
                   </span>
-                  <span className="ApiEdit-Card-content-content">
+                  <span className="title2 slim">
                     {currentApi.api_secret_key}
                   </span>
                 </div>
-              </div>
-            </div>
+        
+           
             <div className="ApiEdit-Card-content-redText">
               <p>Careful! If you generate new keys, the old ones will stop</p>
               <p>working. You may have to update your application or code</p>
@@ -481,29 +384,27 @@ const ApiEdit = props => {
               <Button
                 size="small"
                 variant="contained"
+                color="primary"
                 style={{
-                  color: "primary",
-                  backgroundColor: "#3371B0",
                   width: "300px",
                   height: "40px",
-                  margin: "20px"
+                  margin: "0px"
                 }}
                 onClick={() => generateNewKeys(currentApi.api_name, history)}
               >
-                <span className="ApiEdit-Card-buttons-text">
                   GENERATE NEW KEYS
-                </span>
               </Button>
             </div>
 
             <div className="ApiEdit-Card-content-keys1">
-              <span className="ApiEdit-Card-content-title">
+              <span className="title2">
                 Generate your own keys:
               </span>
               <div className="ApiEdit-Card-content-keys2">
                 <div className="ApiEdit-Card-content-item">
-                  <span className="ApiEdit-Card-content-title">API KEY:</span>
+                  <span className="title3">API KEY:</span>
                   <input
+                    style={{minHeight:'40px', padding:'5px', fontSize:'1em'}}
                     type="text"
                     name="api_key"
                     placeholder="Insert new key..."
@@ -513,10 +414,11 @@ const ApiEdit = props => {
                   ></input>
                 </div>
                 <div className="ApiEdit-Card-content-item">
-                  <span className="ApiEdit-Card-content-title">
+                  <span className="title3">
                     API SECRET KEY:
                   </span>
                   <input
+                    style={{minHeight:'40px', padding:'5px', fontSize:'1em'}}
                     type="text"
                     name="api_secret_key"
                     placeholder="Insert new secret key..."
@@ -528,45 +430,15 @@ const ApiEdit = props => {
               </div>
             </div>
 
-            <div className="ApiEdit-Card-buttons">
-              <div className="ApiEdit-Card-buttons">
-                <Button
-                  size="small"
-                  variant="contained"
-                  style={{
-                    color: "primary",
-                    backgroundColor: "#E85F48",
-                    width: "150px",
-                    height: "40px"
-                  }}
-                  onClick={() => handleCancel()}
-                >
-                  <span className="ApiEdit-Card-buttons-text">CANCEL</span>
-                </Button>
-                <Button
-                  size="small"
-                  variant="contained"
-                  style={{
-                    color: "primary",
-                    backgroundColor: "#B4D173",
-                    width: "150px",
-                    height: "40px"
-                  }}
-                  onClick={onSave}
-                >
-                  <span className="ApiEdit-Card-buttons-text">SAVE</span>
-                </Button>
-              </div>
-            </div>
+            <CancelSaveButtons onSave={onSave} handleCancel={handleCancel}/>
           </div>
         </div>
 
         <div className="ApiEdit-Card">
-          <div className="ApiEdit-Card-title">Edit API Fields</div>
-          <div className="ApiEdit-Card-content">
+          <div className="CreateApiForm-title">Edit API Fields</div>
             <div className="ApiEdit-fieldsTable">
               {/* <div className="ApiEdit-Card-content-item"> */}
-              <div className="flex-column">
+              <div className="flex-column align-center">
                 {_.map(state.rows, (row, rowKey) => {
                   return (
                     <FieldRow
@@ -577,10 +449,9 @@ const ApiEdit = props => {
                       fieldRows={state}
                       touched={false}
                     />
+                    
                   );
                 })}
-              </div>
-              <div>
                 <Button
                   size="small"
                   variant="contained"
@@ -589,55 +460,24 @@ const ApiEdit = props => {
                 >
                   Add Row
                 </Button>
+                  <div style={{margin:'10px'}}></div>
+                <CancelSaveButtons onSave={onSave} handleCancel={handleCancel}/>
               </div>
             </div>
-
-            <div className="ApiEdit-Card-buttons">
-              <div className="ApiEdit-Card-buttons">
-                <Button
-                  size="small"
-                  variant="contained"
-                  style={{
-                    color: "primary",
-                    backgroundColor: "#E85F48",
-                    width: "150px",
-                    height: "40px"
-                  }}
-                  onClick={() => handleCancel()}
-                >
-                  <span className="ApiEdit-Card-buttons-text">CANCEL</span>
-                </Button>
-                <Button
-                  size="small"
-                  variant="contained"
-                  style={{
-                    color: "primary",
-                    backgroundColor: "#B4D173",
-                    width: "150px",
-                    height: "40px"
-                  }}
-                  onClick={onSave}
-                >
-                  <span className="ApiEdit-Card-buttons-text">SAVE</span>
-                </Button>
-              </div>
-            </div>
-          </div>
         </div>
 
         <div className="ApiEdit-Card">
-          <div className="ApiEdit-Card-title">Danger Zone</div>
-          <div className="danger-zone">
+          <div className="CreateApiForm-title">Danger Zone</div>
+          <div className="ApiEdit-alert-box">
             {/* <div className="ApiEdit-Card-content-item">DANGER ZONE</div> */}
 
-            <div className="ApiEdit-Card-buttons">
+            <div className="flex justify-center">
               <div className="ApiEdit-Card-buttons">
                 <Button
                   size="small"
                   variant="contained"
+                  color="secondary"
                   style={{
-                    color: "primary",
-                    backgroundColor: "#E85F48",
                     width: "150px",
                     height: "40px"
                   }}
@@ -650,9 +490,8 @@ const ApiEdit = props => {
                 <Button
                   size="small"
                   variant="contained"
+                  color="secondary"
                   style={{
-                    color: "primary",
-                    backgroundColor: "#E85F48",
                     width: "150px",
                     height: "40px"
                   }}
@@ -672,6 +511,7 @@ const ApiEdit = props => {
             </div>
           </div>
         </div>
+      </div>
       </div>
     </>
   );

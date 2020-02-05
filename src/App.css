@@ -209,3 +209,11 @@ div {
   color: #7a7a7a;
 
 }
+
+.input {
+  min-height:'50px'
+}
+
+.slim {
+   font-weight: 200;
+}
