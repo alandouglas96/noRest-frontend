@@ -1,35 +1,18 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { connect } from "react-redux";
 import _ from "lodash";
 import uuidv1 from "uuid/v1";
+import { connect } from "react-redux";
 
 import "./style.css";
 import { Button } from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
-import InputLabel from "@material-ui/core/InputLabel";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
-import FieldRow from "../../presentional/CreateApiFormRow/CreateApiFormRow";
 import { Link } from "react-router-dom";
-
+import FieldRow from "../../presentional/CreateApiFormRow/CreateApiFormRow";
 
 import * as actions from "../../../actions";
-import BackButton from "../../presentional/BackButton";
 import CancelSaveButtons from "../../presentional/CancelSaveButtons";
 import IsPublicSelect from '../../presentional/IsPublicSelect/IsPublicSelect2'
 
 import { objectTransform } from "../../../services/ApiEditServices/objectTransform";
-
-const useStyles = makeStyles(theme => ({
-  formControl: {
-    margin: theme.spacing(0),
-    minWidth: 100
-  },
-  selectEmpty: {
-    marginTop: theme.spacing(1)
-  }
-}));
 
 const ApiEdit = props => {
   const {
@@ -40,9 +23,9 @@ const ApiEdit = props => {
     history,
     fetchUserApisAction
   } = props;
-  let publicVar;
   const apiName = props.match.params.apiName;
   const currentApi = userApis.find(api => api.api_name === apiName);
+  let publicVar;
 
   const [state, setState] = useState({});
 
@@ -74,17 +57,7 @@ const ApiEdit = props => {
     setState(setInitialState(currentApi));
   }, [setInitialState, currentApi]);
 
-  // STYLE-START
-  const classes = useStyles();
-  const inputLabel = React.useRef(10);
-  const [labelWidth, setLabelWidth] = React.useState(0);
-
-  useEffect(() => {
-    setLabelWidth(inputLabel.current.offsetWidth);
-  }, []);
-  // STYLE-END
-
-  //====================================================================== ROW HANDLING -- START
+  //----- ROW HANDLING -- START
   function addNewRow() {
     setState({
       ...state,
@@ -128,7 +101,7 @@ const ApiEdit = props => {
     setState({ ...state, rows: { ...updatedRows } });
   }
 
-  //====================================================================== ROW HANDLING -- START
+  //----- ROW HANDLING -- END
 
   const handleChange = event => {
     const { name, value } = event.target;
@@ -179,15 +152,18 @@ const ApiEdit = props => {
 
   if (!currentApi) return null;
 
+  if (currentApi.public) publicVar = 'Public'
+  else publicVar = 'Private'
+
   return (
     <>
       <div className="box">
         <div className="bread-crumb">
           <div className="bc">Dashboard / API Details / Edit API</div>
           <Link to={`/apiDetails/${currentApi.api_name}`}>
-            <Button 
-              color="secondary" 
-              variant="contained"  
+            <Button
+              color="secondary"
+              variant="contained"
               style={{marginRight:'10px'}}
             >
               Back
@@ -195,16 +171,7 @@ const ApiEdit = props => {
           </Link>
         </div>
         <div className="box2">
-        {/* <div className="ApiEdit-alert-box">
-          <div className="title4">
-            <p>
-              Warning! You are in edit mode, be careful with your changes as
-              some data may be lost forever.
-            </p>
-            <p>We recommend you backup your data before making any changes.</p>
-          </div>
-        </div> */}
-        
+
           <div className="bigTitle">{currentApi.api_name}</div>
           <div className="flex">
             <div className="title2">Endpoint:</div>
@@ -232,14 +199,14 @@ const ApiEdit = props => {
                   </span>
                 </div>
                 <div style={{width:'10px'}}></div>
-                
-                  <IsPublicSelect 
+
+                  <IsPublicSelect
                     value={state.public || ""}
                     handleChange={handleChange}
                     name="public"
                     label={state.public}
                     />
-               
+
               </div>
             </div>
             <div className="ApiEdit-Card-content-redText">
@@ -249,9 +216,9 @@ const ApiEdit = props => {
             </div>
             <CancelSaveButtons onSave={onSave} handleCancel={handleCancel}/>
               </div>
-            
-            
-            
+
+
+
           </div>
         </div>
         <div className="ApiEdit-Card">
@@ -288,7 +255,7 @@ const ApiEdit = props => {
               <p>Careful! Once you change the name of the api the old endpoint will no longer be accessible.</p>
             </div>
             <CancelSaveButtons onSave={onSave} handleCancel={handleCancel}/>
-            
+
           </div>
         </div>
         <div className="ApiEdit-Card">
@@ -360,7 +327,7 @@ const ApiEdit = props => {
               <div className="ApiEdit-Card-content-keys2">
                 <div className="ApiEdit-Card-content-item flex align-center">
                   <span className="title2">NEW API KEY:</span>
-                
+
                   <div style={{width:'10px'}}></div>
                   <input
                     style={{minHeight:'40px', padding:'5px', fontSize:'1em'}}
@@ -395,7 +362,6 @@ const ApiEdit = props => {
         <div className="ApiEdit-Card">
           <div className="CreateApiForm-title">Edit API Fields</div>
             <div className="ApiEdit-fieldsTable">
-              {/* <div className="ApiEdit-Card-content-item"> */}
               <div className="flex-column align-center">
                 {_.map(state.rows, (row, rowKey) => {
                   return (
@@ -425,7 +391,6 @@ const ApiEdit = props => {
         <div className="ApiEdit-Card">
           <div className="CreateApiForm-title">Danger Zone</div>
           <div className="ApiEdit-alert-box">
-            {/* <div className="ApiEdit-Card-content-item">DANGER ZONE</div> */}
             <div className="flex justify-center">
               <div className="ApiEdit-Card-buttons">
                 <Button
