@@ -16,18 +16,18 @@ const ApiDetails = (props) => {
 
   // depending on the test gets current API from publicApis state or from user
   // apis.
-  let apiName='';
+  const apiName= props.match.params.apiName;
+
   let currentApi='';
+  
   if (publicDetails) {
     const { publicApis } = props;
-    apiName = props.match.params.apiName;
     if (publicApis.length) {
      currentApi = publicApis.find(api => api.api_name === apiName)
     }
     if (!currentApi) return null;
   } else {
     const { userApis } = props;
-    apiName = props.match.params.apiName;
     currentApi = userApis.find(api => api.api_name === apiName)
     if (!currentApi) return null;
   }
@@ -37,26 +37,34 @@ const ApiDetails = (props) => {
       <div className="bread-crumb">
         <div className="bc">Dashboard / API Details</div>
         <div className="flex">
-          <Link to={`/apiPostman/${currentApi.api_name}`}>
-            <Button variant="contained" color="primary" style={{marginRight:'5px'}}>
-              API Data
-            </Button>
-          </Link>
-          <Link to={`/api-details/docs/${currentApi.api_name}`}>
-            <Button variant="contained" color="primary" style={{marginRight:'5px'}}>
-              Docs
-            </Button>
-          </Link>
           { publicDetails 
             ? 
-              '' 
+              <Link to={`/public-apis/docs/${currentApi.api_name}`}>
+                <Button variant="contained" color="primary" style={{marginRight:'5px'}}>
+                  Docs
+                </Button>
+              </Link>
             :
+             <>
+              <Link to={`/apiPostman/${currentApi.api_name}`}>
+                <Button variant="contained" color="primary" style={{marginRight:'5px'}}>
+                  API Data
+                </Button>
+              </Link>
               <Link to={`/apiDetails/edit/${apiName}`}>
                 <Button variant="contained" color="primary"  style={{marginRight:'5px'}}>
                   Edit API
                 </Button>
               </Link>
+              <Link to={`/api-details/docs/${currentApi.api_name}`}>
+                <Button variant="contained" color="primary" style={{marginRight:'5px'}}>
+                  Docs
+                </Button>
+              </Link>
+             </>
           }
+          
+          
          <BackButton/>
           </div>
         </div>

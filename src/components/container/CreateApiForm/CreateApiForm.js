@@ -148,7 +148,7 @@ function CreateApiForm({
                 >
                   Private:
                 </div>
-                <div>Only You or who you decide can access de API</div>
+                <div>Only those with the keys can access the API</div>
               </div>
             </div>
           </div>

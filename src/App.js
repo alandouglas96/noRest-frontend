@@ -72,6 +72,7 @@ function App (props) {
               <Route exact path="/login" component={Login} />
               <Route exact path="/public-apis" component={PublicApis} />
               <Route exact path="/public-apis/:apiName" publicRotue={true} component={ApiDetails} />
+              <Route exact path="/public-apis/docs/:apiName" publicRotue={true} component={ApiDocs} />
               <RoutePrivate exact path="/account-settings" auth={props.auth} component={AccountSettings} />
               <RoutePrivate exact path="/createApi" auth={props.auth} component={CreateApiForm} />
               <RoutePrivate exact path="/userDashboard" auth={props.auth} component={UserDashboard} />
