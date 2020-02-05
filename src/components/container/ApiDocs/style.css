@@ -1,0 +1,68 @@
+.ApiDocsBox {
+  padding: 20px;
+}
+
+.underlineTitle {
+  /*border-bottom: solid rgb(233, 233, 233) 1px;*/
+}
+
+.body-text {
+  font-size: 1.2em;
+  line-height: 1.2;
+  margin: 8px 3px;
+  max-width: 80%;
+  margin-bottom: 15px;
+}
+
+.docs-link {
+  color: blue;
+  text-decoration: underline;
+}
+
+.code-block {
+  margin: 15px 0px;
+  overflow: hidden;
+  border-radius: 4px;
+  width: 80%;
+}
+
+.docs-title {
+  font-size: 1.7em;
+  font-weight: 600;
+  margin: 5px 0px;
+  margin-top: 25px;
+
+}
+
+.docs-subtitle {
+  font-size: 1.5em;
+  font-weight: 500;
+  margin: 5px 0px;
+  margin-top: 25px;
+  padding-bottom: 6px;
+  width: 80%;
+  border-bottom: solid rgb(221, 221, 221) 1.7px;
+}
+.input-output {
+  width: 79.5%;
+  background-color: rgb(247, 247, 247);
+  border-left: solid rgb(201, 201, 201) 3px;
+  /*padding-left: 8px;*/
+  padding: 1px 8px; 
+  margin: 5px 4px;
+}
+.text-io {
+  display: flex;
+  flex-direction: row;
+  margin: 10px 0px;
+  font-size: 1.2em;
+}
+
+.text-io-title {
+  font-weight: 700;
+  margin-right: 8px;
+}
+
+.text-io-value {
+
+}

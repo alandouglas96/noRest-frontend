@@ -77,7 +77,7 @@ function App (props) {
               <RoutePrivate exact path="/userDashboard" auth={props.auth} component={UserDashboard} />
               <RoutePrivate exact path="/apiDetails/:apiName" auth={props.auth} component={ApiDetails} />
               <RoutePrivate exact path="/apiDetails/edit/:apiName" auth={props.auth} component={ApiEdit} />
-              <RoutePrivate exact path="/apiDetails/docs/:apiName" auth={props.auth} component={ApiDocs} />
+              <RoutePrivate exact path="/api-details/docs/:apiName" auth={props.auth} component={ApiDocs} />
               <RoutePrivate exact path="/apiPostman/:apiName" auth={props.auth} component={ApiPostman} />
             </Switch>
           </div>

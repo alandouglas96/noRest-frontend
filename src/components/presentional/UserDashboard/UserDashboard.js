@@ -28,7 +28,7 @@ const UserDashboard = () => {
       </div>
       <div className="box2">
       <div className='flex-column'>
-        <div className="bigTitle">{name} APIs</div>
+        <div className="bigTitle">{name.slice(-1) === 's' ||name.slice(-1) === 'S' ? name + '\'' : name+'\'s' } APIs</div>
         <ApisDisplay />
       </div>
     </div>
