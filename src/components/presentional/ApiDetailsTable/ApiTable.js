@@ -1,8 +1,3 @@
-
-
-import "./style.css";
-
-
 import React from 'react';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
@@ -13,6 +8,8 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import uuid from "uuid";
+
+import "./style.css";
 
 const StyledTableCell = withStyles(theme => ({
   head: {
@@ -32,18 +29,6 @@ const StyledTableRow = withStyles(theme => ({
   },
 }))(TableRow);
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData('Frozen yoghurt', 159, 6.0, 24, 4.0),
-  createData('Ice cream sandwich', 237, 9.0, 37, 4.3),
-  createData('Eclair', 262, 16.0, 24, 6.0),
-  createData('Cupcake', 305, 3.7, 67, 4.3),
-  createData('Gingerbread', 356, 16.0, 49, 3.9),
-];
-
 const useStyles = makeStyles({
   table: {
     minWidth: 700,
@@ -53,14 +38,6 @@ const useStyles = makeStyles({
 export default function CustomizedTables(props) {
   const apiFields = props.apiFields;
   const classes = useStyles();
-
-  // const newRows = ApiFields.map((field) => {
-  //   return { id: field.field_name,
-  //    label: 'Population',
-  //    minWidth: 170,
-  //    align: 'right',
-  //    format: value => value.toLocaleString(),}
-  //  })
 
   return (
     <TableContainer component={Paper}>

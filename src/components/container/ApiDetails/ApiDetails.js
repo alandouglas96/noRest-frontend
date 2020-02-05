@@ -3,13 +3,11 @@ import { connect } from 'react-redux';
 import { Link } from "react-router-dom";
 import { Button, Grid } from "@material-ui/core";
 import "./style.css";
-import BreadCrumb from '../../presentional/breadcrumps/apiDetailsBC';
 import ApiTable from '../../presentional/ApiDetailsTable'
 
 const ApiDetails = (props) => {
 
   const { location } = props;
-
   // determines whether route is that of a public view mode api or not
   const path = location.pathname;
   const regex = RegExp('/public-apis/.*');
@@ -18,18 +16,19 @@ const ApiDetails = (props) => {
 
   // depending on the test gets current API from publicApis state or from user
   // apis.
-
+  let apiName='';
+  let currentApi='';
   if (publicDetails) {
     const { publicApis } = props;
-    var apiName = props.match.params.apiName;
+    apiName = props.match.params.apiName;
     if (publicApis.length) {
-     var currentApi = publicApis.find(api => api.api_name === apiName)
+     currentApi = publicApis.find(api => api.api_name === apiName)
     }
     if (!currentApi) return null;
   } else {
     const { userApis } = props;
-    var apiName = props.match.params.apiName;
-    var currentApi = userApis.find(api => api.api_name === apiName)
+    apiName = props.match.params.apiName;
+    currentApi = userApis.find(api => api.api_name === apiName)
     if (!currentApi) return null;
   }
 

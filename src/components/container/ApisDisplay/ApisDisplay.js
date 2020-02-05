@@ -58,7 +58,7 @@ const ApisDisplay = props => {
               </Grid>
             </Grid>
           {props.userApis.userApis.map(el => (
-            <Link to={`/apiDetails/${el.api_name}`}>
+            <Link key={el._id} to={`/apiDetails/${el.api_name}`}>
               <ApiCard apiInfo={el} key={el._id} />
             </Link>
           ))}

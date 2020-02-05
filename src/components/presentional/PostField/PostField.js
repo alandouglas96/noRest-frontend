@@ -1,7 +1,6 @@
 import React, {useState} from "react";
 import { TextField } from "@material-ui/core";
 import "./style.css";
-import _ from 'lodash'
 
 const PostField = ({ fieldsState, handleBlur, fieldKey }) => {
   const [textFieldState, setTextFieldState] = useState('');

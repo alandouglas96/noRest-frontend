@@ -7,15 +7,11 @@ import { withRouter } from 'react-router-dom';
 import * as actions from '../../../actions/createApiActions';
 import PostmanTable from '../../presentional/PostmanTable'
 import PostDataRow from '../../presentional/postDataRow'
-import DropZone from '../DropZone/'
-// import { fetchUserApisAction } from "../../../actions/";
-
 import { getApiData } from '../../../services'
-import BreadCrumb from '../../presentional/breadcrumps/apiDetailsBC';
 
 
 import './style.css';
-//const apiName = props.match.params.apiName;
+
 function ApiPostman ({
   userApis,
   history,
@@ -29,7 +25,7 @@ function ApiPostman ({
     return (api.api_name === apiName)
   })
   let apiInfo= {};
-  const getApiInfo = _.forEach(userApis, (api) => {
+   _.forEach(userApis, (api) => {
     if (api.api_name === apiName) {
       apiInfo ={apiName: api.api_name, apiKey:api.api_key,apiSecretKey: api.api_secret_key}
     }
