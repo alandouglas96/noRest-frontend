@@ -45,32 +45,59 @@ const ApiEdit = props => {
   let publicVar;
 
 
-  function formatDataToRows(thisApi) {
-    let initialState = {};
-    Object.assign(initialState, thisApi);
-    const fieldsToRows = {};
-    if (thisApi) {
-      for (let i = 0; i < initialState.api_fields.length; i++) {
-        let field = initialState.api_fields[i];
-        fieldsToRows[field._id] = {
-          value: field.field_name,
-          valueType: field.field_type,
-          allowNull: field.allow_null,
-          default_value: field.default_value,
-          error:''
-        };
-      }
-    }
+  // function formatDataToRows(thisApi) {
+  //   let initialState = {};
+  //   Object.assign(initialState, thisApi);
+  //   // console.log('INITIAL STATE after assing  :   ', initialState);
+  //   const fieldsToRows = {};
+  //   if (thisApi) {
+  //     for (let i = 0; i < initialState.api_fields.length; i++) {
+  //       let field = initialState.api_fields[i];
+  //       fieldsToRows[field._id] = {
+  //         value: field.field_name,
+  //         valueType: field.field_type,
+  //         allowNull: field.allow_null,
+  //         default_value: field.default_value,
+  //         error:''
+  //       };
+  //     }
+  //   }
 
-    delete initialState.api_fields;
-    initialState.rows = fieldsToRows;
-    return initialState;
-  }
+  //   delete initialState.api_fields;
+  //   initialState.rows = fieldsToRows;
+  //   // initialState.api_name = '';
+  //   // initialState.description = '';
+  //   // initialState.public = '';
+  //   return initialState;
+  // }
 
-  const initialState  = formatDataToRows(currentApi);
-  const [state, setState] = useState(initialState);
+  // const initialState  = formatDataToRows(currentApi);
+  const [state, setState] = useState({});
   useEffect(() => {
-    setState(formatDataToRows(currentApi));
+    setState((state) => {
+      if (currentApi) {
+
+        return {
+          ...state,
+          public: currentApi.public ? 'Public' : 'Private',
+          api_name: '',
+          description: '',
+          api_key: '',  //currentApi.api_key,
+          api_secret_key: '', //currentApi.api_secret_key,
+          rows: currentApi.api_fields.reduce((acc, field) => {
+            acc[field._id] = {
+              value: field.field_name,
+              valueType: field.field_type,
+              allowNull: field.allow_null,
+              default_value: field.default_value,
+              error:''
+            };
+            return acc;
+          }, {})
+        }
+      }
+      return state;
+    });
   }, [currentApi]);
 
 
@@ -137,7 +164,7 @@ const ApiEdit = props => {
   };
 
   const handleCancel= () => {
-    setState(formatDataToRows(currentApi));
+    // setState(formatDataToRows(currentApi));
     history.push(`/apiDetails/${currentApi.api_name}`);
   }
 
@@ -158,8 +185,13 @@ const ApiEdit = props => {
         allow_null: row.allowNull
       })
     });
+//============================================================================== change public from 'true'/'false' to 'public'/'private'
+    let publicVar;
+    if (state.public === 'Public') publicVar = true;
+    else publicVar = false;
 
     const ApiObjectToSend = {
+      public: publicVar,
       api_name: stateCopy.api_name,
       description: stateCopy.description,
       api_key: stateCopy.api_key,
@@ -168,6 +200,8 @@ const ApiEdit = props => {
     }
 
     console.log('OBJECT TO SEND   ', ApiObjectToSend)
+
+    // console.log('STATE    :    ', state);
 
     const url = `${process.env.REACT_APP_BACKEND_URL}/logistics/api/${currentApi.api_name}`;
     const options = {
@@ -194,7 +228,30 @@ const ApiEdit = props => {
         history.push(`/apiDetails/edit/${data.api_name}`)
       })
       .then(() => fetchUserApisAction())
-      .then(setState(formatDataToRows(currentApi)))
+      .then(setState((state) => {
+        if (currentApi) {
+
+          return {
+            ...state,
+            public: '',
+            api_name: '',
+            api_description: '',
+            api_key: '',  // currentApi.api_key,
+            api_secret_key: '', // currentApi.api_secret_key,
+            rows: currentApi.api_fields.reduce((acc, field) => {
+              acc[field._id] = {
+                value: field.field_name,
+                valueType: field.field_type,
+                allowNull: field.allow_null,
+                default_value: field.default_value,
+                error:''
+              };
+              return acc;
+            }, {})
+          }
+        }
+        return state;
+      }))
       .catch(error => {
         if (error.message !== "bypass")
           console.error("Error on editing API:", error);
@@ -203,8 +260,8 @@ const ApiEdit = props => {
 
   if (!currentApi) return null;
 
-  if (currentApi.public) publicVar = "public";
-  else publicVar = "private";
+  // if (currentApi.public) publicVar = "public";
+  // else publicVar = "private";
 
   return (
     <>
@@ -224,7 +281,7 @@ const ApiEdit = props => {
           </div>
         </div>
 
-        
+
           <div className="bigTitle">{currentApi.api_name}</div>
           <div className="flex">
             <div className="title2">Endpoint:</div>
@@ -233,7 +290,7 @@ const ApiEdit = props => {
               https://no-rest-api.herokuapp.com/api/{currentApi.api_name}
             </div>
           </div>
-         
+
 
 
         <div className="ApiEdit-Card">
@@ -245,7 +302,7 @@ const ApiEdit = props => {
                 Current API Status:
               </span>
               <div style={{width:'10px'}}></div>
-              <span className="title3">{publicVar}</span>
+              <span className="title3">{state.public}</span>
             </div>
             <div className="ApiEdit-Card-content-item">
               <div className="flex align-center">
@@ -261,31 +318,31 @@ const ApiEdit = props => {
                     id="demo-simple-select-outlined-label"
                     size="small"
                   >
-                    {publicVar}
+                  {state.public}
                   </InputLabel>
                   <Select
                     labelId="demo-simple-select-outlined-label"
                     id="demo-simple-select-outlined"
-                    // value={state.public}
+                    value={state.public || ""}
                     onChange={handleChange}
                     labelWidth={labelWidth}
                     name="public"
                   >
-                    <MenuItem value={true}>Public</MenuItem>
-                    <MenuItem value={false}>Private</MenuItem>
+                    <MenuItem value={'Public'}>Public</MenuItem>
+                    <MenuItem value={'Private'}>Private</MenuItem>
                   </Select>
                 </FormControl>
               </div>
             </div>
             <CancelSaveButtons onSave={onSave} handleCancel={handleCancel}/>
               </div>
-            
+
             <div className="ApiEdit-alert-box" style={{width:'300px', marginLeft:'100px'}}>
               <p>
                 Remember if your API is set to Private, it won't be possible to
                 make GET requests and see the date without the KEYS.</p>
             </div>
-            
+
           </div>
         </div>
 
@@ -309,7 +366,7 @@ const ApiEdit = props => {
                 type="text"
                 name="api_name"
                 placeholder="Insert a name..."
-                value={""}
+                value={state.api_name || ""}
                 onChange={handleChange}
                 required
               ></input>
@@ -321,7 +378,7 @@ const ApiEdit = props => {
             </div>
 
             <div className="ApiEdit-Card-content-redText">
-            
+
               <p>Careful! Once you change the name of the api the old</p>
               <p>endpoint will no longer be accessible.</p>
               <CancelSaveButtons onSave={onSave} handleCancel={handleCancel}/>
@@ -350,7 +407,7 @@ const ApiEdit = props => {
                 type="text"
                 name="description"
                 placeholder="Insert description..."
-                value={""}
+                value={state.description || ""}
                 onChange={handleChange}
                 required
               ></input>
@@ -373,8 +430,8 @@ const ApiEdit = props => {
                     {currentApi.api_secret_key}
                   </span>
                 </div>
-        
-           
+
+
             <div className="ApiEdit-Card-content-redText">
               <p>Careful! If you generate new keys, the old ones will stop</p>
               <p>working. You may have to update your application or code</p>
@@ -408,7 +465,7 @@ const ApiEdit = props => {
                     type="text"
                     name="api_key"
                     placeholder="Insert new key..."
-                    value={""}
+                    value={state.api_key || ""}
                     onChange={handleChange}
                     required
                   ></input>
@@ -422,7 +479,7 @@ const ApiEdit = props => {
                     type="text"
                     name="api_secret_key"
                     placeholder="Insert new secret key..."
-                    value={""}
+                    value={state.api_secret_key || ""}
                     onChange={handleChange}
                     required
                   ></input>
@@ -449,7 +506,7 @@ const ApiEdit = props => {
                       fieldRows={state}
                       touched={false}
                     />
-                    
+
                   );
                 })}
                 <Button
