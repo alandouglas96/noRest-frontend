@@ -7,3 +7,15 @@
   border-radius: 5px;
   background-color: #e7f0fb;
 }
+
+.ApiEdit-alert-box {
+  padding: 10px;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  border: solid 1px #ff3939; 
+  border-radius: 5px;
+  background-color: #ffccc6;
+  text-align: center;
+  color: #850101;
+}

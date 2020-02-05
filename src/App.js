@@ -30,6 +30,7 @@ const theme = createMuiTheme({
   },
   props: {
     MuiButton: {
+    
       disableElevation: true,
     }
   },

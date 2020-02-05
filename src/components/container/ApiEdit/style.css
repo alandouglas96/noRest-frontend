@@ -100,9 +100,10 @@ p {
 }
 
 .ApiEdit-Card-content-redText {
-  color: red;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  color: #bb0303;
+  padding-top: 10px;
+  margin-bottom: 10px;
+  font-size: 0.8em;
 }
 
 .ApiEdit-Card-buttons {
@@ -132,9 +133,7 @@ p {
 .ApiEdit-fieldsTable {
   margin: 25px;
   padding: 25px;
-  border-style: solid;
-  border-width: 1px;
-  border-color: grey;
+  
 }
 
 .danger-zone {
