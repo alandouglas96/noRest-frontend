@@ -9,8 +9,8 @@ This is the front-end repository. The back end repository can be found at: https
 ## Screenshots
 
 <p align="center">
-  <img width="200" src="./src/static/media/noRest1.png" />
-  <img width="200" src="./src/static/media/noRest2.png" />
+  <img width="200" src="public/img/noRest1.png" />
+  <img width="200" src="public/img/noRest2.png" />
 </p>
 
 ## Getting Started
