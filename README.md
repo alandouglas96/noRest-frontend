@@ -21,10 +21,10 @@ git clone https://github.com/stevelagarto/noREST-Front-End
 ```
 npm install
 ```
-3. Run the server with nodemon, ignoring certain folders that don't need to be watched:
+3. Run the app:
 ```
 npm run devstart
-```
+```  
 
 ## Tech Stack
 
@@ -43,8 +43,8 @@ Thank you in advance!
 
 ## Team
 
-- Steven Becker Santos - [github](https://github.com/stevelagarto) | tbc..
-- Alan Douglas - [github](https://github.com/alandouglas96) | [linkedIn](https://www.linkedin.com/in/alan-douglas-aranda-824a3481/)
+- Steven Becker Santos - [github](https://github.com/stevelagarto) | [linkedIn](https://www.linkedin.com/in/stevenbeckersantos/)
+- Alan Douglas - [github](https://github.com/alandouglas96) | [linkedIn](https://www.linkedin.com/in/alan-douglas-aranda/)
 - Ellie Fairholm - [github](https://github.com/elliefairholm) | [linkedIn](https://www.linkedin.com/in/elliefairholm/)
 - Jose Fran Garcia - [github](https://github.com/josefrangl) | [linkedIn](https://www.linkedin.com/in/josefrangl/)
 
