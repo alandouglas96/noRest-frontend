@@ -8,7 +8,10 @@ This is the front-end repository. The back end repository can be found at: https
 
 ## Screenshots
 
-// let's add something here
+<p align="center">
+  <img width="200" src="public/img/noRest1.png" />
+  <img width="200" src="public/img/noRest2.png" />
+</p>
 
 ## Getting Started
 
