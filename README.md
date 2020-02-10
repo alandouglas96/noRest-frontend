@@ -1,68 +1,52 @@
-
 <p align="center">
-  <img src="images/logo-readme-4.png" />
+  let's find a logo
 </p>
 
+noRest is a service platform that lets you create a comprehensive no-code API in minutes. Using our web app, client's can create an extensive database within minutes and use their personalized endpoint in their own front-end projects.
 
-
-NoREST description.
+This is the front-end repository. The front end repository can be found at: https://github.com/josefrangl/noREST-Front-End
 
 ## Screenshots
 
-<p align="center">
-  <img src="images/codeval-mockup.png" />
-</p>
+// let's add something here
 
+## Getting Started
 
-
-## Getting started
-
-This is the front-end repository. The back-end can be found at: https://github.com/Gmiliuta/Codeval-backend
-
-1. Clone the repo
-
+1. Clone the repository:
 ```
-git clone https://github.com/varnebla/thesis-frontend
+git clone https://github.com/steverlagarto/noREST-Front-End
 ```
-
-2. Install dependencies
+2. Install the dependencies:
 ```
 npm install
 ```
-
-3. Start the front-end application
+3. Run the server with nodemon, ignoring certain folders that don't need to be watched:
 ```
-npm start
+npm run devstart
 ```
 
+## Tech Stack
 
-## Built with
-
-* [React](https://reactjs.org/) - Front end library for building user interfaces.
-* [React-Router](https://reacttraining.com/react-router/) - Declarative Routing for React.js.
-* [Redux](https://redux.js.org) - Storage to share data inside the app.
-* [Material UI](https://redux.js.org) - Storage to share data inside the app.
-
-
-* [Mocha](https://mochajs.org/) - JavaScript test framework.
-* [Chai](https://www.chaijs.com/) - Chai is a BDD / TDD assertion library for Node.js.
-* [Ace Editor](https://ace.c9.io/) - High Performance Code Editor for the Web.
+- [React.js](https://reactjs.org/)
+- [Redux.js](https://redux.js.org/)
+- [Material UI](https://material-ui.com/)
+- [JWT](https://jwt.io/)
 
 ## Contributing
 
-Improvements are welcome!
-
-Fork the repo and do your thing. Push to your fork and submit a pull request.
-
+We built noRest from start to finish in just 10 days.  We are aware that there is of room for improvement, so please feel free to contribute to the project.  Just fork the repository and submit a pull request.  We have a linter set up so, before committing your code make sure you run:
+```
+`npx gulp lint`
+```
+Thank you in advance!
 
 ## Team
 
-* Bernat Muntaner - [GitHub](https://github.com/bmuntper) - [LinkedIn](https://www.linkedin.com/in/bernat-muntaner-perello/)
-* Germanas Miliuta - [GitHub](https://github.com/Gmiliuta) - [LinkedIn](https://www.linkedin.com/in/germanas-miliuta/)
-* Gioacchino Grand - [GitHub](https://github.com/GioGrand) - [LinkedIn](https://www.linkedin.com/in/gioacchino-grand-full-stack-developer/)
-* Victor Arnedo - [GitHub](https://github.com/varnebla) - [LinkedIn](https://www.linkedin.com/in/victor-arnedo-blanco/)
-
+- Steven Becker Santos - [github](https://github.com/stevelagarto) | tbc..
+- Alan Douglas - [github](https://github.com/alandouglas96) | [linkedIn](https://www.linkedin.com/in/alan-douglas-aranda-824a3481/)
+- Ellie Fairholm - [github](https://github.com/elliefairholm) | [linkedIn](https://www.linkedin.com/in/elliefairholm/)
+- Jose Fran Garcia - [github](https://github.com/josefrangl) | [linkedIn](https://www.linkedin.com/in/josefrangl/)
 
 ## License
 
-This project is licensed under the MIT License.
+This projected is licensed under the MIT License.
