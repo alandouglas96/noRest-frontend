@@ -2,7 +2,7 @@
 
 noRest is a service platform that lets you create a comprehensive no-code API in minutes. Using our web app, client's can create an extensive database within minutes and use their personalized endpoint in their own front-end projects.
 
-This is the front-end repository. The back end repository can be found at: https://github.com/josefrangl/noREST-Back-End
+This is the front-end repository. The back end repository can be found at: https://github.com/alandouglas96/noRest-backend
 
 ## Screenshots
 
@@ -15,7 +15,7 @@ This is the front-end repository. The back end repository can be found at: https
 
 1. Clone the repository:
 ```
-git clone https://github.com/stevelagarto/noREST-Front-End
+git clone https://github.com/alandouglas/noRest-frontend
 ```
 2. Install the dependencies:
 ```
